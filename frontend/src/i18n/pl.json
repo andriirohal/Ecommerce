@@ -100,8 +100,6 @@
     "description": "Starannie wybrane i uprawiane do dojrzałości",
     "result": "wynik",
     "results": "wyniki",
-    "noPlants": "Na razie nic tutaj nie ma",
-    "noPlantsDescription": "W tej chwili nie mamy dostępnych roślin z tej rodziny.",
     "filters": {
       "all": "Wszystkie",
       "label": "Filtruj według rodziny"

@@ -24,7 +24,9 @@ type CheckoutTotals = {
   total: number;
 };
 
-function calculateCheckoutTotals(lines: CheckoutLine[]): CheckoutTotals {
+function calculateCheckoutTotals(
+  lines: CheckoutLine[],
+): CheckoutTotals {
   const subtotal = lines.reduce(
     (sum, line) => sum + Number(line.price) * Number(line.quantity),
     0,
@@ -189,21 +191,50 @@ function renderCheckoutPage(content: string): string {
 
 function renderEmptyCheckout(): string {
   return `
-    <div class="checkout_empty">
-      <div class="empty_state">
-        <h2>${t("cart.emptyTitle")}</h2>
+    <div class="empty_state">
+      <svg
+        class="empty_icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M3 4h2l1.6 10.4a2 2 0 0 0 2 1.6h8.4a2 2 0 0 0 2-1.6L21 8H6"
+          stroke="currentColor"
+          stroke-width="1.4"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <circle
+          cx="9"
+          cy="20"
+          r="1.4"
+          stroke="currentColor"
+          stroke-width="1.4"
+        />
+        <circle
+          cx="17"
+          cy="20"
+          r="1.4"
+          stroke="currentColor"
+          stroke-width="1.4"
+        />
+      </svg>
 
-        <p>
-          ${t("cart.emptyDescription")}
-        </p>
+      <h2>
+        ${t("cart.emptyTitle")}
+      </h2>
 
-        <a
-          class="btn"
-          href="/shop"
-        >
-          ${t("cart.shopCollection")}
-        </a>
-      </div>
+      <p>
+        ${t("cart.emptyDescription")}
+      </p>
+
+      <a
+        class="btn"
+        href="/shop"
+      >
+        ${t("cart.shopCollection")}
+      </a>
     </div>
   `;
 }
@@ -241,18 +272,14 @@ function renderSuccessContent(): string {
 
 function renderCheckoutError(): string {
   return `
-    <div class="checkout_summary">
-      <div class="empty_state">
+    <div class="empty_state">
+      <h2>
+        ${t("cart.loadError")}
+      </h2>
 
-        <h2>
-          ${t("cart.loadError")}
-        </h2>
-
-        <p>
-          ${t("cart.tryAgain")}
-        </p>
-
-      </div>
+      <p>
+        ${t("cart.tryAgain")}
+      </p>
     </div>
   `;
 }
@@ -278,7 +305,8 @@ async function handlePlaceOrder(
     return;
   }
 
-  const error = root.querySelector<HTMLElement>("#checkout_error");
+  const error =
+    root.querySelector<HTMLElement>("#checkout_error");
 
   if (error) {
     error.hidden = true;
@@ -314,10 +342,14 @@ async function handlePlaceOrder(
       root.querySelector<HTMLElement>("#checkout_section");
 
     if (checkoutSection) {
-      checkoutSection.innerHTML = renderSuccessContent();
+      checkoutSection.innerHTML =
+        renderSuccessContent();
     }
   } catch (requestError) {
-    console.error("Failed to create order:", requestError);
+    console.error(
+      "Failed to create order:",
+      requestError,
+    );
 
     if (error) {
       error.textContent = t("checkout.orderError");
@@ -382,13 +414,17 @@ export async function mountCheckout(
       void handlePlaceOrder(root, button);
     });
   } catch (error) {
-    console.error("Failed to load checkout:", error);
+    console.error(
+      "Failed to load checkout:",
+      error,
+    );
 
     const checkoutSection =
       root.querySelector<HTMLElement>("#checkout_section");
 
     if (checkoutSection) {
-      checkoutSection.innerHTML = renderCheckoutError();
+      checkoutSection.innerHTML =
+        renderCheckoutError();
     }
   }
 };

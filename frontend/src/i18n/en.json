@@ -106,8 +106,6 @@
     "description": "Carefully selected and grown to maturity",
     "result": "result",
     "results": "results",
-    "noPlants": "Nothing here yet",
-    "noPlantsDescription": "We're still growing our collection of plants from this family.",
     "filters": {
       "all": "All",
       "label": "Filter by family"

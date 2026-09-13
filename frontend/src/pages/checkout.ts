@@ -65,6 +65,20 @@ export function renderCheckout(cart: Cart): string {
               stroke-linecap="round"
               stroke-linejoin="round"
             />
+            <circle
+              cx="9"
+              cy="20"
+              r="1.4"
+              stroke="currentColor"
+              stroke-width="1.4"
+            />
+            <circle
+              cx="17"
+              cy="20"
+              r="1.4"
+              stroke="currentColor"
+              stroke-width="1.4"
+            />
           </svg>
 
           <h2>

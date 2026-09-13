@@ -100,8 +100,6 @@
     "description": "Sorgfältig ausgewählt und bis zur Reife kultiviert",
     "result": "Ergebnis",
     "results": "Ergebnisse",
-    "noPlants": "Hier ist noch nichts",
-    "noPlantsDescription": "Zurzeit haben wir keine Pflanzen aus dieser Familie verfügbar.",
     "filters": {
       "all": "Alle",
       "label": "Nach Pflanzenfamilie filtern"

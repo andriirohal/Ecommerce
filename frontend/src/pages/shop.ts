@@ -49,22 +49,10 @@ let currentPlants: Plant[] = [];
 let basePlants: Plant[] = [];
 
 export function renderPlants(plants: Plant[]): string {
-  if (plants.length === 0) {
-    return `
-      <div class="empty_state">
-        <h2>
-          ${t("shop.noPlants")}
-        </h2>
-
-        <p>
-          ${t("shop.noPlantsDescription")}
-        </p>
-      </div>
-    `;
-  }
-
-  return plants.map(renderPlantCard).join("");
-}
+  return plants
+    .map((plant) => renderPlantCard(plant))
+    .join("");
+};
 
 function updateGrid(root: HTMLElement, plants: Plant[]): void {
   const grid = root.querySelector<HTMLElement>("#shop_grid");
@@ -76,15 +64,21 @@ function updateGrid(root: HTMLElement, plants: Plant[]): void {
   grid.innerHTML = renderPlants(plants);
 }
 
-function updateResultCount(root: HTMLElement, plants: Plant[]): void {
-  const count = root.querySelector<HTMLElement>(".result_count");
+function updateResultCount(
+  root: HTMLElement,
+  plants: Plant[],
+): void {
+  const count =
+    root.querySelector<HTMLElement>(".result_count");
 
   if (!count) {
     return;
   }
 
   count.textContent = `${plants.length} ${
-    plants.length === 1 ? t("shop.result") : t("shop.results")
+    plants.length === 1
+      ? t("shop.result")
+      : t("shop.results")
   }`;
 }
 
@@ -108,7 +102,11 @@ export function renderShop(
 
       <p>
         ${plants.length}
-        ${plants.length === 1 ? t("shop.specimen") : t("shop.specimens")}
+        ${
+          plants.length === 1
+            ? t("shop.specimen")
+            : t("shop.specimens")
+        }
         ${t("shop.description")}
       </p>
 
@@ -130,11 +128,14 @@ export function renderShop(
                 type="button"
                 data-family="${family.key}"
                 class="${
-                  family.key === (currentFamily ?? "all") ? "active" : ""
+                  family.key === (currentFamily ?? "all")
+                    ? "active"
+                    : ""
                 }"
               >
                 ${
-                  family.key === "Araceae" || family.key === "Moraceae"
+                  family.key === "Araceae" ||
+                  family.key === "Moraceae"
                     ? family.label
                     : t(family.label)
                 }
@@ -147,7 +148,11 @@ export function renderShop(
 
           <span class="result_count">
             ${plants.length}
-            ${plants.length === 1 ? t("shop.result") : t("shop.results")}
+            ${
+              plants.length === 1
+                ? t("shop.result")
+                : t("shop.results")
+            }
           </span>
 
           <div class="sort">
@@ -188,7 +193,11 @@ export function renderShop(
                       type="button"
                       role="menuitem"
                       data-sort="${key}"
-                      class="${key === currentSort ? "active" : ""}"
+                      class="${
+                        key === currentSort
+                          ? "active"
+                          : ""
+                      }"
                     >
                       ${t(label)}
                     </button>
@@ -215,15 +224,23 @@ export function renderShop(
   `;
 }
 
-function applyFamily(plants: Plant[], family?: PlantFamily): Plant[] {
+function applyFamily(
+  plants: Plant[],
+  family?: PlantFamily,
+): Plant[] {
   if (!family) {
     return plants;
   }
 
-  return plants.filter((plant) => plant.family === family);
+  return plants.filter(
+    (plant) => plant.family === family,
+  );
 }
 
-function applySort(plants: Plant[], sort?: PlantSort): Plant[] {
+function applySort(
+  plants: Plant[],
+  sort?: PlantSort,
+): Plant[] {
   if (!sort) {
     return plants;
   }
@@ -231,7 +248,9 @@ function applySort(plants: Plant[], sort?: PlantSort): Plant[] {
   const sorted = [...plants];
 
   if (sort === "alphabetical") {
-    sorted.sort((a, b) => a.name.localeCompare(b.name));
+    sorted.sort((a, b) =>
+      a.name.localeCompare(b.name),
+    );
   } else if (sort === "cheapest") {
     sorted.sort((a, b) => a.price - b.price);
   } else if (sort === "expensive") {
@@ -241,20 +260,33 @@ function applySort(plants: Plant[], sort?: PlantSort): Plant[] {
   return sorted;
 }
 
-function applyShopState(state: ShopState): Plant[] {
-  return applySort(applyFamily(basePlants, state.family), state.sort);
+function applyShopState(
+  state: ShopState,
+): Plant[] {
+  return applySort(
+    applyFamily(basePlants, state.family),
+    state.sort,
+  );
 }
 
-function initSort(root: HTMLElement, state: ShopState): void {
-  const sort = root.querySelector<HTMLElement>(".sort");
+function initSort(
+  root: HTMLElement,
+  state: ShopState,
+): void {
+  const sort =
+    root.querySelector<HTMLElement>(".sort");
 
   if (!sort) {
     return;
   }
 
-  const trigger = sort.querySelector<HTMLButtonElement>(".sort_trigger");
+  const trigger =
+    sort.querySelector<HTMLButtonElement>(
+      ".sort_trigger",
+    );
 
-  const menu = sort.querySelector<HTMLElement>(".sort_menu");
+  const menu =
+    sort.querySelector<HTMLElement>(".sort_menu");
 
   if (!trigger || !menu) {
     return;
@@ -263,13 +295,17 @@ function initSort(root: HTMLElement, state: ShopState): void {
   const closeMenu = (): void => {
     sort.classList.remove("is_open");
 
-    trigger.setAttribute("aria-expanded", "false");
+    trigger.setAttribute(
+      "aria-expanded",
+      "false",
+    );
   };
 
   trigger.addEventListener("click", (event) => {
     event.stopPropagation();
 
-    const isOpen = sort.classList.contains("is_open");
+    const isOpen =
+      sort.classList.contains("is_open");
 
     if (isOpen) {
       closeMenu();
@@ -278,66 +314,91 @@ function initSort(root: HTMLElement, state: ShopState): void {
 
     sort.classList.add("is_open");
 
-    trigger.setAttribute("aria-expanded", "true");
+    trigger.setAttribute(
+      "aria-expanded",
+      "true",
+    );
   });
 
-  menu.querySelectorAll<HTMLButtonElement>("[data-sort]").forEach((button) => {
-    button.addEventListener("click", () => {
-      const sortValue = button.dataset.sort;
+  menu
+    .querySelectorAll<HTMLButtonElement>(
+      "[data-sort]",
+    )
+    .forEach((button) => {
+      button.addEventListener("click", () => {
+        const sortValue = button.dataset.sort;
 
-      const selectedSort = sortValue ? (sortValue as PlantSort) : undefined;
+        const selectedSort = sortValue
+          ? (sortValue as PlantSort)
+          : undefined;
 
-      state.sort = selectedSort;
+        state.sort = selectedSort;
 
-      const plants = applyShopState(state);
+        const plants =
+          applyShopState(state);
 
-      currentPlants = plants;
+        currentPlants = plants;
 
-      updateGrid(root, plants);
-      updateResultCount(root, plants);
+        updateGrid(root, plants);
+        updateResultCount(root, plants);
 
-      const label = trigger.querySelector("span");
+        const label =
+          trigger.querySelector("span");
 
-      if (label) {
-        label.textContent = selectedSort
-          ? t(SORT_LABELS[selectedSort])
-          : t("shop.sort.featured");
-      }
+        if (label) {
+          label.textContent = selectedSort
+            ? t(SORT_LABELS[selectedSort])
+            : t("shop.sort.featured");
+        }
 
-      menu
-        .querySelectorAll<HTMLButtonElement>("[data-sort]")
-        .forEach((item) => {
-          item.classList.remove("active");
-        });
+        menu
+          .querySelectorAll<HTMLButtonElement>(
+            "[data-sort]",
+          )
+          .forEach((item) => {
+            item.classList.remove("active");
+          });
 
-      button.classList.add("active");
+        button.classList.add("active");
 
-      closeMenu();
+        closeMenu();
+      });
     });
-  });
 
   onClickOutside(sort, closeMenu);
 }
 
-function initFamily(root: HTMLElement, state: ShopState): void {
-  const filters = root.querySelector<HTMLElement>("#filter_chips");
+function initFamily(
+  root: HTMLElement,
+  state: ShopState,
+): void {
+  const filters =
+    root.querySelector<HTMLElement>(
+      "#filter_chips",
+    );
 
   if (!filters) {
     return;
   }
 
   filters
-    .querySelectorAll<HTMLButtonElement>("[data-family]")
+    .querySelectorAll<HTMLButtonElement>(
+      "[data-family]",
+    )
     .forEach((button) => {
       button.addEventListener("click", () => {
         const family = button.dataset.family;
 
         const selectedFamily =
-          family === "Araceae" || family === "Moraceae" ? family : undefined;
+          family === "Araceae" ||
+          family === "Moraceae"
+            ? family
+            : undefined;
 
         state.family = selectedFamily;
 
-        const plants = applyShopState(state);
+        const plants =
+          applyShopState(state);
 
         currentPlants = plants;
 
@@ -345,7 +406,9 @@ function initFamily(root: HTMLElement, state: ShopState): void {
         updateResultCount(root, plants);
 
         filters
-          .querySelectorAll<HTMLButtonElement>("[data-family]")
+          .querySelectorAll<HTMLButtonElement>(
+            "[data-family]",
+          )
           .forEach((item) => {
             item.classList.remove("active");
           });
@@ -355,7 +418,10 @@ function initFamily(root: HTMLElement, state: ShopState): void {
     });
 }
 
-export function mountShop(root: HTMLElement, plants?: Plant[]): void {
+export function mountShop(
+  root: HTMLElement,
+  plants?: Plant[],
+): void {
   if (plants) {
     basePlants = plants;
   } else if (basePlants.length === 0) {
@@ -370,10 +436,16 @@ export function getShopState(): ShopState {
   return { ...shopState };
 }
 
-export function refreshShopTranslations(root: HTMLElement): void {
+export function refreshShopTranslations(
+  root: HTMLElement,
+): void {
   const state = getShopState();
 
-  root.innerHTML = renderShop(currentPlants, state.sort, state.family);
+  root.innerHTML = renderShop(
+    currentPlants,
+    state.sort,
+    state.family,
+  );
 
   mountShop(root);
-}
+};
