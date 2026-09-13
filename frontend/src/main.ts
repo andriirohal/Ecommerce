@@ -29,7 +29,12 @@ import {
   renderPageLoader,
 } from "./components";
 
-import { fetchCurrentUser, getAllPlants, PlantSort, PlantFamily } from "./api";
+import {
+  fetchCurrentUser,
+  getAllPlants,
+  PlantSort,
+  PlantFamily,
+} from "./api";
 
 import { initLanguage } from "./i18n";
 
@@ -37,12 +42,20 @@ import { router } from "./routes";
 
 let appInitialized = false;
 
-type Plants = Awaited<ReturnType<typeof getAllPlants>>;
+type Plants = Awaited<
+  ReturnType<typeof getAllPlants>
+>;
 
 const plantsCache = new Map<string, Plants>();
-const plantsRequests = new Map<string, Promise<Plants>>();
+const plantsRequests = new Map<
+  string,
+  Promise<Plants>
+>();
 
-function getCacheKey(sort?: PlantSort, family?: PlantFamily): string {
+function getCacheKey(
+  sort?: PlantSort,
+  family?: PlantFamily,
+): string {
   return `${sort ?? "featured"}:${family ?? "all"}`;
 }
 
@@ -58,13 +71,19 @@ async function getPlants(
     return cached;
   }
 
-  const inFlight = plantsRequests.get(key);
+  const inFlight =
+    plantsRequests.get(key);
 
   if (inFlight) {
     return inFlight;
   }
 
-  const request = getAllPlants(100, 0, sort, family)
+  const request = getAllPlants(
+    100,
+    0,
+    sort,
+    family,
+  )
     .then((plants) => {
       plantsCache.set(key, plants);
 
@@ -83,7 +102,11 @@ function getCachedPlants(
   sort?: PlantSort,
   family?: PlantFamily,
 ): Plants | null {
-  return plantsCache.get(getCacheKey(sort, family)) ?? null;
+  return (
+    plantsCache.get(
+      getCacheKey(sort, family),
+    ) ?? null
+  );
 }
 
 export function clearPlantsCache(): void {
@@ -91,20 +114,26 @@ export function clearPlantsCache(): void {
 }
 
 function getApp(): HTMLElement {
-  const app = document.getElementById("app");
+  const app =
+    document.getElementById("app");
 
   if (!app) {
-    throw new Error("App root element not found");
+    throw new Error(
+      "App root element not found",
+    );
   }
 
   return app;
 }
 
 function getPageRoot(): HTMLElement {
-  const pageRoot = document.getElementById("page-root");
+  const pageRoot =
+    document.getElementById("page-root");
 
   if (!pageRoot) {
-    throw new Error("Page root element not found");
+    throw new Error(
+      "Page root element not found",
+    );
   }
 
   return pageRoot;
@@ -137,13 +166,23 @@ function initializeShell(
   appInitialized = true;
 }
 
-function paint(path: string, content: string): void {
+function paint(
+  path: string,
+  content: string,
+): void {
   const app = getApp();
 
-  const pageRoot = app.querySelector<HTMLElement>("#page-root");
+  const pageRoot =
+    app.querySelector<HTMLElement>(
+      "#page-root",
+    );
 
   if (!pageRoot) {
-    initializeShell(app, path, content);
+    initializeShell(
+      app,
+      path,
+      content,
+    );
 
     return;
   }
@@ -156,35 +195,56 @@ function paint(path: string, content: string): void {
 function refreshHeader(): void {
   const app = getApp();
 
-  const oldHeader = app.querySelector<HTMLElement>(".site_header");
+  const oldHeader =
+    app.querySelector<HTMLElement>(
+      ".site_header",
+    );
 
   if (!oldHeader) {
     return;
   }
 
-  const oldCartCount = oldHeader.querySelector<HTMLElement>(".cart_count");
+  const oldCartCount =
+    oldHeader.querySelector<HTMLElement>(
+      ".cart_count",
+    );
 
   const resolvedCartCount =
-    oldCartCount && !oldCartCount.classList.contains("is_loading")
+    oldCartCount &&
+    !oldCartCount.classList.contains(
+      "is_loading",
+    )
       ? oldCartCount.textContent
       : null;
 
-  const wrapper = document.createElement("div");
+  const wrapper =
+    document.createElement("div");
 
-  wrapper.innerHTML = renderHeaderComponent(window.location.pathname);
+  wrapper.innerHTML =
+    renderHeaderComponent(
+      window.location.pathname,
+    );
 
-  const header = wrapper.firstElementChild;
+  const header =
+    wrapper.firstElementChild;
 
   if (!(header instanceof HTMLElement)) {
     return;
   }
 
   if (resolvedCartCount) {
-    const newCartCount = header.querySelector<HTMLElement>(".cart_count");
+    const newCartCount =
+      header.querySelector<HTMLElement>(
+        ".cart_count",
+      );
 
     if (newCartCount) {
-      newCartCount.classList.remove("is_loading");
-      newCartCount.textContent = resolvedCartCount;
+      newCartCount.classList.remove(
+        "is_loading",
+      );
+
+      newCartCount.textContent =
+        resolvedCartCount;
     }
   }
 
@@ -196,33 +256,53 @@ function refreshHeader(): void {
 function refreshAccount(): void {
   const app = getApp();
 
-  const oldOverlay = app.querySelector<HTMLElement>("[data-account-overlay]");
+  const oldOverlay =
+    app.querySelector<HTMLElement>(
+      "[data-account-overlay]",
+    );
 
   if (!oldOverlay) {
     return;
   }
 
-  const wasOpen = oldOverlay.classList.contains("active");
+  const wasOpen =
+    oldOverlay.classList.contains(
+      "active",
+    );
 
-  const wrapper = document.createElement("div");
+  const wrapper =
+    document.createElement("div");
 
-  wrapper.innerHTML = renderAccount();
+  wrapper.innerHTML =
+    renderAccount();
 
-  const newOverlay = wrapper.firstElementChild;
+  const newOverlay =
+    wrapper.firstElementChild;
 
-  if (!(newOverlay instanceof HTMLElement)) {
+  if (
+    !(newOverlay instanceof HTMLElement)
+  ) {
     return;
   }
 
   if (wasOpen) {
-    newOverlay.classList.add("active");
+    newOverlay.classList.add(
+      "active",
+    );
 
-    newOverlay.setAttribute("aria-hidden", "false");
+    newOverlay.setAttribute(
+      "aria-hidden",
+      "false",
+    );
 
-    document.body.classList.add("account-open");
+    document.body.classList.add(
+      "account-open",
+    );
   }
 
-  oldOverlay.replaceWith(newOverlay);
+  oldOverlay.replaceWith(
+    newOverlay,
+  );
 
   initAccountPopover(app);
   updateAccountUI();
@@ -230,7 +310,9 @@ function refreshAccount(): void {
 
 function waitForPaint(): Promise<void> {
   return new Promise((resolve) => {
-    requestAnimationFrame(() => resolve());
+    requestAnimationFrame(() => {
+      resolve();
+    });
   });
 }
 
@@ -239,7 +321,8 @@ async function repaintAfterLanguageChange(): Promise<void> {
     return;
   }
 
-  const path = window.location.pathname;
+  const path =
+    window.location.pathname;
 
   const pageRoot = getPageRoot();
 
@@ -248,15 +331,19 @@ async function repaintAfterLanguageChange(): Promise<void> {
     refreshAccount();
 
     if (path === "/") {
-      const cached = getCachedPlants();
+      const cached =
+        getCachedPlants();
 
       if (!cached) {
-        pageRoot.innerHTML = renderPageLoader();
+        pageRoot.innerHTML =
+          renderPageLoader();
       }
 
-      const plants = cached ?? (await getPlants());
+      const plants =
+        cached ?? (await getPlants());
 
-      pageRoot.innerHTML = renderHome(plants);
+      pageRoot.innerHTML =
+        renderHome(plants);
 
       updateAccountUI();
 
@@ -264,17 +351,24 @@ async function repaintAfterLanguageChange(): Promise<void> {
     }
 
     if (path === "/shop") {
-      const cached = getCachedPlants();
+      const cached =
+        getCachedPlants();
 
       if (!cached) {
-        pageRoot.innerHTML = renderPageLoader();
+        pageRoot.innerHTML =
+          renderPageLoader();
       }
 
-      const plants = cached ?? (await getPlants());
+      const plants =
+        cached ?? (await getPlants());
 
-      pageRoot.innerHTML = renderShop(plants);
+      pageRoot.innerHTML =
+        renderShop(plants);
 
-      mountShop(pageRoot, plants);
+      mountShop(
+        pageRoot,
+        plants,
+      );
 
       updateAccountUI();
 
@@ -282,15 +376,19 @@ async function repaintAfterLanguageChange(): Promise<void> {
     }
 
     if (path === "/rare") {
-      const cached = getCachedPlants();
+      const cached =
+        getCachedPlants();
 
       if (!cached) {
-        pageRoot.innerHTML = renderPageLoader();
+        pageRoot.innerHTML =
+          renderPageLoader();
       }
 
-      const plants = cached ?? (await getPlants());
+      const plants =
+        cached ?? (await getPlants());
 
-      pageRoot.innerHTML = renderRarePage(plants);
+      pageRoot.innerHTML =
+        renderRarePage(plants);
 
       updateAccountUI();
 
@@ -298,25 +396,34 @@ async function repaintAfterLanguageChange(): Promise<void> {
     }
 
     if (path.startsWith("/plant/")) {
-      const id = path.split("/")[2];
+      const id =
+        path.split("/")[2];
 
       if (!id) {
-        pageRoot.innerHTML = renderNotFound();
+        pageRoot.innerHTML =
+          renderNotFound();
 
         updateAccountUI();
 
         return;
       }
 
-      const cached = getCachedPlants();
+      const cached =
+        getCachedPlants();
 
       if (!cached) {
-        pageRoot.innerHTML = renderPageLoader();
+        pageRoot.innerHTML =
+          renderPageLoader();
       }
 
-      const plants = cached ?? (await getPlants());
+      const plants =
+        cached ?? (await getPlants());
 
-      pageRoot.innerHTML = await renderPlant(id, plants);
+      pageRoot.innerHTML =
+        await renderPlant(
+          id,
+          plants,
+        );
 
       updateAccountUI();
 
@@ -324,9 +431,11 @@ async function repaintAfterLanguageChange(): Promise<void> {
     }
 
     if (path === "/cart") {
-      pageRoot.innerHTML = renderPageLoader();
+      pageRoot.innerHTML =
+        renderPageLoader();
 
-      pageRoot.innerHTML = await loadCartPage();
+      pageRoot.innerHTML =
+        await loadCartPage();
 
       mountCart(pageRoot);
 
@@ -336,25 +445,29 @@ async function repaintAfterLanguageChange(): Promise<void> {
     }
 
     if (path === "/checkout") {
-      pageRoot.innerHTML = renderPageLoader();
-
-      await mountCheckout(pageRoot);
+      await mountCheckout(
+        pageRoot,
+      );
 
       updateAccountUI();
 
       return;
     }
 
-    const page = path.slice(1);
+    const page =
+      path.slice(1);
 
     if (hasStaticContent(page)) {
-      pageRoot.innerHTML = renderPageLoader();
+      pageRoot.innerHTML =
+        renderPageLoader();
 
       await waitForPaint();
 
-      pageRoot.innerHTML = renderStatic(page);
+      pageRoot.innerHTML =
+        renderStatic(page);
     } else {
-      pageRoot.innerHTML = renderNotFound();
+      pageRoot.innerHTML =
+        renderNotFound();
     }
 
     updateAccountUI();
@@ -366,168 +479,278 @@ async function repaintAfterLanguageChange(): Promise<void> {
 router
   .add("/", async () => {
     try {
-      const cached = getCachedPlants();
+      const cached =
+        getCachedPlants();
 
       if (cached) {
-        paint("/", renderHome(cached));
+        paint(
+          "/",
+          renderHome(cached),
+        );
 
         return;
       }
 
-      paint("/", renderPageLoader());
+      paint(
+        "/",
+        renderPageLoader(),
+      );
 
-      const plants = await getPlants();
+      const plants =
+        await getPlants();
 
-      paint("/", renderHome(plants));
+      paint(
+        "/",
+        renderHome(plants),
+      );
     } catch (error) {
       console.error(error);
 
-      paint("/", renderHome([]));
+      paint(
+        "/",
+        renderHome([]),
+      );
     }
   })
 
   .add("/shop", async () => {
     try {
-      const cached = getCachedPlants();
+      const cached =
+        getCachedPlants();
 
       if (cached) {
-        paint("/shop", renderShop(cached));
+        paint(
+          "/shop",
+          renderShop(cached),
+        );
 
-        mountShop(getPageRoot(), cached);
+        mountShop(
+          getPageRoot(),
+          cached,
+        );
 
         return;
       }
 
-      paint("/shop", renderPageLoader());
+      paint(
+        "/shop",
+        renderPageLoader(),
+      );
 
-      const plants = await getPlants();
+      const plants =
+        await getPlants();
 
-      paint("/shop", renderShop(plants));
+      paint(
+        "/shop",
+        renderShop(plants),
+      );
 
-      mountShop(getPageRoot(), plants);
+      mountShop(
+        getPageRoot(),
+        plants,
+      );
     } catch (error) {
       console.error(error);
 
-      paint("/shop", renderShop([]));
+      paint(
+        "/shop",
+        renderShop([]),
+      );
     }
   })
 
   .add("/rare", async () => {
     try {
-      const cached = getCachedPlants();
+      const cached =
+        getCachedPlants();
 
       if (cached) {
-        paint("/rare", renderRarePage(cached));
+        paint(
+          "/rare",
+          renderRarePage(cached),
+        );
 
         return;
       }
 
-      paint("/rare", renderPageLoader());
+      paint(
+        "/rare",
+        renderPageLoader(),
+      );
 
-      const plants = await getPlants();
+      const plants =
+        await getPlants();
 
-      paint("/rare", renderRarePage(plants));
+      paint(
+        "/rare",
+        renderRarePage(plants),
+      );
     } catch (error) {
       console.error(error);
 
-      paint("/rare", renderRarePage([]));
+      paint(
+        "/rare",
+        renderRarePage([]),
+      );
     }
   })
 
-  .add("/plant/:id", async ({ params }) => {
-    const id = params.id;
+  .add(
+    "/plant/:id",
+    async ({ params }: { params: { id?: string } }) => {
+      const id = params.id;
 
-    if (!id) {
-      paint("/404", renderNotFound());
+      if (!id) {
+        paint(
+          "/404",
+          renderNotFound(),
+        );
 
-      return;
-    }
-
-    try {
-      const cached = getCachedPlants();
-
-      if (!cached) {
-        paint(`/plant/${id}`, renderPageLoader());
+        return;
       }
 
-      const plants = cached ?? (await getPlants());
+      try {
+        const cached =
+          getCachedPlants();
 
-      const content = await renderPlant(id, plants);
+        if (!cached) {
+          paint(
+            `/plant/${id}`,
+            renderPageLoader(),
+          );
+        }
 
-      paint(`/plant/${id}`, content);
-    } catch (error) {
-      console.error(error);
+        const plants =
+          cached ??
+          (await getPlants());
 
-      paint(`/plant/${id}`, renderNotFound());
-    }
-  })
+        const content =
+          await renderPlant(
+            id,
+            plants,
+          );
+
+        paint(
+          `/plant/${id}`,
+          content,
+        );
+      } catch (error) {
+        console.error(error);
+
+        paint(
+          `/plant/${id}`,
+          renderNotFound(),
+        );
+      }
+    },
+  )
 
   .add("/cart", async () => {
     try {
-      const pageRoot = getPageRoot();
+      const pageRoot =
+        getPageRoot();
 
-      pageRoot.innerHTML = renderPageLoader();
+      pageRoot.innerHTML =
+        renderPageLoader();
 
-      const content = await loadCartPage();
+      const content =
+        await loadCartPage();
 
-      paint("/cart", content);
+      paint(
+        "/cart",
+        content,
+      );
 
-      mountCart(getPageRoot());
+      mountCart(
+        getPageRoot(),
+      );
     } catch (error) {
       console.error(error);
 
-      paint("/cart", renderNotFound());
+      paint(
+        "/cart",
+        renderNotFound(),
+      );
     }
   })
 
-  .add("/checkout", async () => {
-    try {
-      if (!appInitialized) {
-        initializeShell(getApp(), "/checkout", renderPageLoader());
-      } else {
-        getPageRoot().innerHTML = renderPageLoader();
+  .add(
+    "/checkout",
+    async () => {
+      try {
+        if (!appInitialized) {
+          initializeShell(
+            getApp(),
+            "/checkout",
+            "",
+          );
+        }
+
+        await mountCheckout(
+          getPageRoot(),
+        );
+
+        updateAccountUI();
+      } catch (error) {
+        console.error(error);
+
+        if (appInitialized) {
+          getPageRoot().innerHTML =
+            renderNotFound();
+        } else {
+          paint(
+            "/checkout",
+            renderNotFound(),
+          );
+        }
+      }
+    },
+  )
+
+  .add(
+    "/:page",
+    async ({ params }) => {
+      const page = params.page;
+
+      if (!page || !hasStaticContent(page)) {
+        paint(
+          "/404",
+          renderNotFound(),
+        );
+
+        return;
       }
 
-      await mountCheckout(getPageRoot());
+      paint(
+        `/${page}`,
+        renderPageLoader(),
+      );
 
-      updateAccountUI();
-    } catch (error) {
-      console.error(error);
+      await waitForPaint();
 
-      if (appInitialized) {
-        getPageRoot().innerHTML = renderNotFound();
-      } else {
-        paint("/checkout", renderNotFound());
-      }
-    }
-  })
-
-  .add("/:page", async ({ params }) => {
-    const page = params.page;
-
-    if (!hasStaticContent(page)) {
-      paint("/404", renderNotFound());
-
-      return;
-    }
-
-    paint(`/${page}`, renderPageLoader());
-
-    await waitForPaint();
-
-    paint(`/${page}`, renderStatic(page));
-  })
+      paint(
+        `/${page}`,
+        renderStatic(page),
+      );
+    },
+  )
 
   .notFound(async () => {
-    paint("/404", renderNotFound());
+    paint(
+      "/404",
+      renderNotFound(),
+    );
   });
 
 async function initializeApp(): Promise<void> {
   initLanguage();
 
-  window.addEventListener("languagechange", () => {
-    void repaintAfterLanguageChange();
-  });
+  window.addEventListener(
+    "languagechange",
+    () => {
+      void repaintAfterLanguageChange();
+    },
+  );
 
   void getPlants().catch(() => {});
 
@@ -541,6 +764,7 @@ async function initializeApp(): Promise<void> {
   router.start();
 }
 
-getApp().innerHTML = renderSplashLoader();
+getApp().innerHTML =
+  renderSplashLoader();
 
 void initializeApp();

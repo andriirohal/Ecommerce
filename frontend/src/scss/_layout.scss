@@ -350,7 +350,7 @@ header.site_header {
 
   &_item {
     h3 {
-      margin: 10px 0 8px;
+      margin: 8px 0 8px;
 
       color: $bg;
 
@@ -395,7 +395,7 @@ header.site_header {
   blockquote {
     max-width: 22ch;
 
-    margin: 0 auto 15px;
+    margin: 0 auto 13px;
 
     color: $ink;
 
@@ -418,9 +418,12 @@ header.site_header {
     padding: 65px $gutter_mobile;
 
     border-bottom: 0;
+  }
 
+  @media (max-width: 480px) {
     blockquote {
-      font-size: 24px;
+      font-size: 25px;
+      margin: 0 auto 10px;
     }
   }
 }
@@ -498,7 +501,7 @@ footer.site_footer {
 
   @media (max-width: 900px) {
     grid-template-columns: repeat(2, 1fr);
-    padding: 30px 30px 20px;
+    padding: 30px 25px 20px;
   }
 
   @media (max-width: 500px) {
@@ -596,7 +599,7 @@ footer.site_footer {
   }
 
   @media (max-width: 400px) {
-    font-size: 9px;
+    font-size: 9.5px;
   }
 
   &::-webkit-details-marker {
@@ -1720,15 +1723,15 @@ body {
   }
 
   .philosophy_item h3 {
-    font-size: 20px;
+    font-size: 18.5px;
   }
 
   .philosophy_item p {
-    font-size: 12px;
+    font-size: 11px;
   }
 
   .quote cite {
-    font-size: 10px;
+    font-size: 9.5px;
   }
 
   .rare_page .grid {

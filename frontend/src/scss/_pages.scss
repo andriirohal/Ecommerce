@@ -905,7 +905,7 @@
     text-transform: uppercase;
 
     @media (max-width: 480px) {
-      font-size: 0.6rem;
+      font-size: 0.625rem;
     }
   }
 
@@ -1298,11 +1298,11 @@
     margin: 60px auto;
 
     h2 {
-      font-size: 22px;
+      font-size: 22.5px;
     }
 
     p {
-      font-size: 11px;
+      font-size: 10.5px;
     }
   }
 
@@ -1312,10 +1312,6 @@
 
   .checkout_item > strong {
     font-size: 11px;
-  }
-
-  .checkout_summary .checkout_item {
-    gap: 14px;
   }
 
   .checkout_item_info span {

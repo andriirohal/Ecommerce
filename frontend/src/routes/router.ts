@@ -42,7 +42,9 @@ class Router {
 
   private notFoundHandler: RouteHandler = () => {};
 
-  private errorHandler: (error: Error) => void | Promise<void> = console.error;
+  private errorHandler: (
+    error: Error,
+  ) => void | Promise<void> = console.error;
 
   private navigationId = 0;
 
@@ -109,7 +111,8 @@ class Router {
 
   guard(guard: RouteGuard): this {
     if (this.routes.length > 0) {
-      const lastRoute = this.routes[this.routes.length - 1];
+      const lastRoute =
+        this.routes[this.routes.length - 1];
 
       lastRoute.guards.push(guard);
     }
@@ -123,7 +126,9 @@ class Router {
     return this;
   }
 
-  onError(handler: (error: Error) => void | Promise<void>): this {
+  onError(
+    handler: (error: Error) => void | Promise<void>,
+  ): this {
     this.errorHandler = handler;
 
     return this;
@@ -137,28 +142,42 @@ class Router {
     },
   ): Promise<void> {
     try {
-      const url = new URL(path, window.location.origin);
+      const url = new URL(
+        path,
+        window.location.origin,
+      );
 
       if (url.origin !== window.location.origin) {
         window.location.assign(url.href);
+
         return;
       }
 
       const nextPath = this.getUrlKey(url);
-
       const currentPath = this.getCurrentUrlKey();
 
       if (nextPath === currentPath) {
+        this.scrollToTop();
+
         await this.resolve(false);
+
         return;
       }
 
       this.saveCurrentScroll();
 
       if (options?.replace) {
-        history.replaceState(options?.state ?? {}, "", nextPath);
+        history.replaceState(
+          options?.state ?? {},
+          "",
+          nextPath,
+        );
       } else {
-        history.pushState(options?.state ?? {}, "", nextPath);
+        history.pushState(
+          options?.state ?? {},
+          "",
+          nextPath,
+        );
       }
 
       await this.resolve(false);
@@ -167,11 +186,15 @@ class Router {
     }
   }
 
-  private async resolve(isPopState = false): Promise<void> {
+  private async resolve(
+    isPopState = false,
+  ): Promise<void> {
     const navigationId = ++this.navigationId;
 
     try {
-      const url = new URL(window.location.href);
+      const url = new URL(
+        window.location.href,
+      );
 
       const path = url.pathname;
 
@@ -198,7 +221,8 @@ class Router {
           const value = match[index + 1];
 
           if (value !== undefined) {
-            params[key] = decodeURIComponent(value);
+            params[key] =
+              decodeURIComponent(value);
           }
         });
 
@@ -221,7 +245,10 @@ class Router {
         for (const guard of route.guards) {
           const result = await guard(context);
 
-          if (navigationId !== this.navigationId) {
+          if (
+            navigationId !==
+            this.navigationId
+          ) {
             return;
           }
 
@@ -233,13 +260,18 @@ class Router {
 
         if (!guardsPassed) {
           handler = null;
+
           continue;
         }
 
         if (route.lazy) {
-          const module = await route.lazy();
+          const module =
+            await route.lazy();
 
-          if (navigationId !== this.navigationId) {
+          if (
+            navigationId !==
+            this.navigationId
+          ) {
             return;
           }
 
@@ -251,12 +283,16 @@ class Router {
         break;
       }
 
-      if (navigationId !== this.navigationId) {
+      if (
+        navigationId !==
+        this.navigationId
+      ) {
         return;
       }
 
       const context: RouteContext = {
-        params: matchedRoute?.params ?? {},
+        params:
+          matchedRoute?.params ?? {},
         query,
         path,
         hash,
@@ -265,31 +301,45 @@ class Router {
 
       this.currentContext = context;
 
-      const middlewareChain = async (): Promise<void> => {
-        if (handler) {
-          await handler(context);
-        } else {
-          await this.notFoundHandler(context);
-        }
-      };
+      const middlewareChain =
+        async (): Promise<void> => {
+          if (handler) {
+            await handler(context);
+          } else {
+            await this.notFoundHandler(
+              context,
+            );
+          }
+        };
 
       let index = 0;
 
-      const executeMiddleware = async (): Promise<void> => {
-        if (index < this.middlewares.length) {
-          const middleware = this.middlewares[index++];
+      const executeMiddleware =
+        async (): Promise<void> => {
+          if (
+            index <
+            this.middlewares.length
+          ) {
+            const middleware =
+              this.middlewares[index++];
 
-          await middleware(context, executeMiddleware);
+            await middleware(
+              context,
+              executeMiddleware,
+            );
 
-          return;
-        }
+            return;
+          }
 
-        await middlewareChain();
-      };
+          await middlewareChain();
+        };
 
       await executeMiddleware();
 
-      if (navigationId !== this.navigationId) {
+      if (
+        navigationId !==
+        this.navigationId
+      ) {
         return;
       }
 
@@ -301,9 +351,15 @@ class Router {
         this.scrollToTop();
       }
 
-      this.dispatchPageChanged(path, matchedRoute);
+      this.dispatchPageChanged(
+        path,
+        matchedRoute,
+      );
     } catch (error) {
-      if (navigationId !== this.navigationId) {
+      if (
+        navigationId !==
+        this.navigationId
+      ) {
         return;
       }
 
@@ -331,7 +387,9 @@ class Router {
     this.routes.push(route);
   }
 
-  private patternToRegex(pattern: string): RegExp {
+  private patternToRegex(
+    pattern: string,
+  ): RegExp {
     const escaped = pattern
       .split("/")
       .map((segment) => {
@@ -343,21 +401,31 @@ class Router {
           return "(.*)";
         }
 
-        return segment.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        return segment.replace(
+          /[.*+?^${}()|[\]\\]/g,
+          "\\$&",
+        );
       })
       .join("\\/");
 
-    return new RegExp(`^${escaped}$`);
+    return new RegExp(
+      `^${escaped}$`,
+    );
   }
 
-  private extractKeys(pattern: string): string[] {
+  private extractKeys(
+    pattern: string,
+  ): string[] {
     const keys: string[] = [];
 
-    const regex = /:([a-zA-Z_][a-zA-Z0-9_]*)/g;
+    const regex =
+      /:([a-zA-Z_][a-zA-Z0-9_]*)/g;
 
     let match: RegExpExecArray | null;
 
-    while ((match = regex.exec(pattern)) !== null) {
+    while (
+      (match = regex.exec(pattern)) !== null
+    ) {
       keys.push(match[1]);
     }
 
@@ -365,12 +433,18 @@ class Router {
   }
 
   private getUrlKey(url: URL): string {
-    return url.pathname + url.search + url.hash;
+    return (
+      url.pathname +
+      url.search +
+      url.hash
+    );
   }
 
   private getCurrentUrlKey(): string {
     return (
-      window.location.pathname + window.location.search + window.location.hash
+      window.location.pathname +
+      window.location.search +
+      window.location.hash
     );
   }
 
@@ -391,11 +465,15 @@ class Router {
     });
   }
 
-  private restoreScroll(urlKey: string): void {
-    const saved = this.scrollPositions.get(urlKey);
+  private restoreScroll(
+    urlKey: string,
+  ): void {
+    const saved =
+      this.scrollPositions.get(urlKey);
 
     if (!saved) {
       this.scrollToTop();
+
       return;
     }
 
@@ -406,7 +484,10 @@ class Router {
     });
   }
 
-  private dispatchPageChanged(path: string, route: MatchedRoute | null): void {
+  private dispatchPageChanged(
+    path: string,
+    route: MatchedRoute | null,
+  ): void {
     window.dispatchEvent(
       new CustomEvent("page-changed", {
         detail: {
@@ -421,7 +502,10 @@ class Router {
     try {
       this.errorHandler(error);
     } catch (err) {
-      console.error("Error in error handler:", err);
+      console.error(
+        "Error in error handler:",
+        err,
+      );
     }
   }
 
@@ -434,9 +518,12 @@ class Router {
   }
 
   private attachPopStateListener(): void {
-    window.addEventListener("popstate", () => {
-      void this.resolve(true);
-    });
+    window.addEventListener(
+      "popstate",
+      () => {
+        void this.resolve(true);
+      },
+    );
   }
 
   private attachScrollListener(): void {
@@ -447,10 +534,13 @@ class Router {
           return;
         }
 
-        this.scrollPositions.set(this.currentPath, {
-          x: window.scrollX,
-          y: window.scrollY,
-        });
+        this.scrollPositions.set(
+          this.currentPath,
+          {
+            x: window.scrollX,
+            y: window.scrollY,
+          },
+        );
       },
       {
         passive: true,
@@ -483,7 +573,10 @@ class Router {
           return;
         }
 
-        const link = target.closest<HTMLAnchorElement>("a[href]");
+        const link =
+          target.closest<HTMLAnchorElement>(
+            "a[href]",
+          );
 
         if (!link) {
           return;
@@ -491,17 +584,25 @@ class Router {
 
         if (
           link.hasAttribute("download") ||
-          link.hasAttribute("data-no-router") ||
-          link.hasAttribute("data-external")
+          link.hasAttribute(
+            "data-no-router",
+          ) ||
+          link.hasAttribute(
+            "data-external",
+          )
         ) {
           return;
         }
 
-        if (link.target && link.target !== "_self") {
+        if (
+          link.target &&
+          link.target !== "_self"
+        ) {
           return;
         }
 
-        const href = link.getAttribute("href");
+        const href =
+          link.getAttribute("href");
 
         if (!href) {
           return;
@@ -512,7 +613,9 @@ class Router {
           href.startsWith("//") ||
           href.startsWith("mailto:") ||
           href.startsWith("tel:") ||
-          href.startsWith("javascript:")
+          href.startsWith(
+            "javascript:",
+          )
         ) {
           return;
         }
@@ -520,24 +623,35 @@ class Router {
         let url: URL;
 
         try {
-          url = new URL(href, window.location.origin);
+          url = new URL(
+            href,
+            window.location.origin,
+          );
         } catch {
           return;
         }
 
-        if (url.origin !== window.location.origin) {
+        if (
+          url.origin !==
+          window.location.origin
+        ) {
           return;
         }
 
-        const nextPath = this.getUrlKey(url);
+        const nextPath =
+          this.getUrlKey(url);
 
-        const currentPath = this.getCurrentUrlKey();
+        const currentPath =
+          this.getCurrentUrlKey();
 
         event.preventDefault();
         event.stopPropagation();
 
         if (nextPath === currentPath) {
+          this.scrollToTop();
+
           void this.resolve(false);
+
           return;
         }
 
@@ -551,13 +665,19 @@ class Router {
     return this.currentPath;
   }
 
-  getCurrentContext(): RouteContext | null {
+  getCurrentContext():
+    RouteContext | null {
     return this.currentContext;
   }
 
-  isCurrentPath(path: string): boolean {
-    return this.currentPath.startsWith(path);
+  isCurrentPath(
+    path: string,
+  ): boolean {
+    return this.currentPath.startsWith(
+      path,
+    );
   }
-}
+};
 
-export const router = new Router();
+export const router = 
+  new Router();

@@ -1,5 +1,6 @@
 import { getCart, addOrder } from "../api";
 
+import { renderPageLoader } from "../components";
 import { t } from "../i18n";
 import { clearPlantsCache } from "../main";
 
@@ -29,10 +30,10 @@ function calculateCheckoutTotals(lines: CheckoutLine[]): CheckoutTotals {
     0,
   );
 
-  const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_COST;
+  const shipping =
+    subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_COST;
 
   const tax = Math.round(subtotal * TAX_RATE * 100) / 100;
-
   const total = subtotal + shipping + tax;
 
   return {
@@ -73,7 +74,8 @@ function renderCheckoutItem(line: CheckoutLine): string {
 }
 
 function renderCheckoutContent(lines: CheckoutLine[]): string {
-  const { subtotal, shipping, tax, total } = calculateCheckoutTotals(lines);
+  const { subtotal, shipping, tax, total } =
+    calculateCheckoutTotals(lines);
 
   return `
     <div
@@ -109,7 +111,11 @@ function renderCheckoutContent(lines: CheckoutLine[]): string {
             </span>
 
             <span data-cart-shipping>
-              ${shipping === 0 ? t("cart.free") : `€${shipping.toFixed(2)}`}
+              ${
+                shipping === 0
+                  ? t("cart.free")
+                  : `€${shipping.toFixed(2)}`
+              }
             </span>
           </div>
 
@@ -282,10 +288,12 @@ async function handlePlaceOrder(
   orderRequestPending = true;
 
   button.disabled = true;
-
   button.setAttribute("aria-disabled", "true");
-
   button.classList.add("loading");
+
+  await new Promise<void>((resolve) => {
+    requestAnimationFrame(() => resolve());
+  });
 
   try {
     await addOrder();
@@ -294,7 +302,8 @@ async function handlePlaceOrder(
 
     window.dispatchEvent(new Event("orderchanged"));
 
-    const cartCount = document.querySelector<HTMLElement>(".cart_count");
+    const cartCount =
+      document.querySelector<HTMLElement>(".cart_count");
 
     if (cartCount) {
       cartCount.classList.remove("is_loading");
@@ -307,44 +316,61 @@ async function handlePlaceOrder(
     if (checkoutSection) {
       checkoutSection.innerHTML = renderSuccessContent();
     }
-
-    orderRequestPending = false;
   } catch (requestError) {
     console.error("Failed to create order:", requestError);
 
     if (error) {
       error.textContent = t("checkout.orderError");
-
       error.hidden = false;
     }
 
     button.disabled = false;
-
     button.removeAttribute("aria-disabled");
-
     button.classList.remove("loading");
-
+  } finally {
     orderRequestPending = false;
   }
 }
 
-export async function mountCheckout(root: HTMLElement): Promise<void> {
+export async function mountCheckout(
+  root: HTMLElement,
+): Promise<void> {
   orderRequestPending = false;
+
+  window.scrollTo(0, 0);
+
+  root.innerHTML = renderCheckoutPage(
+    renderPageLoader(),
+  );
+
+  await new Promise<void>((resolve) => {
+    requestAnimationFrame(() => resolve());
+  });
 
   try {
     const cart = await getCart();
-
     const items = getCheckoutItems(cart);
 
-    root.innerHTML = renderCheckoutPage(
-      items.length === 0 ? renderEmptyCheckout() : renderCheckoutContent(items),
-    );
+    const checkoutSection =
+      root.querySelector<HTMLElement>("#checkout_section");
+
+    if (!checkoutSection) {
+      return;
+    }
+
+    checkoutSection.innerHTML =
+      items.length === 0
+        ? renderEmptyCheckout()
+        : renderCheckoutContent(items);
 
     if (items.length === 0) {
       return;
     }
 
-    const button = root.querySelector<HTMLButtonElement>("#place_order");
+    const button =
+      checkoutSection.querySelector<HTMLButtonElement>(
+        "#place_order",
+      );
 
     if (!button) {
       return;
@@ -358,6 +384,11 @@ export async function mountCheckout(root: HTMLElement): Promise<void> {
   } catch (error) {
     console.error("Failed to load checkout:", error);
 
-    root.innerHTML = renderCheckoutPage(renderCheckoutError());
+    const checkoutSection =
+      root.querySelector<HTMLElement>("#checkout_section");
+
+    if (checkoutSection) {
+      checkoutSection.innerHTML = renderCheckoutError();
+    }
   }
-}
+};
