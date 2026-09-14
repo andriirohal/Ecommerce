@@ -54,7 +54,6 @@ const Content: Record<string, StaticContent> = {
 };
 
 let accountPopoverInitialized = false;
-let accountAuthInitialized = false;
 let authFormsInitialized = false;
 let accountActionsInitialized = false;
 let accountUIInitialized = false;
@@ -324,51 +323,6 @@ export function initAccountPopover(_root: HTMLElement): void {
   window.addEventListener("auth-open", openAccountPopover);
 }
 
-export function initAccountAuth(_root: HTMLElement): void {
-  if (accountAuthInitialized) {
-    return;
-  }
-
-  accountAuthInitialized = true;
-
-  document.addEventListener("click", (event) => {
-    const target = event.target;
-
-    if (!(target instanceof Element)) {
-      return;
-    }
-
-    const switchButton = target.closest<HTMLButtonElement>(
-      "[data-switch-account]",
-    );
-
-    if (switchButton) {
-      event.preventDefault();
-
-      const type = switchButton.dataset.switchAccount;
-
-      if (type === "login" || type === "signup") {
-        showAccountForm(type);
-      }
-
-      return;
-    }
-
-    const accountTab = target.closest<HTMLButtonElement>("[data-account-tab]");
-
-    if (!accountTab) {
-      return;
-    }
-
-    event.preventDefault();
-
-    const type = accountTab.dataset.accountTab;
-
-    if (type === "login" || type === "signup") {
-      showAccountForm(type);
-    }
-  });
-}
 
 function showAccountForm(type: "login" | "signup"): void {
   const tabs =

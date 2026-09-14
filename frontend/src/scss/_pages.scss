@@ -788,7 +788,7 @@
 }
 
 .checkout_success p {
-  max-width: 400px;
+  max-width: 320px;
 
   margin: 0 auto 28px;
 }
@@ -950,7 +950,7 @@
   margin-top: 50px;
 
   @media (max-width: 1200px) {
-    grid-template-columns: minmax(0, 520px);
+    grid-template-columns: repeat(1, minmax(0, 520px));
   }
 }
 
@@ -993,8 +993,16 @@
 
     color: $muted;
 
-    font-size: 13.5px;
+    font-size: 13px;
     line-height: 1.6;
+
+    @media (max-width: 640px) {
+      font-size: 12px;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 11.5px;
+    }
   }
 }
 
@@ -1010,6 +1018,10 @@
   letter-spacing: 0.08em;
 
   text-transform: uppercase;
+
+  @media (max-width: 480px) {
+    font-size: 10px;
+  }
 }
 
 .contact_info {
@@ -1242,16 +1254,6 @@
     font-size: 16px;
   }
 
-  .empty_state {
-    h2 {
-      font-size: 24px;
-    }
-
-    p {
-      font-size: 12.5px;
-    }
-  }
-
   .rare_page .grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1.5rem 0.75rem;
@@ -1309,11 +1311,11 @@
   }
 
   .checkout_item_info span {
-    font-size: 12px;
+    font-size: 11.5px;
   }
 
   .summary_total {
-    font-size: 15px;
+    font-size: 14px;
   }
 
   .summary_total strong {
@@ -1331,10 +1333,6 @@
     padding: 28px 22px 30px;
 
     border-radius: 14px 14px 0 0;
-  }
-
-  .account_popover_header {
-    margin-bottom: 24px;
   }
 
   .account_title {
@@ -1404,22 +1402,6 @@
   }
 }
 
-@media (max-width: 640px) {
-  .checkout_success .eyebrow {
-    font-size: 10px;
-  }
-  
-  .empty_state {
-    h2 {
-      font-size: 23px;
-    }
-
-    p {
-      font-size: 11.5px;
-    }
-  }
-}
-
 @media (max-width: 400px) {
   .summary_line {
     font-size: 11px;
@@ -1438,11 +1420,24 @@
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 500px) {
   .checkout_success .eyebrow {
     font-size: 9px;
   }
 
+  .empty_state {
+    h2 {
+      font-size: 22px;
+    }
+
+    p {
+      max-width: 250px;
+      font-size: 11px;
+    }
+  }
+}
+
+@media (max-width: 400px) {
   .empty_state {
     h2 {
       font-size: 19px;

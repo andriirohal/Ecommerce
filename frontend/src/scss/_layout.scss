@@ -175,7 +175,7 @@ header.site_header {
 
   @media (max-width: 480px) {
     p {
-      font-size: 12px;
+      font-size: 11px;
     }
 
     .hero_actions {
@@ -971,8 +971,8 @@ footer.site_footer {
   align-items: center;
   justify-content: center;
 
-  width: 27px;
-  height: 27px;
+  width: 26px;
+  height: 26px;
 
   padding: 0;
 
@@ -1042,12 +1042,17 @@ footer.site_footer {
 }
 
 .summary_panel h2 {
-  margin: 0 0 4px;
+  margin: 0 0 3px;
 
   color: $text;
 
-  font-size: 20px;
+  font-size: 21px;
   font-weight: 500;
+
+  @media (max-width: 480px) {
+    font-size: 20px;
+    margin: 0 0 2px;
+  }
 }
 
 .shipping_status {
@@ -1062,11 +1067,11 @@ footer.site_footer {
 
   color: $muted;
 
-  font-size: 13px;
+  font-size: 12.5px;
   line-height: 1.6;
 
   @media (max-width: 480px) {
-    font-size: 12px;
+    font-size: 11.5px;
   }
 }
 
@@ -1191,7 +1196,7 @@ footer.site_footer {
 }
 
 .checkout_success p {
-  max-width: 400px;
+  max-width: 300px;
 
   margin: 0 auto 28px;
 }
@@ -1634,14 +1639,6 @@ body {
     left: 16px;
   }
 
-  .empty_state p {
-    font-size: 11.5px;
-  }
-
-  .empty_state h2 {
-    font-size: 22px;
-  }
-
   .checkout_header {
     align-items: flex-start;
 
@@ -1735,7 +1732,7 @@ body {
   }
 
   .philosophy_item p {
-    font-size: 11px;
+    font-size: 10.5px;
   }
 
   .quote cite {

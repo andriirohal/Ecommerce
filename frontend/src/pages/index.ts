@@ -1,5 +1,5 @@
 export { renderHome } from "./home";
-export { renderShop, mountShop, refreshShopTranslations } from "./shop";
+export { renderShop, mountShop } from "./shop";
 export { mountCart, loadCartPage, renderCart } from "./cart";
 export { renderCheckout } from "./checkout";
 export { renderPlant } from "./plant";
@@ -10,7 +10,6 @@ export {
   renderStatic,
   hasStaticContent,
   initAccountPopover,
-  initAccountAuth,
 } from "./static";
 export {
   renderAccount,

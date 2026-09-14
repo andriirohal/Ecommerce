@@ -436,16 +436,3 @@ export function getShopState(): ShopState {
   return { ...shopState };
 }
 
-export function refreshShopTranslations(
-  root: HTMLElement,
-): void {
-  const state = getShopState();
-
-  root.innerHTML = renderShop(
-    currentPlants,
-    state.sort,
-    state.family,
-  );
-
-  mountShop(root);
-};
