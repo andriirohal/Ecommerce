@@ -895,7 +895,7 @@
 }
 
 .checkout_summary_header {
-  padding-bottom: 23px;
+  padding-bottom: 20px;
 
   .eyebrow {
     display: block;
@@ -1403,26 +1403,22 @@
 }
 
 @media (max-width: 400px) {
-  .summary_line {
-    font-size: 11px;
-  }
-
   .checkout_item > strong {
     font-size: 11px;
   }
 
   .checkout_item_info h3 {
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .checkout_item_info span {
-    font-size: 11px;
+    font-size: 11.5px;
   }
 }
 
 @media (max-width: 500px) {
   .checkout_success .eyebrow {
-    font-size: 9px;
+    font-size: 10px;
   }
 
   .empty_state {
@@ -1433,19 +1429,6 @@
     p {
       max-width: 250px;
       font-size: 11px;
-    }
-  }
-}
-
-@media (max-width: 400px) {
-  .empty_state {
-    h2 {
-      font-size: 19px;
-    }
-
-    p {
-      max-width: 250px;
-      font-size: 10px;
     }
   }
 }
