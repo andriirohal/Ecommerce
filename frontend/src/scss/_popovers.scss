@@ -9,10 +9,13 @@
   align-items: center;
   justify-content: center;
 
+  width: 100%;
+  height: 100dvh;
+  box-sizing: border-box;
+
   padding: 24px;
 
-  background: rgba($ink, 0.42);
-
+  background: rgba(52, 51, 45, 0.42);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
 
@@ -24,11 +27,14 @@
     opacity 200ms ease,
     visibility 200ms ease;
 
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  
   &.open {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
-
+  
     .account_popover {
       opacity: 1;
       transform: translateY(0);

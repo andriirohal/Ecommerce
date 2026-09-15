@@ -13,7 +13,7 @@ func SignAccessToken(userId, email, accessSecret string) (string, error) {
   claims := jwt.MapClaims{
     "userId": userId,
     "email": email,
-	  "exp": time.Now().Add(15 * time.Minute).Unix(),
+    "exp": time.Now().Add(10 * time.Minute).Unix(),
   };
 
   accessToken := jwt.NewWithClaims(jwt.SigningMethodHS256, claims);

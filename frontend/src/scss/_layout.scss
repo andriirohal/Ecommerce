@@ -160,7 +160,7 @@ header.site_header {
   }
 
   @media (max-width: 640px) {
-    padding: 40px $gutter_mobile 70px;
+    padding: 40px $gutter_mobile 60px;
 
     border-bottom: 0;
 
@@ -429,7 +429,7 @@ header.site_header {
   @media (max-width: 480px) {
     blockquote {
       font-size: 24px;
-      margin: 0 auto 10px;
+      margin: 0 auto 8px;
     }
   }
 }
@@ -464,7 +464,7 @@ footer.site_footer {
     gap: 8px;
 
     @media (max-width: 480px) {
-      gap: 5px;
+      gap: 3px;
     }
 
     a {
@@ -475,7 +475,7 @@ footer.site_footer {
       transition: color 150ms $ease;
 
       @media (max-width: 480px) {
-        font-size: 12px;
+        font-size: 11px;
       }
 
       &:hover {
@@ -500,7 +500,7 @@ footer.site_footer {
       line-height: 1.65;
 
       @media (max-width: 480px) {
-        font-size: 12px;
+        font-size: 11px;
       }
     }
   }
@@ -521,9 +521,6 @@ footer.site_footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  flex-wrap: wrap;
-
   gap: 8px;
 
   min-height: 53px;
@@ -542,8 +539,18 @@ footer.site_footer {
 
   @media (max-width: 640px) {
     padding: 16px $gutter_mobile 32px;
-
     border-top: 0;
+  }
+
+  @media (max-width: 480px) {
+    padding: 14px $gutter_mobile 32px;
+    font-size: 10px;
+  }
+
+  @media (max-width: 400px) {
+    font-size: 9.5px;
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 
@@ -1741,6 +1748,10 @@ body {
   }
 
   .philosophy_item p {
+    font-size: 10.5px;
+  }
+
+  .philosophy_item .num {
     font-size: 10.5px;
   }
 

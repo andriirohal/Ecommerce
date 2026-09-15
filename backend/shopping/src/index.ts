@@ -16,4 +16,4 @@ export { getCart, addToCart, removeFromCart, updateCart, createOrder, getOrder, 
 
 // Helpers
 
-export { isNonEmpty, normalizeEmail, isValidPassword, isValidStock } from "./helpers";
+export { isNonEmpty, normalizeEmail, isValidPassword, isValidStock, isUserPayload } from "./helpers";

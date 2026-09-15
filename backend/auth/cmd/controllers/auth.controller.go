@@ -13,7 +13,7 @@ func setRefreshCookie(ctx *gin.Context, refreshToken string) {
     Name: "refreshToken", 
     Value: refreshToken, 
     Path: "/", 
-    MaxAge: 7 * 24 * 60 * 60, 
+    MaxAge: 14 * 24 * 60 * 60, 
     HttpOnly: true, 
     Secure: true, 
     SameSite: http.SameSiteNoneMode,

@@ -435,4 +435,3 @@ export function mountShop(
 export function getShopState(): ShopState {
   return { ...shopState };
 }
-

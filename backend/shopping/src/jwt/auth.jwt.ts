@@ -1,24 +1,17 @@
 import jwt from "jsonwebtoken";
 
-import { UserPayload } from "../index";
+import { UserPayload, isUserPayload } from "../index";
 
-const ACCESS_SECRET = process.env.ACCESS_SECRET;
+const { ACCESS_SECRET } = process.env;
 
-export function isUserPayload(payload: unknown): payload is UserPayload {
-  if(typeof payload !== "object" || payload === null) {
-    return false;
-  };
-
-  const candidate = payload as Record<string, unknown>;
-
-  return (
-    typeof candidate.userId === "string" &&
-    typeof candidate.email === "string" 
-  );
+if(!ACCESS_SECRET) {
+  throw new Error("ACCESS_SECRET must be set");
 };
 
+const accessSecret = ACCESS_SECRET;
+
 export function verifyAccessToken(accessToken: string): UserPayload {
-  const payload = jwt.verify(accessToken, ACCESS_SECRET!, { 
+  const payload = jwt.verify(accessToken, accessSecret, { 
     algorithms: ["HS256"]
   });
 

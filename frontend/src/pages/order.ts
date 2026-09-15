@@ -422,6 +422,6 @@ export async function mountCheckout(
     if (checkoutSection) {
       checkoutSection.innerHTML =
         renderCheckoutError();
-    }
-  }
-};
+    };
+  };
+}

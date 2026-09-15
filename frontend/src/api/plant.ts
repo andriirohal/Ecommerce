@@ -3,7 +3,7 @@ import { SHOPPING_URL } from "./cart";
 
 export type PlantSort = "alphabetical" | "cheapest" | "expensive";
 
-export type PlantFamily = "Araceae" | "Moraceae";
+export type PlantFamily = "Araceae" | "Moraceae" | "all";
 
 export type Plant = {
   id: string;
@@ -37,9 +37,7 @@ export async function getAllPlants(
     params.set("family", family);
   }
 
-  const response = await fetch(`${SHOPPING_URL}/plants?${params}`, {
-    method: "GET",
-  });
+  const response = await fetch(`${SHOPPING_URL}/plants?${params}`);
 
   if (!response.ok) {
     const error = await response.json();
