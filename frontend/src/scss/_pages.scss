@@ -55,7 +55,7 @@
     border-radius: $radius-pill;
 
     background: $surface;
-    color: $ink-muted;
+    color: $ink_muted;
 
     font: inherit;
     font-size: 0.8rem;
@@ -123,7 +123,7 @@
 }
 
 .result_count {
-  color: $ink-muted;
+  color: $ink_muted;
 
   font-family: $font-body;
   font-size: 0.75rem;
@@ -149,7 +149,7 @@
   border-radius: 8px;
 
   background: $surface;
-  color: $ink-muted;
+  color: $ink_muted;
 
   font: inherit;
   font-size: 0.8rem;
@@ -243,7 +243,7 @@
     border-radius: 7px;
 
     background: transparent;
-    color: $ink-muted;
+    color: $ink_muted;
 
     font: inherit;
     font-size: 0.8rem;
