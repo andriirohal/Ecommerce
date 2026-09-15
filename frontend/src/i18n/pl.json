@@ -83,8 +83,8 @@
   },
 
   "head": {
-    "arrival": "Nowe w tym tygodniu",
-    "view": "Zobacz wszystkie",
+    "arrival": "Nowe w tygodniu",
+    "view": "Wszystkie",
     "stock": {
       "inStock": "Dostępna",
       "low": "Mało sztuk",

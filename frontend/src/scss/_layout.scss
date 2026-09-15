@@ -160,7 +160,7 @@ header.site_header {
   }
 
   @media (max-width: 640px) {
-    padding: 40px $gutter_mobile 60px;
+    padding: 40px $gutter_mobile 70px;
 
     border-bottom: 0;
 
@@ -213,7 +213,7 @@ header.site_header {
   @media (max-width: 480px) {
     min-height: 120px;
     max-width: 300px;
-    margin: 0 0 4px;
+    margin: 0 0 3px;
   }
 }
 
@@ -1548,7 +1548,11 @@ footer.site_footer {
     gap: 8px;
 
     h2 {
-      font-size: 23px;
+      font-size: 22px;
+    }
+
+    a {
+      font-size: 10px;
     }
   }
 }
