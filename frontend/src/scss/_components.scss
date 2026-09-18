@@ -85,7 +85,7 @@
   }
 
   @media (max-width: 400px) {
-    font-size: 9px;
+    font-size: 9.5px;
   }
 
   &:hover {
@@ -385,7 +385,7 @@
   align-items: center;
   justify-content: center;
 
-  min-height: 350px;
+  min-height: 400px;
 
   padding: 24px;
 
@@ -541,7 +541,7 @@
 }
 
 .section {
-  padding: 70px 30px 70px;
+  padding: 50px 30px 50px;
 
   &.empty {
     padding-bottom: 0;

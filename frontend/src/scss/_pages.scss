@@ -531,14 +531,14 @@
   font-family: $font-mono;
   font-size: 9px;
   font-weight: 500;
-  line-height: 21px;
+  line-height: 23px;
   letter-spacing: 0.06em;
   
   text-align: right;
 
   @media (max-width: 480px) {
     font-size: 8.5px;
-    line-height: 18px;
+    line-height: 18.5px;
   }
 }
 
