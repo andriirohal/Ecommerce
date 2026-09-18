@@ -1,0 +1,291 @@
+{
+  "common": {
+    "loading": "Wird geladen…",
+    "loadingCollection": "Kollektion wird zusammengestellt…"
+  },
+
+  "meta": {
+    "title": "Understory — Seltene Zimmerpflanzen, mit Sorgfalt kultiviert"
+  },
+
+  "header": {
+    "collection": "Sammlung",
+    "journal": "Tagebuch",
+    "about": "Über",
+    "rarePlants": "Raritäten",
+    "account": "Konto",
+    "bag": "Korb",
+    "shopIn": "Shoppen in",
+    "accountPopover": {
+      "account": "Konto",
+      "title": "Dein Konto",
+      "welcome": "Willkommen",
+      "orders": "Bestellungen",
+      "plants": "Deine Pflanzen",
+      "wishlist": "Wunschliste",
+      "since": "Mitglied seit",
+      "loyalty": "Treuestufe",
+      "last": "Letzte Bestellung",
+      "logout": "Abmelden",
+      "loyaltyNewcomer": "Neuling",
+      "loyaltySeedling": "Setzling",
+      "loyaltyGrower": "Pflanzenzüchter",
+      "loyaltyCultivator": "Kultivierer",
+      "loyaltyBotanist": "Botaniker",
+      "noOrders": "Noch keine Bestellungen"
+    }
+  },
+
+  "rare": {
+    "eyebrow": "Seltene Kollektion",
+    "title": "Seltene Exemplare",
+    "description": "— Außergewöhnliche Pflanzen.",
+    "emptyTitle": "Keine seltenen Pflanzen.",
+    "emptyDescription": "Schau bald wieder vorbei für neue seltene Pflanzen."
+  },
+
+  "auth": {
+    "name": "Name",
+    "namePlaceholder": "Gib deinen Namen ein",
+    "email": "E-Mail",
+    "emailPlaceholder": "Gib deine E-Mail-Adresse ein",
+    "password": "Passwort",
+    "passwordPlaceholder": "Gib dein Passwort ein",
+    "login": "Anmelden",
+    "signUp": "Registrieren",
+    "welcomeBack": "Willkommen zurück",
+    "loginIntro": "Sieh dir deine Bestellungen und deine Pflanzensammlung an",
+    "newToUnderstory": "Neu bei Understory?",
+    "signupIntro": "Speichere deine Daten, verfolge Bestellungen und verwalte deine Pflanzen",
+    "signupHint": "Mindestens 8 Zeichen. Deine Daten bleiben privat",
+    "signupHintShort": "8+ Zeichen. Deine Daten bleiben privat",
+    "alreadyHaveAccount": "Du hast bereits ein Konto?",
+    "errors": {
+      "emailError": "Wir konnten kein Konto mit dieser E-Mail-Adresse finden",
+      "passwordError": "Dein Passwort konnte nicht überprüft werden",
+      "nameMaxLength": "Der Name darf höchstens 20 Zeichen lang sein",
+      "invalidEmail": "Bitte gib eine gültige E-Mail-Adresse ein",
+      "passwordLength": "Das Passwort muss 8–100 Zeichen lang sein",
+      "emailAlreadyExists": "Ein Konto mit dieser E-Mail-Adresse existiert bereits"
+    }
+  },
+
+  "hero": {
+    "eyebrow": "Eigener Anbau / Sorgsamer Versand",
+    "titleStart": "Seltene Pflanzen,",
+    "titleEmphasis": "achtsam kultiviert",
+    "titleEnd": "für Ihr Heim",
+    "description": "Reif, gut verwurzelt und bereit für dein Zuhause",
+    "actions": {
+      "shop": "Kollektion ansehen",
+      "ghost": "Pflegetagebuch lesen"
+    }
+  },
+
+  "head": {
+    "arrival": "Neu diese Woche",
+    "view": "Alle",
+    "stock": {
+      "inStock": "Auf Lager",
+      "low": "Nur noch wenige",
+      "out": "Ausverkauft"
+    }
+  },
+
+  "shop": {
+    "eyebrow": "Vollständiger Katalog",
+    "title": "Kollektion entdecken",
+    "specimen": "Exemplar",
+    "emptyTitle": "Keine Pflanzen gefunden.",
+    "emptyDescription": "Bald werden neue Pflanzen bei uns verfügbar sein.",
+    "specimens": "Exemplare",
+    "description": "Sorgfältig ausgewählt und bis zur Reife kultiviert.",
+    "noResults": "Ergebnisse",
+    "result": "Ergebnis",
+    "results": "Ergebnisse",
+    "filters": {
+      "all": "Alle",
+      "label": "Nach Pflanzenfamilie filtern"
+    },
+    "sort": {
+      "featured": "Empfohlen",
+      "priceAsc": "Preis: aufsteigend",
+      "priceDesc": "Preis: absteigend",
+      "name": "Name: A–Z"
+    }
+  },
+
+  "cart": {
+    "yourBag": "Dein Warenkorb",
+    "reviewYourBag": "Tasche",
+    "orderSummary": "Bestellübersicht",
+    "freeShipping": "Nur noch €{amount} für kostenlosen Versand",
+    "freeShippingUnlocked": "Kostenloser Versand freigeschaltet",
+    "inStock": "Auf Lager",
+    "outOfStock": "Nicht auf Lager",
+    "lowStock": "Wenig auf Lager",
+    "subtotal": "Zwischensumme",
+    "shipping": "Versand",
+    "free": "Kostenlos",
+    "estimatedTax": "Geschätzte Steuern",
+    "total": "Gesamt",
+    "proceedToCheckout": "Zur Kasse",
+    "remove": "Entfernen",
+    "each": "pro Stück",
+    "decreaseQuantity": "Menge verringern",
+    "increaseQuantity": "Menge erhöhen",
+    "emptyTitle": "Dein Warenkorb ist leer",
+    "emptyDescription": "Noch nichts ist gewachsen. Finden Sie etwas, das das Warten wert ist.",
+    "shopCollection": "Kollektion entdecken",
+    "loadError": "Dein Warenkorb konnte nicht geladen werden",
+    "tryAgain": "Bitte versuche es erneut."
+  },
+
+  "checkout": {
+    "title": "Kasse",
+    "completeOrder": "Bestellung abschließen",
+    "shippingInformation": "Versandinformationen",
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "placingOrder": "Bestellung wird aufgegeben...",
+    "email": "E-Mail",
+    "address": "Adresse",
+    "city": "Stadt",
+    "postalCode": "Postleitzahl",
+    "country": "Land",
+    "selectCountry": "Land auswählen",
+    "payment": "Zahlung",
+    "cardPayment": "Kartenzahlung",
+    "cardDescription": "Bezahle sicher mit deiner Kredit- oder Debitkarte.",
+    "placeOrder": "Bestellung aufgeben",
+    "orderSummary": "Bestellübersicht",
+    "quantity": "Menge",
+    "fillRequiredFields": "Bitte fülle alle Pflichtfelder aus.",
+    "orderSuccess": "Bestellung erfolgreich",
+    "orderSuccessDescription": "Bestellung aufgegeben. Danke, dass du Understory gewählt hast.",
+    "orderError": "Deine Bestellung konnte nicht aufgegeben werden. Bitte versuche es erneut."
+  },
+
+  "notFound": {
+    "title": "Seite nicht gefunden",
+    "description": "Seite nicht gefunden oder verschoben.",
+    "backToHome": "Zur Startseite"
+  },
+
+  "plant": {
+    "notFound": "Pflanze nicht gefunden",
+    "notFoundDescription": "Die gesuchte Pflanze existiert nicht.",
+    "backToShop": "Zurück zum Shop",
+    "decreaseQuantity": "Menge verringern",
+    "addedToBagDescription": "Die Pflanze wurde in den Warenkorb gelegt",
+    "addedMultipleToBagDescription": "{{quantity}} Pflanzen wurden hinzugefügt.",
+    "increaseQuantity": "Menge erhöhen",
+    "addToBag": "In den Korb",
+    "addedToBag": "Zum Warenkorb hinzugefügt",
+    "family": "Familie",
+    "stock": "Verfügbarkeit",
+    "pairsWellWith": "Passt gut zu"
+  },
+
+  "plants": {
+    "monstera": {
+      "description": "Eine gesunde Monstera mit üppigen, natürlich geteilten Blättern."
+    },
+    "fiddle": {
+      "description": "Tropische Pflanze mit glänzenden Blättern. Liebt helles Licht."
+    }
+  },
+
+  "philosophy": {
+    "titles": [
+      "Gewachsen, nicht einfach genommen",
+      "Klimabewusste Verpackung",
+      "90-Tage-Wurzelgarantie"
+    ],
+    "descriptions": [
+      "Jede Pflanze entwickelt vor dem Versand ein gesundes Wurzelsystem",
+      "Die Verpackung wird an jede Pflanze und ihren Transportweg angepasst",
+      "Wenn sich deine Pflanze innerhalb von 90 Tagen nicht einlebt, ersetzen wir sie"
+    ]
+  },
+
+  "quote": {
+    "title": "Die erste Pflanze fühlte sich schon heimisch.",
+    "description": "— R. Alaoui, Understory-Kunde seit 2024"
+  },
+
+  "static": {
+    "care": {
+      "eyebrow": "Pflegetagebuch",
+      "title": "Notizen aus dem Gewächshaus",
+      "intro": "Praktische Tipps, damit Ihre Pflanzen zu Hause gesund wachsen und gedeihen",
+      "body": [
+        "Seltene Aroiden reagieren empfindlich auf zu viel Wasser. Lassen Sie die Erde zwischen dem Gießen gut trocknen.",
+        "Luftfeuchtigkeit ist besonders für tropische Pflanzen wichtig. Ein Luftbefeuchter oder eine konstant feuchte Umgebung schaffen bessere Bedingungen.",
+        "Neue Blätter zeigen gesundes Wachstum. Bei langsamerem Wachstum prüfen Sie Licht, Gießen und Luftfeuchtigkeit."
+      ]
+    },
+
+    "about": {
+      "eyebrow": "Das Studio",
+      "title": "Ein kleines Pflanzenhaus",
+      "intro": "Understory begann 2019 und entwickelte sich zu einem Gewächshaus in der Nähe von Portland",
+      "body": [
+        "Wir verkaufen Pflanzen erst, wenn sie ein gesundes und gut entwickeltes Wurzelsystem haben. Stecklinge werden niemals als etablierte Pflanzen verkauft",
+        "Jede Bestellung wird speziell für die jeweilige Pflanze verpackt. Größe, Zustand und Transportweg werden berücksichtigt, damit sie sicher ankommt",
+        "Wir ziehen unsere Pflanzen bewusst in kleinen Mengen auf, damit jede Pflanze ausreichend Zeit, Aufmerksamkeit und Pflege erhält."
+      ]
+    },
+
+    "guarantee": {
+      "eyebrow": "Unser Versprechen",
+      "title": "90-Tage-Garantie",
+      "intro": "Wenn sich Ihre Pflanze in 90 Tagen nicht einlebt, helfen wir Ihnen.",
+      "body": [
+        "Kontaktieren Sie unseren Support mit Ihrer Bestellnummer, damit wir Ihnen schnell helfen können.",
+        "Die Garantie umfasst die Wurzelentwicklung und normalen Versandstress bei der Eingewöhnung.",
+        "Falls nötig, erfolgt der Ersatz aus der nächsten verfügbaren Charge derselben oder einer vergleichbaren Pflanze."
+      ]
+    },
+
+    "shipping": {
+      "eyebrow": "Versand",
+      "title": "Klimabewusster Versand",
+      "intro": "Jede Bestellung wird passend zu Pflanze, Wetter und Transport vorbereitet.",
+      "body": [
+        "Wir versenden Montag bis Mittwoch, um Wochenendaufenthalte in Lagern und Versandzentren zu vermeiden.",
+        "Der saisonale Schutz richtet sich nach Zielort, Wetter und aktuellen Versandbedingungen.",
+        "Bestellungen über 150€ sind versandkostenfrei. Für kleinere Bestellungen gilt eine Versandpauschale von 18€."
+      ]
+    },
+
+    "faq": {
+      "eyebrow": "FAQ",
+      "title": "Häufig gestellte Fragen",
+      "intro": "Einige Antworten zur Auswahl, Bestellung und Pflege deiner Pflanze.",
+      "body": [
+        "Wie wähle ich die richtige Pflanze? Jede Beschreibung enthält Informationen zu Licht, Größe, Pflege und weitere hilfreiche Details.",
+        "Sind eure Pflanzen beim Versand gesund? Jede Pflanze wird geprüft und sorgfältig für den Versand vorbereitet.",
+        "Wie werden die Pflanzen verpackt? Jede Pflanze wird sicher vorbereitet und für den Transport geschützt verpackt."
+      ]
+    }
+  },
+
+  "footer": {
+    "description": "Ein kleines Pflanzenhaus für alle, die bereit sind, auf das richtige Exemplar zu warten",
+    "care": {
+      "title": "Pflege",
+      "options": ["Pflegetagebuch", "Wurzelgarantie", "Versand & Klima"]
+    },
+    "shop": {
+      "title": "Shop",
+      "options": ["Bestseller", "Seltene Pflanzen", "Geschenkkarten"]
+    },
+    "studio": {
+      "title": "Studio",
+      "options": ["Über uns", "Gewächshaus besuchen", "FAQ"]
+    },
+    "year": "© UNDERSTORY, GEGR. 2019",
+    "location": "VERWURZELT IN PORTLAND, OREGON"
+  }
+}

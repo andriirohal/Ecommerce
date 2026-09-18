@@ -1,0 +1,291 @@
+{
+  "common": {
+    "loading": "Loading…",
+    "loadingCollection": "Gathering the collection…"
+  },
+
+  "meta": {
+    "title": "Understory — Rare houseplants, thoughtfully grown"
+  },
+
+  "header": {
+    "collection": "Collection",
+    "journal": "Journal",
+    "about": "About",
+    "rarePlants": "Rare",
+    "account": "Account",
+    "bag": "Bag",
+    "shopIn": "Shop in",
+    "accountPopover": {
+      "account": "Account",
+      "title": "Your account",
+      "welcome": "Welcome",
+      "orders": "Orders",
+      "plants": "Your plants",
+      "wishlist": "Wishlist",
+      "since": "Member since",
+      "loyalty": "Loyalty level",
+      "last": "Last order",
+      "logout": "Log out",
+      "loyaltyNewcomer": "Newcomer",
+      "loyaltySeedling": "Seedling",
+      "loyaltyGrower": "Grower",
+      "loyaltyCultivator": "Cultivator",
+      "loyaltyBotanist": "Botanist",
+      "noOrders": "No orders yet"
+    }
+  },
+
+  "rare": {
+    "eyebrow": "Rare collection",
+    "title": "Rare Specimens",
+    "description": "— Unusual plants for your home.",
+    "emptyTitle": "No rare plants found.",
+    "emptyDescription": "Check back soon for new rare plants in our collection."
+  },
+
+  "auth": {
+    "name": "Name",
+    "namePlaceholder": "Enter your name",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email address",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "login": "Log in",
+    "signUp": "Sign up",
+    "welcomeBack": "Welcome back",
+    "loginIntro": "View your orders and plant collection",
+    "newToUnderstory": "New to Understory?",
+    "signupIntro": "Save your details, track orders, and manage your plants",
+    "signupHint": "At least 8 characters. Your data stays private",
+    "signupHintShort": "8+ characters. Your data stays private",
+    "alreadyHaveAccount": "Already have an account?",
+    "errors": {
+      "emailError": "We couldn't find an account with this email address",
+      "passwordError": "We couldn't verify your password",
+      "nameMaxLength": "Name must be 20 characters or fewer",
+      "invalidEmail": "Please enter a valid email address",
+      "passwordLength": "Password must be 8–100 characters",
+      "emailAlreadyExists": "An account with this email address already exists"
+    }
+  },
+
+  "hero": {
+    "eyebrow": "Field-grown / Slow shipping",
+    "titleStart": "Rare botanicals,",
+    "titleEmphasis": "carefully cultivated",
+    "titleEnd": "for your home",
+    "description": "Mature, well-rooted, and ready for your home",
+    "actions": {
+      "shop": "View collection",
+      "ghost": "Read care journal"
+    }
+  },
+
+  "head": {
+    "arrival": "New this week",
+    "view": "All",
+    "stock": {
+      "inStock": "In stock",
+      "low": "Only a few left",
+      "out": "Out of stock"
+    }
+  },
+
+  "shop": {
+    "eyebrow": "Full catalog",
+    "title": "Explore the collection",
+    "specimen": "specimen",
+    "emptyTitle": "No plants found.",
+    "emptyDescription": "Check back soon for new plants in our collection.",
+    "specimens": "specimens",
+    "description": "Carefully selected and grown to full maturity.",
+    "noResults": "results",
+    "result": "result",
+    "results": "results",
+    "filters": {
+      "all": "All",
+      "label": "Filter by family"
+    },
+    "sort": {
+      "featured": "Featured",
+      "priceAsc": "Price: low to high",
+      "priceDesc": "Price: high to low",
+      "name": "Name: A–Z"
+    }
+  },
+
+  "cart": {
+    "yourBag": "Your bag",
+    "reviewYourBag": "Bag",
+    "orderSummary": "Order summary",
+    "freeShipping": "Add €{amount} more for free shipping",
+    "freeShippingUnlocked": "You've unlocked free shipping",
+    "inStock": "In stock",
+    "outOfStock": "Out of stock",
+    "lowStock": "Low stock",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "free": "Free",
+    "estimatedTax": "Estimated tax",
+    "total": "Total",
+    "proceedToCheckout": "Proceed to checkout",
+    "remove": "Remove",
+    "each": "each",
+    "decreaseQuantity": "Decrease quantity",
+    "increaseQuantity": "Increase quantity",
+    "emptyTitle": "Your bag is empty",
+    "emptyDescription": "Nothing has taken root yet. Find something worth the wait.",
+    "shopCollection": "Shop the collection",
+    "loadError": "Unable to load your bag",
+    "tryAgain": "Please try again."
+  },
+
+  "checkout": {
+    "title": "Checkout",
+    "completeOrder": "Complete your order",
+    "shippingInformation": "Shipping information",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "placingOrder": "Placing order...",
+    "email": "Email",
+    "address": "Address",
+    "city": "City",
+    "postalCode": "Postal code",
+    "country": "Country",
+    "selectCountry": "Select a country",
+    "payment": "Payment",
+    "cardPayment": "Card payment",
+    "cardDescription": "Pay securely with your credit or debit card.",
+    "placeOrder": "Place order",
+    "orderSummary": "Order summary",
+    "quantity": "Quantity",
+    "fillRequiredFields": "Please fill in all required fields.",
+    "orderSuccess": "Order placed successfully",
+    "orderSuccessDescription": "Your order has been placed successfully. Thank you for choosing Understory.",
+    "orderError": "We couldn't place your order. Please try again."
+  },
+
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "This page doesn’t exist or was moved.",
+    "backToHome": "Back to Home"
+  },
+
+  "plant": {
+    "notFound": "Plant not found",
+    "notFoundDescription": "The plant you're looking for doesn't exist.",
+    "backToShop": "Back to shop",
+    "decreaseQuantity": "Decrease quantity",
+    "addedToBagDescription": "The plant has been added to your bag",
+    "addedMultipleToBagDescription": "{{quantity}} plants have been added to your bag.",
+    "increaseQuantity": "Increase quantity",
+    "addToBag": "Add to bag",
+    "addedToBag": "Added to bag",
+    "family": "Family",
+    "stock": "Availability",
+    "pairsWellWith": "Pairs well with"
+  },
+
+  "plants": {
+    "monstera": {
+      "description": "A healthy Monstera with lush, naturally split leaves."
+    },
+    "fiddle": {
+      "description": "Tropical plant with glossy, violin-shaped leaves. Thrives in bright light."
+    }
+  },
+
+  "philosophy": {
+    "titles": [
+      "Grown, not simply taken",
+      "Climate-conscious packaging",
+      "90-day root guarantee"
+    ],
+    "descriptions": [
+      "Every plant develops a healthy root system before it ships",
+      "Packaging is tailored to each plant and its journey",
+      "If your plant doesn't settle in within 90 days, we'll replace it"
+    ]
+  },
+
+  "quote": {
+    "title": "The first plant I received already felt at home.",
+    "description": "— R. Alaoui, Understory customer since 2024"
+  },
+
+  "static": {
+    "care": {
+      "eyebrow": "Care journal",
+      "title": "Greenhouse Notes",
+      "intro": "Practical tips for keeping your plants healthy and thriving at home",
+      "body": [
+        "Rare aroids are sensitive to excess water. Let the soil dry well between waterings and always check its condition before watering again",
+        "Humidity is especially important for tropical plants. A humidifier, enclosed cabinet, or consistently humid environment can help maintain better conditions",
+        "New leaves are a good sign of healthy growth. If growth slows down, check the light, watering routine, and humidity around the plant"
+      ]
+    },
+
+    "about": {
+      "eyebrow": "The studio",
+      "title": "A small plant house",
+      "intro": "Understory began in 2019 and grew into a greenhouse near Portland",
+      "body": [
+        "We sell plants only once they have a healthy, well-developed root system. Cuttings are never sold as established plants",
+        "Every order is packed specifically for the plant, taking its size, condition, and journey into account to help it travel safely",
+        "We intentionally grow in small batches so every plant receives enough time, attention, and proper care before leaving the greenhouse"
+      ]
+    },
+
+    "guarantee": {
+      "eyebrow": "Our promise",
+      "title": "90-Day Guarantee",
+      "intro": "If your plant doesn’t settle in within 90 days, we’ll help get it back on track.",
+      "body": [
+        "Contact support with your order number so we can quickly review the details and help with the next steps",
+        "The guarantee covers root development and normal shipping stress, including the plant's natural adjustment to a new environment",
+        "If a replacement is needed, it will come from the next available batch of the same or a comparable plant"
+      ]
+    },
+
+    "shipping": {
+      "eyebrow": "Shipping",
+      "title": "Climate-smart shipping",
+      "intro": "Every order is carefully prepared to reduce shipping stress and keep your plants safe.",
+      "body": [
+        "We ship Monday–Wednesday to minimize weekend transit and warehouse time, helping plants arrive in the best possible condition.",
+        "Seasonal protection is selected based on the destination, weather, and current shipping conditions to keep your plant safe throughout its journey.",
+        "Orders over €150 ship free. Smaller orders have a flat €18 shipping fee, keeping delivery simple and predictable."
+      ]
+    },
+
+    "faq": {
+      "eyebrow": "FAQ",
+      "title": "Frequently Asked Questions",
+      "intro": "A few answers to help you choose, order, and care for your plant.",
+      "body": [
+        "How do I choose the right plant? Each listing includes light, size, care, and other useful details.",
+        "Are your plants healthy when shipped? Every plant is checked and carefully prepared before shipping.",
+        "How are plants packaged? Each plant is securely prepared and packaged for safe transit."
+      ]
+    }
+  },
+
+  "footer": {
+    "description": "A small plant house for anyone willing to wait for the right specimen",
+    "care": {
+      "title": "Care",
+      "options": ["Care journal", "Root guarantee", "Shipping & climate"]
+    },
+    "shop": {
+      "title": "Shop",
+      "options": ["Best sellers", "Rare finds", "Gift cards"]
+    },
+    "studio": {
+      "title": "Studio",
+      "options": ["About", "Visit the greenhouse", "FAQ"]
+    },
+    "year": "© UNDERSTORY, EST. 2019",
+    "location": "ROOTED IN PORTLAND, OREGON"
+  }
+}
