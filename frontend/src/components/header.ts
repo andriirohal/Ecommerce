@@ -1,5 +1,5 @@
-import { getLanguage, Language, setLanguage, t } from "../i18n";
-import { getCart } from "../api";
+import { getLanguage, Language, setLanguage, t } from "../i18n/i18n";
+import { getCart } from "../api/cart";
 
 const LEAF_SVG = `
   <svg

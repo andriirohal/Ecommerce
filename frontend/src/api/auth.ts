@@ -8,7 +8,7 @@ import {
 } from "./authState";
 
 import { AUTH_URL } from "./config";
-import { t } from "../i18n";
+import { t } from "../i18n/i18n";
 
 let isLoggingIn = false;
 let isSigningUp = false;

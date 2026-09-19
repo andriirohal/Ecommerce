@@ -1,13 +1,13 @@
 import {
   handleLogInSubmit,
-  getCurrentUser,
   handleSignUpSubmit,
   handleLogOut,
-} from "../api";
+} from "../api/auth";
 
+import { getCurrentUser } from "../api/authState";
 import { renderLogin, renderSignup } from "./auth";
 
-import { getLanguage, getTranslationArray, t } from "../i18n";
+import { getLanguage, getTranslationArray, t } from "../i18n/i18n";
 
 interface StaticContent {
   eyebrow: string;

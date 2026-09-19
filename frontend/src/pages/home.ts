@@ -1,7 +1,7 @@
 import { renderPlants } from "./shop";
 
-import { t } from "../i18n";
-import type { Plant } from "../api";
+import { t } from "../i18n/i18n";
+import type { Plant } from "../api/plant";
 
 export function renderHome(plants: Plant[]): string {
   const featuredPlant = plants.find(

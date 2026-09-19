@@ -1,9 +1,10 @@
-import { getCart, createOrder } from "../api";
+import { createOrder } from "../api/order";
+import { getCart } from "../api/cart";
 
-import { renderPageLoader } from "../components";
-import { t } from "../i18n";
+import { renderPageLoader } from "../components/loader";
+import { t } from "../i18n/i18n";
 import { clearPlantsCache } from "../main";
-import { FREE_SHIPPING_THRESHOLD, SHIPPING_COST, TAX_RATE } from "../utils";
+import { FREE_SHIPPING_THRESHOLD, SHIPPING_COST, TAX_RATE } from "../utils/constants";
 
 let orderRequestPending = false;
 

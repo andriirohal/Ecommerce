@@ -1,7 +1,7 @@
-import { renderPlantCard } from "../components";
-import { t } from "../i18n";
-import { onClickOutside } from "../utils";
-import type { Plant, PlantFamily, PlantSort } from "../api";
+import { renderPlantCard } from "../components/plantCard";
+import { t } from "../i18n/i18n";
+import { onClickOutside } from "../utils/clickOutside";
+import type { Plant, PlantFamily, PlantSort } from "../api/plant";
 
 type ShopState = {
   sort?: PlantSort;

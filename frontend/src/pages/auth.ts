@@ -1,15 +1,15 @@
 import {
-  getCurrentUser,
   getUserSummary,
   handleLogInSubmit,
   handleLogOut,
   handleSignUpSubmit,
   UserSummary,
-} from "../api";
+} from "../api/auth";
 
-import { getLanguage, t } from "../i18n";
+import { getCurrentUser } from "../api/authState"
+import { getLanguage, t } from "../i18n/i18n";
 
-import { setButtonLoading } from "../utils";
+import { setButtonLoading } from "../utils/buttonLoading";
 
 interface AuthField {
   id: "name" | "email" | "password";

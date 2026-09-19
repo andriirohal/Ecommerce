@@ -1,39 +1,38 @@
 import "./scss/main.scss";
 
-import {
-  renderHome,
-  renderShop,
-  renderPlant,
-  renderRarePage,
-  hasStaticContent,
-  renderNotFound,
-  renderStatic,
-  renderAccount,
-  mountShop,
-  mountCart,
-  loadCartPage,
-  mountCheckout,
-  initAccountPopover,
-  initAccountUI,
-  updateAccountUI,
-  initAccountActions,
-  initAuthForms,
-  refreshAccountSummary,
-} from "./pages";
+import { renderHome } from "./pages/home";
+
+import { 
+  initAccountUI, 
+  initAccountActions, 
+  initAccountPopover, 
+  initAuthForms, 
+  updateAccountUI 
+} from "./pages/auth";
+
+import { refreshAccountSummary, renderAccount } from "./pages/auth";
+import { hasStaticContent, renderStatic } from "./pages/static";
+import { mountCart, loadCartPage } from "./pages/cart";
+import { renderShop, mountShop } from "./pages/shop";
+import { renderNotFound } from "./pages/notFound";
+import { mountCheckout } from "./pages/order";
+import { renderRarePage } from "./pages/rare";
+import { renderPlant } from "./pages/plant";
 
 import {
   renderHeader as renderHeaderComponent,
-  renderFooter,
   initHeader,
-  renderSplashLoader,
-  renderPageLoader,
-} from "./components";
+} from "./components/header";
 
-import { fetchCurrentUser, getAllPlants, PlantSort, PlantFamily } from "./api";
+import { renderFooter } from "./components/footer";
+import { renderPageLoader, renderSplashLoader } from "./components/loader";
+ 
+import { getAllPlants, PlantSort, PlantFamily } from "./api/plant";
+import { fetchCurrentUser } from "./api/auth";
 
-import { initLanguage } from "./i18n";
+import { initLanguage } from "./i18n/i18n";
 
-import { appRouter } from "./routes";
+import { router } from "./routes/router";
 
 let appInitialized = false;
 
@@ -364,7 +363,7 @@ async function repaintAfterLanguageChange(): Promise<void> {
   }
 }
 
-appRouter
+router
   .add("/", async () => {
     try {
       const cached = getCachedPlants();
@@ -544,7 +543,7 @@ async function initializeApp(): Promise<void> {
     console.error(error);
   }
 
-  appRouter.start();
+  router.start();
 }
 
 getApp().innerHTML = renderSplashLoader();

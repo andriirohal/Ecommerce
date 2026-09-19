@@ -1,9 +1,9 @@
-import { getCart, updateCart, removeFromCart } from "../api";
+import { getCart, updateCart, removeFromCart } from "../api/cart";
 
 import { getAccessToken } from "../api/authState";
-import { t } from "../i18n";
-import { appRouter } from "../routes";
-import { FREE_SHIPPING_THRESHOLD, SHIPPING_COST, TAX_RATE } from "../utils";
+import { t } from "../i18n/i18n";
+import { router } from "../routes/router";
+import { FREE_SHIPPING_THRESHOLD, SHIPPING_COST, TAX_RATE } from "../utils/constants";
 
 type CartLine = {
   id: string;
@@ -829,7 +829,7 @@ function initCartEvents(): void {
       const href = row.dataset.href;
 
       if (href) {
-        void appRouter.navigate(href);
+        void router.navigate(href);
       }
     },
     true,
@@ -857,7 +857,7 @@ function initCartEvents(): void {
     const href = row.dataset.href;
 
     if (href) {
-      void appRouter.navigate(href);
+      void router.navigate(href);
     }
   });
 }

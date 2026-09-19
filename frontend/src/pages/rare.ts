@@ -1,6 +1,6 @@
-import { renderPlantCard } from "../components";
-import type { Plant } from "../api";
-import { t } from "../i18n";
+import { renderPlantCard } from "../components/plantCard";
+import type { Plant } from "../api/plant";
+import { t } from "../i18n/i18n";
 
 function renderPlants(plants: Plant[]): string {
   if (plants.length === 0) {

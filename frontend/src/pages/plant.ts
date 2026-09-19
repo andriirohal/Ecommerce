@@ -1,8 +1,10 @@
-import { renderPlantCard } from "../components";
-import { Plant } from "../api";
-import { t } from "../i18n";
-import { addToCart, getCart, getAccessToken } from "../api";
-import { setButtonLoading, stockLabel } from "../utils";
+import { renderPlantCard } from "../components/plantCard";
+import { Plant } from "../api/plant";
+import { t } from "../i18n/i18n";
+import { addToCart, getCart } from "../api/cart";
+import { getAccessToken } from "../api/authState";
+import { setButtonLoading } from "../utils/buttonLoading";
+import { stockLabel } from "../utils/format";
 
 const SELECTORS = {
   quantity: ".qty_value",
