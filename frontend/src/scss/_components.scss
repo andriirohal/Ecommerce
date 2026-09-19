@@ -385,7 +385,7 @@
   align-items: center;
   justify-content: center;
 
-  min-height: 400px;
+  min-height: 350px;
 
   padding: 24px;
 
@@ -566,9 +566,11 @@
   }
 
   @media (max-width: 480px) {
+    padding: 40px 30px 40px;
+
     &.empty {
       padding-bottom: 0;
-      padding-top: 50px;
+      padding-top: 40px;
 
       .section_head {
         margin-bottom: 0;
