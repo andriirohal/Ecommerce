@@ -13,7 +13,7 @@ export function dispatchCartChange(count?: number): void {
 let refreshPromise: Promise<string | null> | null = null;
 
 async function refreshOnce(): Promise<string | null> {
-  if (localStorage.getItem("hasSession") !== "true") {
+  if (!localStorage.getItem("hasSession")) {
     return null;
   }
 
@@ -30,10 +30,6 @@ async function authenticatedFetch(
   url: string,
   options: RequestInit = {},
 ): Promise<Response> {
-  if (localStorage.getItem("hasSession") !== "true") {
-    throw new Error("Not authenticated");
-  }
-
   let accessToken = getAccessToken();
 
   if (!accessToken) {
@@ -44,10 +40,15 @@ async function authenticatedFetch(
     }
   }
 
-  const makeRequest = (token: string): Promise<Response> => {
+  const makeRequest = (
+    token: string,
+  ): Promise<Response> => {
     const headers = new Headers(options.headers);
 
-    headers.set("Authorization", `Bearer ${token}`);
+    headers.set(
+      "Authorization",
+      `Bearer ${token}`,
+    );
 
     return fetch(url, {
       ...options,
@@ -81,7 +82,10 @@ export async function getResponseError(
   try {
     const result = await response.json();
 
-    if (result && typeof result.error === "string") {
+    if (
+      result &&
+      typeof result.error === "string"
+    ) {
       return result.error;
     }
   } catch {
@@ -92,20 +96,28 @@ export async function getResponseError(
 }
 
 export async function getCart() {
-  const response = await authenticatedFetch(`${SHOPPING_URL}/cart`, {
-    method: "GET",
-    cache: "no-store",
-  });
+  const response = await authenticatedFetch(
+    `${SHOPPING_URL}/cart`,
+    {
+      method: "GET",
+      cache: "no-store",
+    },
+  );
 
   if (!response.ok) {
-    throw new Error(await getResponseError(response, "Failed to get cart"));
+    throw new Error(
+      await getResponseError(
+        response,
+        "Failed to get cart",
+      ),
+    );
   }
 
   return response.json();
 }
 
 async function refreshCartCount(): Promise<void> {
-  if (localStorage.getItem("hasSession") !== "true") {
+  if (!localStorage.getItem("hasSession")) {
     dispatchCartChange(0);
     return;
   }
@@ -113,7 +125,11 @@ async function refreshCartCount(): Promise<void> {
   try {
     const cart = await getCart();
 
-    const items = Array.isArray(cart.data?.items) ? cart.data.items : [];
+    const items = Array.isArray(
+      cart.data?.items,
+    )
+      ? cart.data.items
+      : [];
 
     const count = items.reduce(
       (
@@ -121,32 +137,45 @@ async function refreshCartCount(): Promise<void> {
         item: {
           quantity: number;
         },
-      ) => total + Number(item.quantity),
+      ) =>
+        total + Number(item.quantity),
       0,
     );
 
     dispatchCartChange(count);
   } catch (error) {
-    console.error("Failed to refresh cart count:", error);
+    console.error(
+      "Failed to refresh cart count:",
+      error,
+    );
   }
 }
 
-export async function addToCart(plantId: string, quantity: number) {
-  const response = await authenticatedFetch(`${SHOPPING_URL}/cart`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
+export async function addToCart(
+  plantId: string,
+  quantity: number,
+) {
+  const response = await authenticatedFetch(
+    `${SHOPPING_URL}/cart`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        plantId,
+        quantity,
+      }),
+      cache: "no-store",
     },
-    body: JSON.stringify({
-      plantId,
-      quantity,
-    }),
-    cache: "no-store",
-  });
+  );
 
   if (!response.ok) {
     throw new Error(
-      await getResponseError(response, "Failed to add item to cart"),
+      await getResponseError(
+        response,
+        "Failed to add item to cart",
+      ),
     );
   }
 
@@ -157,22 +186,31 @@ export async function addToCart(plantId: string, quantity: number) {
   return data;
 }
 
-export async function updateCart(plantId: string, quantity: number) {
-  const response = await authenticatedFetch(`${SHOPPING_URL}/cart`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
+export async function updateCart(
+  plantId: string,
+  quantity: number,
+) {
+  const response = await authenticatedFetch(
+    `${SHOPPING_URL}/cart`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        plantId,
+        quantity,
+      }),
+      cache: "no-store",
     },
-    body: JSON.stringify({
-      plantId,
-      quantity,
-    }),
-    cache: "no-store",
-  });
+  );
 
   if (!response.ok) {
     throw new Error(
-      await getResponseError(response, "Failed to update cart item"),
+      await getResponseError(
+        response,
+        "Failed to update cart item",
+      ),
     );
   }
 
@@ -183,15 +221,23 @@ export async function updateCart(plantId: string, quantity: number) {
   return data;
 }
 
-export async function removeFromCart(plantId: string) {
-  const response = await authenticatedFetch(`${SHOPPING_URL}/cart/${plantId}`, {
-    method: "DELETE",
-    cache: "no-store",
-  });
+export async function removeFromCart(
+  plantId: string,
+) {
+  const response = await authenticatedFetch(
+    `${SHOPPING_URL}/cart/${plantId}`,
+    {
+      method: "DELETE",
+      cache: "no-store",
+    },
+  );
 
   if (!response.ok) {
     throw new Error(
-      await getResponseError(response, "Failed to remove item from cart"),
+      await getResponseError(
+        response,
+        "Failed to remove item from cart",
+      ),
     );
   }
 

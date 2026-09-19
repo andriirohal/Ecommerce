@@ -14,7 +14,6 @@ let isLoggingIn = false;
 let isSigningUp = false;
 
 let refreshPromise: Promise<string | null> | null = null;
-
 let authPromise: Promise<CurrentUser | null> | null = null;
 
 export interface UserSummary {
@@ -50,13 +49,17 @@ function translateAuthError(message: string): string {
     "We couldn't find an account with this email address":
       "auth.errors.emailError",
 
-    "We couldn't verify your password": "auth.errors.passwordError",
+    "We couldn't verify your password":
+      "auth.errors.passwordError",
 
-    "Name must be 20 characters or less": "auth.errors.nameMaxLength",
+    "Name must be 20 characters or less":
+      "auth.errors.nameMaxLength",
 
-    "Please enter a valid email address": "auth.errors.invalidEmail",
+    "Please enter a valid email address":
+      "auth.errors.invalidEmail",
 
-    "Password must be 8–100 characters": "auth.errors.passwordLength",
+    "Password must be 8–100 characters":
+      "auth.errors.passwordLength",
 
     "An account with this email address already exists":
       "auth.errors.emailAlreadyExists",
@@ -123,7 +126,10 @@ export async function signUp(data: {
   return response.json();
 }
 
-export async function logIn(data: { email: string; password: string }) {
+export async function logIn(data: {
+  email: string;
+  password: string;
+}) {
   const response = await fetch(`${AUTH_URL}/login`, {
     method: "POST",
     headers: {
@@ -165,7 +171,9 @@ export async function handleLogOut(): Promise<void> {
   }
 }
 
-export async function handleLogInSubmit(event: SubmitEvent): Promise<boolean> {
+export async function handleLogInSubmit(
+  event: SubmitEvent,
+): Promise<boolean> {
   event.preventDefault();
 
   if (isLoggingIn) {
@@ -181,13 +189,15 @@ export async function handleLogInSubmit(event: SubmitEvent): Promise<boolean> {
     return false;
   }
 
-  const submitButton = form.querySelector<HTMLButtonElement>(
-    'button[type="submit"]',
-  );
+  const submitButton =
+    form.querySelector<HTMLButtonElement>(
+      'button[type="submit"]',
+    );
 
-  const errorElement = form.querySelector<HTMLElement>(
-    "[data-login-error], [data-account-login-error]",
-  );
+  const errorElement =
+    form.querySelector<HTMLElement>(
+      "[data-login-error], [data-account-login-error]",
+    );
 
   if (submitButton) {
     submitButton.disabled = true;
@@ -199,9 +209,13 @@ export async function handleLogInSubmit(event: SubmitEvent): Promise<boolean> {
 
   const formData = new FormData(form);
 
-  const email = String(formData.get("email") ?? "");
+  const email = String(
+    formData.get("email") ?? "",
+  );
 
-  const password = String(formData.get("password") ?? "");
+  const password = String(
+    formData.get("password") ?? "",
+  );
 
   try {
     const result = await logIn({
@@ -209,7 +223,10 @@ export async function handleLogInSubmit(event: SubmitEvent): Promise<boolean> {
       password,
     });
 
-    if (!result || typeof result.accessToken !== "string") {
+    if (
+      !result ||
+      typeof result.accessToken !== "string"
+    ) {
       throw new Error("Invalid login response");
     }
 
@@ -229,8 +246,12 @@ export async function handleLogInSubmit(event: SubmitEvent): Promise<boolean> {
 
     return true;
   } catch (error) {
-    if (errorElement && error instanceof Error) {
-      errorElement.textContent = translateAuthError(error.message);
+    if (
+      errorElement &&
+      error instanceof Error
+    ) {
+      errorElement.textContent =
+        translateAuthError(error.message);
     }
 
     return false;
@@ -241,7 +262,9 @@ export async function handleLogInSubmit(event: SubmitEvent): Promise<boolean> {
   }
 }
 
-export async function handleSignUpSubmit(event: SubmitEvent): Promise<boolean> {
+export async function handleSignUpSubmit(
+  event: SubmitEvent,
+): Promise<boolean> {
   event.preventDefault();
 
   if (isSigningUp) {
@@ -257,13 +280,15 @@ export async function handleSignUpSubmit(event: SubmitEvent): Promise<boolean> {
     return false;
   }
 
-  const submitButton = form.querySelector<HTMLButtonElement>(
-    'button[type="submit"]',
-  );
+  const submitButton =
+    form.querySelector<HTMLButtonElement>(
+      'button[type="submit"]',
+    );
 
-  const errorElement = form.querySelector<HTMLElement>(
-    "[data-signup-error], [data-account-signup-error]",
-  );
+  const errorElement =
+    form.querySelector<HTMLElement>(
+      "[data-signup-error], [data-account-signup-error]",
+    );
 
   if (submitButton) {
     submitButton.disabled = true;
@@ -275,11 +300,17 @@ export async function handleSignUpSubmit(event: SubmitEvent): Promise<boolean> {
 
   const formData = new FormData(form);
 
-  const name = String(formData.get("name") ?? "");
+  const name = String(
+    formData.get("name") ?? "",
+  );
 
-  const email = String(formData.get("email") ?? "");
+  const email = String(
+    formData.get("email") ?? "",
+  );
 
-  const password = String(formData.get("password") ?? "");
+  const password = String(
+    formData.get("password") ?? "",
+  );
 
   try {
     const result = await signUp({
@@ -288,7 +319,10 @@ export async function handleSignUpSubmit(event: SubmitEvent): Promise<boolean> {
       password,
     });
 
-    if (!result || typeof result.accessToken !== "string") {
+    if (
+      !result ||
+      typeof result.accessToken !== "string"
+    ) {
       throw new Error("Invalid sign up response");
     }
 
@@ -308,8 +342,12 @@ export async function handleSignUpSubmit(event: SubmitEvent): Promise<boolean> {
 
     return true;
   } catch (error) {
-    if (errorElement && error instanceof Error) {
-      errorElement.textContent = translateAuthError(error.message);
+    if (
+      errorElement &&
+      error instanceof Error
+    ) {
+      errorElement.textContent =
+        translateAuthError(error.message);
     }
 
     return false;
@@ -327,11 +365,14 @@ export function refreshUserTokens(): Promise<string | null> {
 
   refreshPromise = (async () => {
     try {
-      const response = await fetch(`${AUTH_URL}/refresh`, {
-        method: "POST",
-        credentials: "include",
-        cache: "no-store",
-      });
+      const response = await fetch(
+        `${AUTH_URL}/refresh`,
+        {
+          method: "POST",
+          credentials: "include",
+          cache: "no-store",
+        },
+      );
 
       if (!response.ok) {
         return null;
@@ -339,7 +380,10 @@ export function refreshUserTokens(): Promise<string | null> {
 
       const result = await response.json();
 
-      if (!result || typeof result.accessToken !== "string") {
+      if (
+        !result ||
+        typeof result.accessToken !== "string"
+      ) {
         return null;
       }
 
@@ -347,7 +391,10 @@ export function refreshUserTokens(): Promise<string | null> {
 
       return result.accessToken;
     } catch (error) {
-      console.error("Refresh request failed:", error);
+      console.error(
+        "Refresh request failed:",
+        error,
+      );
 
       return null;
     } finally {
@@ -358,7 +405,9 @@ export function refreshUserTokens(): Promise<string | null> {
   return refreshPromise;
 }
 
-async function getProfile(token: string): Promise<Response> {
+async function getProfile(
+  token: string,
+): Promise<Response> {
   return fetch(`${AUTH_URL}/profile`, {
     method: "GET",
     headers: {
@@ -376,7 +425,10 @@ export function fetchCurrentUser(): Promise<CurrentUser | null> {
 
   authPromise = (async () => {
     try {
-      if (localStorage.getItem("hasSession") !== "true") {
+      if (
+        localStorage.getItem("hasSession") !==
+        "true"
+      ) {
         return null;
       }
 
@@ -394,14 +446,17 @@ export function fetchCurrentUser(): Promise<CurrentUser | null> {
       let response = await getProfile(token);
 
       if (response.status === 401) {
-        const newAccessToken = await refreshUserTokens();
+        const newAccessToken =
+          await refreshUserTokens();
 
         if (!newAccessToken) {
           clearSession();
           return null;
         }
 
-        response = await getProfile(newAccessToken);
+        response = await getProfile(
+          newAccessToken,
+        );
       }
 
       if (!response.ok) {
@@ -410,7 +465,10 @@ export function fetchCurrentUser(): Promise<CurrentUser | null> {
 
       const result = await response.json();
 
-      if (!result || typeof result.userId !== "string") {
+      if (
+        !result ||
+        typeof result.userId !== "string"
+      ) {
         clearSession();
         return null;
       }
@@ -433,6 +491,10 @@ export function fetchCurrentUser(): Promise<CurrentUser | null> {
   return authPromise;
 }
 
+export async function waitForAuth(): Promise<void> {
+  await fetchCurrentUser();
+}
+
 export async function getUserSummary(): Promise<UserSummary> {
   let token = getAccessToken();
 
@@ -444,17 +506,21 @@ export async function getUserSummary(): Promise<UserSummary> {
     throw new Error("Not authenticated");
   }
 
-  let response = await fetch(`${AUTH_URL}/profile/summary`, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${token}`,
+  let response = await fetch(
+    `${AUTH_URL}/profile/summary`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      credentials: "include",
+      cache: "no-store",
     },
-    credentials: "include",
-    cache: "no-store",
-  });
+  );
 
   if (response.status === 401) {
-    const newAccessToken = await refreshUserTokens();
+    const newAccessToken =
+      await refreshUserTokens();
 
     if (!newAccessToken) {
       clearSession();
@@ -462,14 +528,17 @@ export async function getUserSummary(): Promise<UserSummary> {
       throw new Error("Not authenticated");
     }
 
-    response = await fetch(`${AUTH_URL}/profile/summary`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${newAccessToken}`,
+    response = await fetch(
+      `${AUTH_URL}/profile/summary`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${newAccessToken}`,
+        },
+        credentials: "include",
+        cache: "no-store",
       },
-      credentials: "include",
-      cache: "no-store",
-    });
+    );
   }
 
   if (!response.ok) {

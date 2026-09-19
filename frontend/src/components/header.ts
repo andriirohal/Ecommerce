@@ -21,12 +21,38 @@ const LEAF_SVG = `
   </svg>
 `;
 
+const CART_COUNT_STORAGE_KEY = "header-cart-count";
+
 let globalCartListenerInitialized = false;
 let globalAuthListenerInitialized = false;
 let pageChangeListenerInitialized = false;
 let headerClickListenerInitialized = false;
 let initialCartCountLoaded = false;
 let cartCountRequestId = 0;
+
+function getStoredCartCount(): number {
+  const storedCount =
+    sessionStorage.getItem(
+      CART_COUNT_STORAGE_KEY,
+    );
+
+  if (storedCount === null) {
+    return 0;
+  }
+
+  const count = Number(storedCount);
+
+  return Number.isFinite(count)
+    ? Math.max(0, count)
+    : 0;
+}
+
+function storeCartCount(count: number): void {
+  sessionStorage.setItem(
+    CART_COUNT_STORAGE_KEY,
+    String(Math.max(0, count)),
+  );
+}
 
 function preloadShopImages(): void {
   const image = new Image();
@@ -36,6 +62,7 @@ function preloadShopImages(): void {
 
 export function renderHeader(activePath: string): string {
   const currentLanguage = getLanguage();
+  const storedCartCount = getStoredCartCount();
 
   const navItem = (
     href: string,
@@ -113,10 +140,10 @@ export function renderHeader(activePath: string): string {
           </span>
 
           <span
-            class="cart_count is_loading"
+            class="cart_count"
             aria-hidden="true"
           >
-            ( 0 )
+            ( ${storedCartCount} )
           </span>
         </a>
 
@@ -141,7 +168,7 @@ export function renderHeader(activePath: string): string {
               />
 
               <path
-                d="M3 12H21M12 3C14.5 6 14.5 18 12 21M12 3C9.5 6 9.5 18 12 10"
+                d="M3 12H21M12 3C14.5 6 14.5 18 12 21M12 3C9.5 6 9.5 18 12 21"
                 stroke="currentColor"
                 stroke-width="1.2"
               />
@@ -254,14 +281,17 @@ function setHeaderCartCount(count: number): void {
       ".cart_count",
     );
 
+  const normalizedCount =
+    Math.max(0, count);
+
+  storeCartCount(normalizedCount);
+
   if (!cartCount) {
     return;
   }
 
-  cartCount.classList.remove("is_loading");
-
   cartCount.textContent =
-    `( ${Math.max(0, count)} )`;
+    `( ${normalizedCount} )`;
 }
 
 export async function updateHeaderCartCount(): Promise<void> {
@@ -290,7 +320,10 @@ export async function updateHeaderCartCount(): Promise<void> {
       : [];
 
     const count = items.reduce(
-      (total: number, item: { quantity: number }) =>
+      (
+        total: number,
+        item: { quantity: number },
+      ) =>
         total + Number(item.quantity),
       0,
     );
@@ -327,7 +360,6 @@ export function initGlobalCartListener(): void {
 
       if (typeof count === "number") {
         setHeaderCartCount(count);
-
         return;
       }
 

@@ -1,5 +1,6 @@
 import { createOrder } from "../api/order";
 import { getCart } from "../api/cart";
+import { waitForAuth } from "../api/auth";
 
 import { renderPageLoader } from "../components/loader";
 import { t } from "../i18n/i18n";
@@ -8,7 +9,7 @@ import { clearPlantsCache } from "../main";
 import {
   FREE_SHIPPING_THRESHOLD,
   SHIPPING_COST,
-  TAX_RATE
+  TAX_RATE,
 } from "../utils/constants";
 
 let orderRequestPending = false;
@@ -414,6 +415,8 @@ export async function mountCheckout(
   });
 
   try {
+    await waitForAuth();
+
     const cart = await getCart();
     const items = getCheckoutItems(cart);
 
@@ -463,6 +466,6 @@ export async function mountCheckout(
     if (checkoutSection) {
       checkoutSection.innerHTML =
         renderCheckoutError();
-    }
-  }
+    };
+  };
 }
