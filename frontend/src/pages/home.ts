@@ -1,5 +1,4 @@
 import { renderPlants } from "./shop";
-
 import { t } from "../i18n/i18n";
 import type { Plant } from "../api/plant";
 

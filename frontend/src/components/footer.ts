@@ -93,7 +93,6 @@ export function renderFooter(): string {
               ${t("footer.studio.options.2")}
             </a>
           </li>
-
         </ul>
       </div>
     </footer>
@@ -112,9 +111,15 @@ function refreshFooter(): void {
     return;
   }
 
-  const footer = app.querySelector<HTMLElement>(".site_footer");
+  const footer = app.querySelector<HTMLElement>(
+    ".site_footer",
+  );
 
-  if (!footer) {
+  const bottom = app.querySelector<HTMLElement>(
+    ".foot_bottom",
+  );
+
+  if (!footer || !bottom) {
     return;
   }
 
@@ -122,20 +127,23 @@ function refreshFooter(): void {
 
   temp.innerHTML = renderFooter();
 
-  const newFooter = temp.querySelector<HTMLElement>(".site_footer");
-  const newBottom = temp.querySelector<HTMLElement>(".foot_bottom");
+  const newFooter = temp.querySelector<HTMLElement>(
+    ".site_footer",
+  );
+
+  const newBottom = temp.querySelector<HTMLElement>(
+    ".foot_bottom",
+  );
 
   if (!newFooter || !newBottom) {
     return;
   }
 
   footer.replaceWith(newFooter);
-
-  const bottom = app.querySelector<HTMLElement>(".foot_bottom");
-
-  if (bottom) {
-    bottom.replaceWith(newBottom);
-  }
+  bottom.replaceWith(newBottom);
 }
 
-window.addEventListener("languagechange", refreshFooter);
+window.addEventListener(
+  "languagechange",
+  refreshFooter,
+);

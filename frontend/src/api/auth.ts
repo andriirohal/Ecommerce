@@ -4,7 +4,7 @@ import {
   getAccessToken,
   setAccessToken,
   setCurrentUser,
-  CurrentUser,
+  CurrentUser
 } from "./authState";
 
 import { AUTH_URL } from "./config";

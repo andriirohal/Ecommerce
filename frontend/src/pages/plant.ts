@@ -1,6 +1,7 @@
 import { renderPlantCard } from "../components/plantCard";
-import { Plant } from "../api/plant";
+import type { Plant } from "../api/plant";
 import { t } from "../i18n/i18n";
+
 import { addToCart, getCart } from "../api/cart";
 import { getAccessToken } from "../api/authState";
 import { setButtonLoading } from "../utils/buttonLoading";
@@ -41,7 +42,9 @@ async function getCartQuantity(plantId: string): Promise<number> {
   }
 }
 
-async function syncCartQuantity(quantityControl: HTMLElement): Promise<number> {
+async function syncCartQuantity(
+  quantityControl: HTMLElement,
+): Promise<number> {
   const plantId = quantityControl.dataset.id;
 
   if (!plantId) {
@@ -67,8 +70,8 @@ function getCurrentQuantity(quantityControl: HTMLElement): number {
 
 function getAvailableQuantity(quantityControl: HTMLElement): number {
   const stock = Number(quantityControl.dataset.stock) || 0;
-
-  const cartQuantity = Number(quantityControl.dataset.cartQuantity) || 0;
+  const cartQuantity =
+    Number(quantityControl.dataset.cartQuantity) || 0;
 
   return Math.max(stock - cartQuantity, 0);
 }
@@ -95,7 +98,10 @@ function updateQuantityButtons(quantityControl: HTMLElement): void {
   let quantity = getCurrentQuantity(quantityControl);
 
   if (availableQuantity > 0) {
-    quantity = Math.min(Math.max(quantity, 1), availableQuantity);
+    quantity = Math.min(
+      Math.max(quantity, 1),
+      availableQuantity,
+    );
   } else {
     quantity = 1;
   }
@@ -110,7 +116,8 @@ function updateQuantityButtons(quantityControl: HTMLElement): void {
 
   if (plusButton) {
     plusButton.disabled =
-      availableQuantity <= 1 || quantity >= availableQuantity;
+      availableQuantity <= 1 ||
+      quantity >= availableQuantity;
   }
 
   if (addButton) {
@@ -119,7 +126,9 @@ function updateQuantityButtons(quantityControl: HTMLElement): void {
 }
 
 function openAccountPopover(): void {
-  document.querySelector<HTMLButtonElement>("[data-account-open]")?.click();
+  document
+    .querySelector<HTMLButtonElement>("[data-account-open]")
+    ?.click();
 }
 
 function showCartToast(quantity: number): void {
@@ -180,7 +189,10 @@ function showCartToast(quantity: number): void {
   }, 3000);
 }
 
-function changeQuantity(direction: 1 | -1, quantityControl: HTMLElement): void {
+function changeQuantity(
+  direction: 1 | -1,
+  quantityControl: HTMLElement,
+): void {
   const availableQuantity = getAvailableQuantity(quantityControl);
 
   if (availableQuantity <= 0) {
@@ -232,7 +244,8 @@ async function handleAddToCart(
 
     const quantity = getCurrentQuantity(quantityControl);
 
-    const availableQuantity = getAvailableQuantity(quantityControl);
+    const availableQuantity =
+      getAvailableQuantity(quantityControl);
 
     if (quantity <= 0 || quantity > availableQuantity) {
       updateQuantityButtons(quantityControl);
@@ -312,7 +325,9 @@ export async function renderPlant(
 
   const stock = Number(plant.stock);
 
-  const currentPlantStock = Number.isFinite(stock) ? Math.max(stock, 0) : 0;
+  const currentPlantStock = Number.isFinite(stock)
+    ? Math.max(stock, 0)
+    : 0;
 
   const currentCartQuantity = await getCartQuantity(plant.id);
 
@@ -324,7 +339,11 @@ export async function renderPlant(
   const stockInfo = stockLabel(currentPlantStock);
 
   const related = plants
-    .filter((item) => item.id !== plant.id && item.family === plant.family)
+    .filter(
+      (item) =>
+        item.id !== plant.id &&
+        item.family === plant.family,
+    )
     .slice(0, 3);
 
   return `
@@ -429,7 +448,8 @@ export async function renderPlant(
               id="add_to_cart_btn"
               data-id="${plant.id}"
               ${
-                currentPlantStock <= 0 || availableQuantity <= 0
+                currentPlantStock <= 0 ||
+                availableQuantity <= 0
                   ? "disabled"
                   : ""
               }
@@ -551,11 +571,13 @@ document.addEventListener(
     }
 
     if (button.id === "add_to_cart_btn") {
-      const purchaseRow = button.closest<HTMLElement>(".purchase_row");
+      const purchaseRow =
+        button.closest<HTMLElement>(".purchase_row");
 
-      const quantityControl = purchaseRow?.querySelector<HTMLElement>(
-        SELECTORS.quantityControl,
-      );
+      const quantityControl =
+        purchaseRow?.querySelector<HTMLElement>(
+          SELECTORS.quantityControl,
+        );
 
       if (!quantityControl) {
         return;
@@ -570,7 +592,11 @@ document.addEventListener(
       event.preventDefault();
       event.stopPropagation();
 
-      void handleAddToCart(button, plantId, quantityControl);
+      void handleAddToCart(
+        button,
+        plantId,
+        quantityControl,
+      );
     }
   },
   true,

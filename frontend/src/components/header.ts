@@ -1,4 +1,10 @@
-import { getLanguage, Language, setLanguage, t } from "../i18n/i18n";
+import {
+  getLanguage,
+  type Language,
+  setLanguage,
+  t
+} from "../i18n/i18n";
+
 import { getCart } from "../api/cart";
 
 const LEAF_SVG = `
@@ -24,14 +30,20 @@ let cartCountRequestId = 0;
 
 function preloadShopImages(): void {
   const image = new Image();
+
   image.src = "/images/monstera.webp";
 }
 
 export function renderHeader(activePath: string): string {
   const currentLanguage = getLanguage();
 
-  const navItem = (href: string, label: string): string => {
-    const active = activePath === href || activePath.startsWith(`${href}/`);
+  const navItem = (
+    href: string,
+    label: string,
+  ): string => {
+    const active =
+      activePath === href ||
+      activePath.startsWith(`${href}/`);
 
     return `
       <a
@@ -52,17 +64,32 @@ export function renderHeader(activePath: string): string {
         class="logo"
       >
         ${LEAF_SVG}
-        <span
-          class="logo_text">
+
+        <span class="logo_text">
           Understory
-        <span/>
+        </span>
       </a>
 
       <nav class="site_nav">
-        ${navItem("/shop", t("header.collection"))}
-        ${navItem("/rare", t("header.rarePlants"))}
-        ${navItem("/care", t("header.journal"))}
-        ${navItem("/about", t("header.about"))}
+        ${navItem(
+          "/shop",
+          t("header.collection"),
+        )}
+
+        ${navItem(
+          "/rare",
+          t("header.rarePlants"),
+        )}
+
+        ${navItem(
+          "/care",
+          t("header.journal"),
+        )}
+
+        ${navItem(
+          "/about",
+          t("header.about"),
+        )}
       </nav>
 
       <div class="header_right">
@@ -198,7 +225,11 @@ function renderLanguageOption(
   return `
     <button
       type="button"
-      class="lang_option ${currentLanguage === language ? "active" : ""}"
+      class="lang_option ${
+        currentLanguage === language
+          ? "active"
+          : ""
+      }"
       data-lang="${language}"
     >
       <span
@@ -218,20 +249,28 @@ function renderLanguageOption(
 }
 
 function setHeaderCartCount(count: number): void {
-  const cartCount = document.querySelector<HTMLElement>(".cart_count");
+  const cartCount =
+    document.querySelector<HTMLElement>(
+      ".cart_count",
+    );
 
   if (!cartCount) {
     return;
   }
 
   cartCount.classList.remove("is_loading");
-  cartCount.textContent = `( ${Math.max(0, count)} )`;
+
+  cartCount.textContent =
+    `( ${Math.max(0, count)} )`;
 }
 
 export async function updateHeaderCartCount(): Promise<void> {
   const requestId = ++cartCountRequestId;
 
-  const cartCount = document.querySelector<HTMLElement>(".cart_count");
+  const cartCount =
+    document.querySelector<HTMLElement>(
+      ".cart_count",
+    );
 
   if (!cartCount) {
     return;
@@ -244,15 +283,15 @@ export async function updateHeaderCartCount(): Promise<void> {
       return;
     }
 
-    const items = Array.isArray(cart.data?.items) ? cart.data.items : [];
+    const items = Array.isArray(
+      cart.data?.items,
+    )
+      ? cart.data.items
+      : [];
 
     const count = items.reduce(
-      (
-        total: number,
-        item: {
-          quantity: number;
-        },
-      ) => total + Number(item.quantity),
+      (total: number, item: { quantity: number }) =>
+        total + Number(item.quantity),
       0,
     );
 
@@ -273,22 +312,28 @@ export function initGlobalCartListener(): void {
 
   globalCartListenerInitialized = true;
 
-  window.addEventListener("cartchange", (event: Event) => {
-    cartCountRequestId++;
+  window.addEventListener(
+    "cartchange",
+    (event: Event) => {
+      cartCountRequestId++;
 
-    const customEvent = event as CustomEvent<{
-      count?: number;
-    }>;
+      const customEvent =
+        event as CustomEvent<{
+          count?: number;
+        }>;
 
-    const count = customEvent.detail?.count;
+      const count =
+        customEvent.detail?.count;
 
-    if (typeof count === "number") {
-      setHeaderCartCount(count);
-      return;
-    }
+      if (typeof count === "number") {
+        setHeaderCartCount(count);
 
-    void updateHeaderCartCount();
-  });
+        return;
+      }
+
+      void updateHeaderCartCount();
+    },
+  );
 }
 
 export function initGlobalAuthListener(): void {
@@ -298,18 +343,24 @@ export function initGlobalAuthListener(): void {
 
   globalAuthListenerInitialized = true;
 
-  window.addEventListener("auth-changed", () => {
-    cartCountRequestId++;
-    void updateHeaderCartCount();
-  });
+  window.addEventListener(
+    "auth-changed",
+    () => {
+      cartCountRequestId++;
+
+      void updateHeaderCartCount();
+    },
+  );
 }
 
 function updateActiveNavigation(): void {
-  const currentPath = window.location.pathname;
+  const currentPath =
+    window.location.pathname;
 
-  const navLinks = document.querySelectorAll<HTMLAnchorElement>(
-    ".site_nav a[data-nav-path], .mobile_nav a[data-nav-path]",
-  );
+  const navLinks =
+    document.querySelectorAll<HTMLAnchorElement>(
+      ".site_nav a[data-nav-path], .mobile_nav a[data-nav-path]",
+    );
 
   navLinks.forEach((link) => {
     const path = link.dataset.navPath;
@@ -318,9 +369,14 @@ function updateActiveNavigation(): void {
       return;
     }
 
-    const active = currentPath === path || currentPath.startsWith(`${path}/`);
+    const active =
+      currentPath === path ||
+      currentPath.startsWith(`${path}/`);
 
-    link.classList.toggle("active", active);
+    link.classList.toggle(
+      "active",
+      active,
+    );
   });
 }
 
@@ -331,9 +387,15 @@ function initPageChangeListener(): void {
 
   pageChangeListenerInitialized = true;
 
-  window.addEventListener("page-changed", updateActiveNavigation);
+  window.addEventListener(
+    "page-changed",
+    updateActiveNavigation,
+  );
 
-  window.addEventListener("popstate", updateActiveNavigation);
+  window.addEventListener(
+    "popstate",
+    updateActiveNavigation,
+  );
 }
 
 function initOutsideClickListener(): void {
@@ -343,86 +405,124 @@ function initOutsideClickListener(): void {
 
   headerClickListenerInitialized = true;
 
-  document.addEventListener("click", (event) => {
-    const target = event.target;
+  document.addEventListener(
+    "click",
+    (event) => {
+      const target = event.target;
 
-    if (!(target instanceof Node)) {
-      return;
-    }
+      if (!(target instanceof Node)) {
+        return;
+      }
 
-    const switcher =
-      document.querySelector<HTMLDetailsElement>(".lang_switcher");
+      const switcher =
+        document.querySelector<HTMLDetailsElement>(
+          ".lang_switcher",
+        );
 
-    if (switcher && !switcher.contains(target)) {
-      switcher.open = false;
-    }
-  });
+      if (
+        switcher &&
+        !switcher.contains(target)
+      ) {
+        switcher.open = false;
+      }
+    },
+  );
 }
 
-function initLanguageOptions(root: ParentNode): void {
-  const langSwitcher = root.querySelector<HTMLDetailsElement>(".lang_switcher");
+function initLanguageOptions(
+  root: ParentNode,
+): void {
+  const langSwitcher =
+    root.querySelector<HTMLDetailsElement>(
+      ".lang_switcher",
+    );
 
   if (!langSwitcher) {
     return;
   }
 
   const languageOptions =
-    langSwitcher.querySelectorAll<HTMLButtonElement>(".lang_option");
+    langSwitcher.querySelectorAll<HTMLButtonElement>(
+      ".lang_option",
+    );
 
   languageOptions.forEach((option) => {
-    option.addEventListener("click", (event) => {
-      event.preventDefault();
-      event.stopPropagation();
+    option.addEventListener(
+      "click",
+      (event) => {
+        event.preventDefault();
+        event.stopPropagation();
 
-      const language = option.dataset.lang as Language | undefined;
+        const language =
+          option.dataset.lang as
+            | Language
+            | undefined;
 
-      if (!language) {
-        return;
-      }
+        if (!language) {
+          return;
+        }
 
-      langSwitcher.open = false;
+        langSwitcher.open = false;
 
-      if (language === getLanguage()) {
-        return;
-      }
+        if (language === getLanguage()) {
+          return;
+        }
 
-      setLanguage(language);
-    });
+        setLanguage(language);
+      },
+    );
   });
 }
 
-export function initHeader(root: ParentNode): void {
+export function initHeader(
+  root: ParentNode,
+): void {
   initGlobalCartListener();
   initGlobalAuthListener();
   initPageChangeListener();
   initOutsideClickListener();
 
-  const accountButton = root.querySelector<HTMLButtonElement>(
-    "[data-account-open]",
-  );
+  const accountButton =
+    root.querySelector<HTMLButtonElement>(
+      "[data-account-open]",
+    );
 
-  if (accountButton && accountButton.dataset.initialized !== "true") {
+  if (
+    accountButton &&
+    accountButton.dataset.initialized !== "true"
+  ) {
     accountButton.dataset.initialized = "true";
 
-    accountButton.addEventListener("click", (event) => {
-      event.preventDefault();
+    accountButton.addEventListener(
+      "click",
+      (event) => {
+        event.preventDefault();
 
-      window.dispatchEvent(new Event("auth-open"));
-    });
+        window.dispatchEvent(
+          new Event("auth-open"),
+        );
+      },
+    );
   }
 
-  const shopLink = root.querySelector<HTMLAnchorElement>(
-    '.site_nav a[data-nav-path="/shop"]',
-  );
+  const shopLink =
+    root.querySelector<HTMLAnchorElement>(
+      '.site_nav a[data-nav-path="/shop"]',
+    );
 
   if (shopLink) {
-    shopLink.addEventListener("mouseenter", preloadShopImages, { once: true });
+    shopLink.addEventListener(
+      "mouseenter",
+      preloadShopImages,
+      { once: true },
+    );
   }
 
   initLanguageOptions(root);
 
   if (!initialCartCountLoaded) {
     initialCartCountLoaded = true;
+
     void updateHeaderCartCount();
   }
 

@@ -1,8 +1,11 @@
-type RouteParams = Record<string, string>;
+type RouteParams = 
+  Record<string, string>;
 
-type RouteHandler = (context: RouteContext) => Promise<void> | void;
+type RouteHandler = 
+  (context: RouteContext) => Promise<void> | void;
 
-type RouteGuard = (context: RouteContext) => Promise<boolean> | boolean;
+type RouteGuard = 
+  (context: RouteContext) => Promise<boolean> | boolean;
 
 type Middleware = (
   context: RouteContext,

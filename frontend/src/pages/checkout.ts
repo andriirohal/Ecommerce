@@ -45,7 +45,8 @@ function renderMiniCart(items: CartLine[]): string {
 }
 
 export function renderCheckout(cart: Cart): string {
-  const { items, totalPrice } = cart;
+  const { items } = cart;
+  const totalPrice = Number(cart.totalPrice);
 
   if (items.length === 0) {
     return `
@@ -77,7 +78,6 @@ export function renderCheckout(cart: Cart): string {
               cy="20"
               r="1.4"
               stroke="currentColor"
-              stroke-width="1.4"
             />
           </svg>
 
@@ -115,6 +115,7 @@ export function renderCheckout(cart: Cart): string {
     <section class="section container">
 
       <div class="stepper">
+
         <span class="step done">
           ${t("checkout.steps.bag")}
         </span>
@@ -134,6 +135,7 @@ export function renderCheckout(cart: Cart): string {
         <span class="step">
           ${t("checkout.steps.confirmation")}
         </span>
+
       </div>
 
       <div class="checkout_layout">
@@ -152,6 +154,7 @@ export function renderCheckout(cart: Cart): string {
             </legend>
 
             <div class="field">
+
               <label for="email">
                 ${t("checkout.email")}
               </label>
@@ -169,10 +172,12 @@ export function renderCheckout(cart: Cart): string {
                 data_error_for="email"
                 hidden
               ></span>
+
             </div>
           </fieldset>
 
           <fieldset>
+
             <legend>
               ${t("checkout.shippingAddress")}
             </legend>
@@ -180,6 +185,7 @@ export function renderCheckout(cart: Cart): string {
             <div class="field_row">
 
               <div class="field">
+
                 <label for="firstName">
                   ${t("checkout.firstName")}
                 </label>
@@ -196,9 +202,11 @@ export function renderCheckout(cart: Cart): string {
                   data_error_for="firstName"
                   hidden
                 ></span>
+
               </div>
 
               <div class="field">
+
                 <label for="lastName">
                   ${t("checkout.lastName")}
                 </label>
@@ -215,11 +223,13 @@ export function renderCheckout(cart: Cart): string {
                   data_error_for="lastName"
                   hidden
                 ></span>
+
               </div>
 
             </div>
 
             <div class="field">
+
               <label for="address">
                 ${t("checkout.streetAddress")}
               </label>
@@ -237,11 +247,13 @@ export function renderCheckout(cart: Cart): string {
                 data_error_for="address"
                 hidden
               ></span>
+
             </div>
 
             <div class="field_row">
 
               <div class="field">
+
                 <label for="city">
                   ${t("checkout.city")}
                 </label>
@@ -258,9 +270,11 @@ export function renderCheckout(cart: Cart): string {
                   data_error_for="city"
                   hidden
                 ></span>
+
               </div>
 
               <div class="field">
+
                 <label for="zip">
                   ${t("checkout.postalCode")}
                 </label>
@@ -277,12 +291,15 @@ export function renderCheckout(cart: Cart): string {
                   data_error_for="zip"
                   hidden
                 ></span>
+
               </div>
 
             </div>
+
           </fieldset>
 
           <fieldset>
+
             <legend>
               ${t("checkout.payment")}
             </legend>
@@ -292,6 +309,7 @@ export function renderCheckout(cart: Cart): string {
             </p>
 
             <div class="field">
+
               <label for="cardNumber">
                 ${t("checkout.cardNumber")}
               </label>
@@ -310,11 +328,13 @@ export function renderCheckout(cart: Cart): string {
                 data_error_for="cardNumber"
                 hidden
               ></span>
+
             </div>
 
             <div class="field_row">
 
               <div class="field">
+
                 <label for="expiry">
                   ${t("checkout.expiry")}
                 </label>
@@ -332,9 +352,11 @@ export function renderCheckout(cart: Cart): string {
                   data_error_for="expiry"
                   hidden
                 ></span>
+
               </div>
 
               <div class="field">
+
                 <label for="cvc">
                   ${t("checkout.cvc")}
                 </label>
@@ -353,9 +375,11 @@ export function renderCheckout(cart: Cart): string {
                   data_error_for="cvc"
                   hidden
                 ></span>
+
               </div>
 
             </div>
+
           </fieldset>
 
           <button
@@ -364,7 +388,7 @@ export function renderCheckout(cart: Cart): string {
             id="place_order_btn"
           >
             ${t("checkout.placeOrder")}
-            — €${Number(totalPrice).toFixed(2)}
+            — €${totalPrice.toFixed(2)}
           </button>
 
         </form>
@@ -380,18 +404,21 @@ export function renderCheckout(cart: Cart): string {
           </div>
 
           <div class="summary_total">
+
             <span>
               ${t("cart.total")}
             </span>
 
             <span>
-              €${Number(totalPrice).toFixed(2)}
+              €${totalPrice.toFixed(2)}
             </span>
+
           </div>
 
         </aside>
 
       </div>
+
     </section>
   `;
 }

@@ -4,7 +4,12 @@ import { getCart } from "../api/cart";
 import { renderPageLoader } from "../components/loader";
 import { t } from "../i18n/i18n";
 import { clearPlantsCache } from "../main";
-import { FREE_SHIPPING_THRESHOLD, SHIPPING_COST, TAX_RATE } from "../utils/constants";
+
+import {
+  FREE_SHIPPING_THRESHOLD,
+  SHIPPING_COST,
+  TAX_RATE
+} from "../utils/constants";
 
 let orderRequestPending = false;
 
@@ -22,15 +27,36 @@ type CheckoutTotals = {
   total: number;
 };
 
-function calculateCheckoutTotals(lines: CheckoutLine[]): CheckoutTotals {
+type CartItem = {
+  plantId: string;
+  quantity: number;
+  name: string;
+  price: number;
+};
+
+type CartResponse = {
+  data?: {
+    items?: CartItem[];
+  };
+};
+
+function calculateCheckoutTotals(
+  lines: CheckoutLine[],
+): CheckoutTotals {
   const subtotal = lines.reduce(
-    (sum, line) => sum + Number(line.price) * Number(line.quantity),
+    (sum, line) =>
+      sum + Number(line.price) * Number(line.quantity),
     0,
   );
 
-  const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_COST;
+  const shipping =
+    subtotal >= FREE_SHIPPING_THRESHOLD
+      ? 0
+      : SHIPPING_COST;
 
-  const tax = Math.round(subtotal * TAX_RATE * 100) / 100;
+  const tax =
+    Math.round(subtotal * TAX_RATE * 100) / 100;
+
   const total = subtotal + shipping + tax;
 
   return {
@@ -46,7 +72,8 @@ function formatPrice(price: number): string {
 }
 
 function renderCheckoutItem(line: CheckoutLine): string {
-  const price = Number(line.price) * Number(line.quantity);
+  const price =
+    Number(line.price) * Number(line.quantity);
 
   return `
     <div
@@ -70,8 +97,15 @@ function renderCheckoutItem(line: CheckoutLine): string {
   `;
 }
 
-function renderCheckoutContent(lines: CheckoutLine[]): string {
-  const { subtotal, shipping, tax, total } = calculateCheckoutTotals(lines);
+function renderCheckoutContent(
+  lines: CheckoutLine[],
+): string {
+  const {
+    subtotal,
+    shipping,
+    tax,
+    total,
+  } = calculateCheckoutTotals(lines);
 
   return `
     <div
@@ -97,7 +131,7 @@ function renderCheckoutContent(lines: CheckoutLine[]): string {
             </span>
 
             <span data-cart-subtotal>
-              €${subtotal.toFixed(2)}
+              ${formatPrice(subtotal)}
             </span>
           </div>
 
@@ -107,7 +141,11 @@ function renderCheckoutContent(lines: CheckoutLine[]): string {
             </span>
 
             <span data-cart-shipping>
-              ${shipping === 0 ? t("cart.free") : `€${shipping.toFixed(2)}`}
+              ${
+                shipping === 0
+                  ? t("cart.free")
+                  : formatPrice(shipping)
+              }
             </span>
           </div>
 
@@ -117,7 +155,7 @@ function renderCheckoutContent(lines: CheckoutLine[]): string {
             </span>
 
             <span data-cart-tax>
-              €${tax.toFixed(2)}
+              ${formatPrice(tax)}
             </span>
           </div>
 
@@ -158,7 +196,9 @@ function renderCheckoutContent(lines: CheckoutLine[]): string {
   `;
 }
 
-function renderCheckoutPage(content: string): string {
+function renderCheckoutPage(
+  content: string,
+): string {
   return `
     <section class="page_hero container">
       <div class="eyebrow">
@@ -274,12 +314,14 @@ function renderCheckoutError(): string {
   `;
 }
 
-function getCheckoutItems(cart: any): CheckoutLine[] {
+function getCheckoutItems(
+  cart: CartResponse,
+): CheckoutLine[] {
   if (!Array.isArray(cart.data?.items)) {
     return [];
   }
 
-  return cart.data.items.map((item: any) => ({
+  return cart.data.items.map((item) => ({
     plantId: item.plantId,
     quantity: Number(item.quantity),
     name: item.name,
@@ -295,7 +337,8 @@ async function handlePlaceOrder(
     return;
   }
 
-  const error = root.querySelector<HTMLElement>("#checkout_error");
+  const error =
+    root.querySelector<HTMLElement>("#checkout_error");
 
   if (error) {
     error.hidden = true;
@@ -319,7 +362,8 @@ async function handlePlaceOrder(
 
     window.dispatchEvent(new Event("orderchanged"));
 
-    const cartCount = document.querySelector<HTMLElement>(".cart_count");
+    const cartCount =
+      document.querySelector<HTMLElement>(".cart_count");
 
     if (cartCount) {
       cartCount.classList.remove("is_loading");
@@ -327,16 +371,23 @@ async function handlePlaceOrder(
     }
 
     const checkoutSection =
-      root.querySelector<HTMLElement>("#checkout_section");
+      root.querySelector<HTMLElement>(
+        "#checkout_section",
+      );
 
     if (checkoutSection) {
-      checkoutSection.innerHTML = renderSuccessContent();
+      checkoutSection.innerHTML =
+        renderSuccessContent();
     }
   } catch (requestError) {
-    console.error("Failed to create order:", requestError);
+    console.error(
+      "Failed to create order:",
+      requestError,
+    );
 
     if (error) {
-      error.textContent = t("checkout.orderError");
+      error.textContent =
+        t("checkout.orderError");
       error.hidden = false;
     }
 
@@ -348,12 +399,15 @@ async function handlePlaceOrder(
   }
 }
 
-export async function mountCheckout(root: HTMLElement): Promise<void> {
+export async function mountCheckout(
+  root: HTMLElement,
+): Promise<void> {
   orderRequestPending = false;
 
   window.scrollTo(0, 0);
 
-  root.innerHTML = renderCheckoutPage(renderPageLoader());
+  root.innerHTML =
+    renderCheckoutPage(renderPageLoader());
 
   await new Promise<void>((resolve) => {
     requestAnimationFrame(() => resolve());
@@ -364,21 +418,27 @@ export async function mountCheckout(root: HTMLElement): Promise<void> {
     const items = getCheckoutItems(cart);
 
     const checkoutSection =
-      root.querySelector<HTMLElement>("#checkout_section");
+      root.querySelector<HTMLElement>(
+        "#checkout_section",
+      );
 
     if (!checkoutSection) {
       return;
     }
 
     checkoutSection.innerHTML =
-      items.length === 0 ? renderEmptyCheckout() : renderCheckoutContent(items);
+      items.length === 0
+        ? renderEmptyCheckout()
+        : renderCheckoutContent(items);
 
     if (items.length === 0) {
       return;
     }
 
     const button =
-      checkoutSection.querySelector<HTMLButtonElement>("#place_order");
+      checkoutSection.querySelector<HTMLButtonElement>(
+        "#place_order",
+      );
 
     if (!button) {
       return;
@@ -390,13 +450,19 @@ export async function mountCheckout(root: HTMLElement): Promise<void> {
       void handlePlaceOrder(root, button);
     });
   } catch (error) {
-    console.error("Failed to load checkout:", error);
+    console.error(
+      "Failed to load checkout:",
+      error,
+    );
 
     const checkoutSection =
-      root.querySelector<HTMLElement>("#checkout_section");
+      root.querySelector<HTMLElement>(
+        "#checkout_section",
+      );
 
     if (checkoutSection) {
-      checkoutSection.innerHTML = renderCheckoutError();
+      checkoutSection.innerHTML =
+        renderCheckoutError();
     }
   }
 }

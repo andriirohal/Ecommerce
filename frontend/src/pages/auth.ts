@@ -3,10 +3,12 @@ import {
   handleLogInSubmit,
   handleLogOut,
   handleSignUpSubmit,
-  UserSummary,
+  UserSummary
 } from "../api/auth";
 
-import { getCurrentUser } from "../api/authState"
+import { SUMMARY_CACHE_PREFIX } from "../utils/constants";
+
+import { getCurrentUser } from "../api/authState";
 import { getLanguage, t } from "../i18n/i18n";
 
 import { setButtonLoading } from "../utils/buttonLoading";
@@ -26,8 +28,6 @@ let summaryPromise: Promise<void> | null = null;
 let summaryUserId: string | null = null;
 let accountSummary: UserSummary | null = null;
 let summaryRequestId = 0;
-
-const SUMMARY_CACHE_PREFIX = "account-summary:";
 
 function readCachedSummary(userId: string): UserSummary | null {
   try {
@@ -159,9 +159,7 @@ function setAccountMode(mode: AccountMode): void {
     const active = form.dataset.accountForm === mode;
 
     form.classList.toggle("active", active);
-
     form.inert = !active;
-
     form.setAttribute("aria-hidden", String(!active));
   });
 
@@ -169,9 +167,7 @@ function setAccountMode(mode: AccountMode): void {
     const active = tab.dataset.accountTab === mode;
 
     tab.classList.toggle("active", active);
-
     tab.setAttribute("aria-selected", String(active));
-
     tab.tabIndex = active ? 0 : -1;
   });
 }
@@ -312,7 +308,9 @@ export function renderAccount(): string {
   const initialPlants =
     summary?.totalPlants !== undefined ? summary.totalPlants : "";
 
-  const initialLoyalty = summary ? getLoyaltyLevel(summary.totalOrders) : "";
+  const initialLoyalty = summary
+    ? getLoyaltyLevel(summary.totalOrders)
+    : "";
 
   const initialLastOrder = summary
     ? formatAccountDate(summary.lastOrderDate)
@@ -505,7 +503,6 @@ export function renderAccount(): string {
                 <div class="account_identity">
 
                   <h2 class="account_title">
-
                     <span>
                       ${t("header.accountPopover.welcome")},
                     </span>
@@ -516,7 +513,6 @@ export function renderAccount(): string {
                     >
                       —
                     </span>
-
                   </h2>
 
                   <p data-account-email>
@@ -537,6 +533,7 @@ export function renderAccount(): string {
             >
               <span
                 class="account_close_icon"
+                aria-hidden="true"
               ></span>
             </button>
 
@@ -669,11 +666,17 @@ function formatAccountDate(value: string | Date | null): string {
 }
 
 function updateAccountStats(summary: UserSummary): void {
-  const orders = document.querySelector<HTMLElement>("[data-account-orders]");
+  const orders = document.querySelector<HTMLElement>(
+    "[data-account-orders]",
+  );
 
-  const plants = document.querySelector<HTMLElement>("[data-account-plants]");
+  const plants = document.querySelector<HTMLElement>(
+    "[data-account-plants]",
+  );
 
-  const loyalty = document.querySelector<HTMLElement>("[data-account-loyalty]");
+  const loyalty = document.querySelector<HTMLElement>(
+    "[data-account-loyalty]",
+  );
 
   const lastOrder = document.querySelector<HTMLElement>(
     "[data-account-last-order]",
@@ -730,7 +733,6 @@ function handleAuthSubmit(event: SubmitEvent): void {
   }
 
   form.dataset.submitting = "true";
-
   submitButton.setAttribute("aria-disabled", "true");
 
   setButtonLoading(submitButton, true);
@@ -829,8 +831,6 @@ export function initAccountActions(): void {
 
         setButtonLoading(logoutButton, false);
 
-        closeAccountPopover();
-
         updateAccountUI();
       }
 
@@ -854,7 +854,9 @@ export function initAccountActions(): void {
       return;
     }
 
-    const accountTab = target.closest<HTMLButtonElement>("[data-account-tab]");
+    const accountTab = target.closest<HTMLButtonElement>(
+      "[data-account-tab]",
+    );
 
     if (accountTab) {
       event.preventDefault();
@@ -870,37 +872,100 @@ export function initAccountActions(): void {
 }
 
 function closeAccountPopover(): void {
-  const overlay = document.querySelector<HTMLElement>("[data-account-overlay]");
-
-  if (!overlay) {
-    return;
-  }
-
-  overlay.classList.remove("active");
-
-  overlay.setAttribute("aria-hidden", "true");
-
-  document.body.classList.remove("account-open");
-}
-
-export function initAccountPopover(root: HTMLElement): void {
-  const overlay = root.querySelector<HTMLElement>("[data-account-overlay]");
-
-  const openButton = root.querySelector<HTMLElement>("[data-account-open]");
-
-  const closeButtons = root.querySelectorAll<HTMLButtonElement>(
-    "[data-account-close]",
+  const overlay = document.querySelector<HTMLElement>(
+    "[data-account-overlay]",
   );
 
   if (!overlay) {
     return;
   }
 
-  const openAccount = (): void => {
+  overlay.classList.remove("active");
+  overlay.setAttribute("aria-hidden", "true");
+
+  document.body.classList.remove("account-open");
+}
+
+export function initAccountPopover(root: HTMLElement): void {
+  const documentRoot = document.documentElement;
+
+  if (documentRoot.dataset.accountPopoverInitialized === "true") {
+    return;
+  }
+
+  documentRoot.dataset.accountPopoverInitialized = "true";
+
+  document.addEventListener("click", (event) => {
+    const target = event.target;
+
+    if (!(target instanceof Element)) {
+      return;
+    }
+
+    const openButton = target.closest<HTMLElement>("[data-account-open]");
+
+    if (openButton) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      const overlay = document.querySelector<HTMLElement>(
+        "[data-account-overlay]",
+      );
+
+      if (!overlay) {
+        return;
+      }
+
+      updateAccountUI();
+
+      overlay.classList.add("active");
+      overlay.setAttribute("aria-hidden", "false");
+
+      document.body.classList.add("account-open");
+
+      const user = getCurrentUser();
+
+      if (user) {
+        void loadAccountSummary(user.userId, false);
+      }
+
+      return;
+    }
+
+    const closeButton = target.closest<HTMLButtonElement>(
+      "[data-account-close]",
+    );
+
+    if (closeButton) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      closeAccountPopover();
+
+      return;
+    }
+
+    const overlay = target.closest<HTMLElement>(
+      "[data-account-overlay]",
+    );
+
+    if (overlay && event.target === overlay) {
+      closeAccountPopover();
+    }
+  });
+
+  window.addEventListener("auth-open", () => {
+    const overlay = document.querySelector<HTMLElement>(
+      "[data-account-overlay]",
+    );
+
+    if (!overlay) {
+      return;
+    }
+
     updateAccountUI();
 
     overlay.classList.add("active");
-
     overlay.setAttribute("aria-hidden", "false");
 
     document.body.classList.add("account-open");
@@ -910,34 +975,18 @@ export function initAccountPopover(root: HTMLElement): void {
     if (user) {
       void loadAccountSummary(user.userId, false);
     }
-  };
-
-  openButton?.addEventListener("click", (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-
-    openAccount();
   });
-
-  closeButtons.forEach((button) => {
-    button.addEventListener("click", (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-
-      closeAccountPopover();
-    });
-  });
-
-  overlay.addEventListener("click", (event) => {
-    if (event.target === overlay) {
-      closeAccountPopover();
-    }
-  });
-
-  window.addEventListener("auth-open", openAccount);
 
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && overlay.classList.contains("active")) {
+    if (event.key !== "Escape") {
+      return;
+    }
+
+    const overlay = document.querySelector<HTMLElement>(
+      "[data-account-overlay]",
+    );
+
+    if (overlay?.classList.contains("active")) {
       closeAccountPopover();
     }
   });
@@ -946,17 +995,29 @@ export function initAccountPopover(root: HTMLElement): void {
 export function updateAccountUI(): void {
   const user = getCurrentUser();
 
-  const auth = document.querySelector<HTMLElement>("[data-account-auth]");
+  const auth = document.querySelector<HTMLElement>(
+    "[data-account-auth]",
+  );
 
-  const welcome = document.querySelector<HTMLElement>("[data-account-welcome]");
+  const welcome = document.querySelector<HTMLElement>(
+    "[data-account-welcome]",
+  );
 
-  const name = document.querySelector<HTMLElement>("[data-account-name]");
+  const name = document.querySelector<HTMLElement>(
+    "[data-account-name]",
+  );
 
-  const email = document.querySelector<HTMLElement>("[data-account-email]");
+  const email = document.querySelector<HTMLElement>(
+    "[data-account-email]",
+  );
 
-  const avatar = document.querySelector<HTMLElement>("[data-account-avatar]");
+  const avatar = document.querySelector<HTMLElement>(
+    "[data-account-avatar]",
+  );
 
-  const since = document.querySelector<HTMLElement>("[data-account-since]");
+  const since = document.querySelector<HTMLElement>(
+    "[data-account-since]",
+  );
 
   if (!auth || !welcome || !name || !email || !avatar || !since) {
     return;
@@ -968,6 +1029,13 @@ export function updateAccountUI(): void {
 
     auth.inert = false;
     auth.classList.add("active");
+
+    name.textContent = "—";
+    email.textContent = "—";
+    avatar.textContent = "U";
+    since.textContent = "";
+
+    setAccountMode("login");
 
     return;
   }
@@ -1020,7 +1088,6 @@ async function loadAccountSummary(
 
     if (cachedSummary) {
       accountSummary = cachedSummary;
-
       summaryUserId = userId;
 
       updateAccountStats(cachedSummary);
@@ -1042,12 +1109,13 @@ async function loadAccountSummary(
         return;
       }
 
-      if (getCurrentUser()?.userId !== userId) {
+      const currentUser = getCurrentUser();
+
+      if (!currentUser || currentUser.userId !== userId) {
         return;
       }
 
       accountSummary = summary;
-
       summaryUserId = userId;
 
       writeCachedSummary(userId, summary);
@@ -1073,13 +1141,20 @@ async function loadAccountSummary(
 }
 
 function refreshAccountLanguage(): void {
-  const overlay = document.querySelector<HTMLElement>("[data-account-overlay]");
+  const overlay = document.querySelector<HTMLElement>(
+    "[data-account-overlay]",
+  );
 
   if (!overlay) {
     return;
   }
 
   const wasOpen = overlay.classList.contains("active");
+
+  const activeTab =
+    document.querySelector<HTMLButtonElement>(
+      "[data-account-tab].active",
+    )?.dataset.accountTab ?? "login";
 
   const accountRoot = overlay.parentElement;
 
@@ -1089,22 +1164,27 @@ function refreshAccountLanguage(): void {
 
   accountRoot.innerHTML = renderAccount();
 
-  initAccountPopover(accountRoot);
-
   updateAccountUI();
+
+  setAccountMode(
+    activeTab === "signup" || activeTab === "login"
+      ? activeTab
+      : "login",
+  );
 
   if (wasOpen) {
     const newOverlay = accountRoot.querySelector<HTMLElement>(
       "[data-account-overlay]",
     );
 
-    if (newOverlay) {
-      newOverlay.classList.add("active");
-
-      newOverlay.setAttribute("aria-hidden", "false");
-
-      document.body.classList.add("account-open");
+    if (!newOverlay) {
+      return;
     }
+
+    newOverlay.classList.add("active");
+    newOverlay.setAttribute("aria-hidden", "false");
+
+    document.body.classList.add("account-open");
   }
 }
 
@@ -1128,7 +1208,6 @@ export function initAccountUI(): void {
       summaryUserId = null;
       accountSummary = null;
 
-      closeAccountPopover();
       updateAccountUI();
 
       return;

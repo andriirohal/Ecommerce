@@ -192,7 +192,11 @@ function initSort(root: HTMLElement): void {
   });
 
   menu.addEventListener("click", (event) => {
-    const target = event.target as HTMLElement;
+    const target = event.target;
+
+    if (!(target instanceof Element)) {
+      return;
+    }
 
     const button = target.closest<HTMLButtonElement>(
       "[data-sort]",
@@ -233,7 +237,11 @@ function initFamily(root: HTMLElement): void {
   }
 
   filterChips.addEventListener("click", (event) => {
-    const target = event.target as HTMLElement;
+    const target = event.target;
+
+    if (!(target instanceof Element)) {
+      return;
+    }
 
     const button = target.closest<HTMLButtonElement>(
       "[data-family]",
@@ -262,8 +270,6 @@ export function renderShop(
   currentSort?: PlantSort,
   currentFamily?: PlantFamily,
 ): string {
-  currentPlants = plants;
-
   shopState = {
     sort: currentSort,
     family: currentFamily,
@@ -287,7 +293,7 @@ export function renderShop(
     </section>
 
     <section
-      class="section container${currentPlants.length === 0 ? " empty" : ""}"
+      class="section container${plants.length === 0 ? " empty" : ""}"
       id="shop_section"
     >
       <div class="shop_toolbar">
@@ -322,6 +328,7 @@ export function renderShop(
 
         <div class="shop_controls">
           <div class="sort">
+
             <button
               class="sort_trigger"
               type="button"
@@ -367,6 +374,7 @@ export function renderShop(
                 )
                 .join("")}
             </div>
+
           </div>
         </div>
 
@@ -386,6 +394,12 @@ export function mountShop(
   root: HTMLElement,
   plants: Plant[],
 ): void {
+  if (root.dataset.shopInitialized === "true") {
+    return;
+  }
+
+  root.dataset.shopInitialized = "true";
+
   basePlants = plants;
 
   initSort(root);

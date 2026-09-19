@@ -21,7 +21,7 @@ import { renderPlant } from "./pages/plant";
 
 import {
   renderHeader as renderHeaderComponent,
-  initHeader,
+  initHeader
 } from "./components/header";
 
 import { renderFooter } from "./components/footer";

@@ -30,7 +30,7 @@
   overflow-y: auto;
   overscroll-behavior: contain;
   
-  &.open {
+  &.active {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
@@ -45,22 +45,18 @@
 .account_popover {
   width: min(400px, calc(100vw - 32px));
   max-height: min(680px, calc(100vh - 48px));
-
   padding: 26px 22px;
-
   overflow-y: auto;
 
   background: $surface;
   border: 1px solid rgba($ink, 0.1);
   border-radius: 12px;
-
   box-shadow:
     0 30px 90px rgba($ink, 0.22),
     0 10px 30px rgba($ink, 0.08);
 
   opacity: 0;
   transform: translateY(14px);
-
   transition:
     opacity 200ms ease,
     transform 240ms $ease;

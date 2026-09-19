@@ -1,6 +1,6 @@
 import { t } from "../i18n/i18n";
 import { stockLabel } from "../utils/format";
-import { Plant } from "../api/plant";
+import type { Plant } from "../api/plant";
 
 export function renderPlantCard(plant: Plant): string {
   const stock = stockLabel(plant.stock);

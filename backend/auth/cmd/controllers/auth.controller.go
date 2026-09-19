@@ -8,7 +8,7 @@ import (
   "github.com/gin-gonic/gin"
 );
 
-func setRefreshCookie(ctx *gin.Context, refreshToken string) { 
+func SetRefreshCookie(ctx *gin.Context, refreshToken string) { 
   http.SetCookie(ctx.Writer, &http.Cookie{ 
     Name: "refreshToken", 
     Value: refreshToken, 
@@ -17,10 +17,11 @@ func setRefreshCookie(ctx *gin.Context, refreshToken string) {
     HttpOnly: true, 
     Secure: true, 
     SameSite: http.SameSiteNoneMode,
+    Partitioned: true,
   }); 
 };
 
-func clearRefreshCookie(ctx *gin.Context) { 
+func ClearRefreshCookie(ctx *gin.Context) { 
   http.SetCookie(ctx.Writer, &http.Cookie { 
     Name: "refreshToken", 
     Value: "", 
@@ -29,6 +30,7 @@ func clearRefreshCookie(ctx *gin.Context) {
     HttpOnly: true, 
     Secure: true, 
     SameSite: http.SameSiteNoneMode, 
+    Partitioned: true,
   }); 
 };
 
@@ -82,7 +84,7 @@ func LogOutUser(ctx *gin.Context) {
     return;
   };
 
-  clearRefreshCookie(ctx);
+  ClearRefreshCookie(ctx);
 
   ctx.JSON(200, user);
 };
@@ -104,7 +106,7 @@ func SignUpUser(ctx *gin.Context) {
     return;
   };
 
-  setRefreshCookie(ctx, *user.RefreshToken);
+  SetRefreshCookie(ctx, *user.RefreshToken);
 
   ctx.JSON(200, gin.H {
     "userId": user.UserId,
@@ -134,7 +136,7 @@ func LogInUser(ctx *gin.Context) {
     return;
   };
 
-  setRefreshCookie(ctx, *user.RefreshToken);
+  SetRefreshCookie(ctx, *user.RefreshToken);
 
   ctx.JSON(200, gin.H {
     "userId": user.UserId,
@@ -164,7 +166,7 @@ func RotateUserTokens(ctx *gin.Context) {
     return;
   };
 
-  setRefreshCookie(ctx, authentication.RefreshToken);
+  SetRefreshCookie(ctx, authentication.RefreshToken);
 
   ctx.JSON(200, authentication);
 };

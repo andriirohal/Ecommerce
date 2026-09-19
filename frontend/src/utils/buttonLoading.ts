@@ -1,5 +1,4 @@
-const LABEL_CLASS = "btn_label";
-const SPINNER_CLASS = "btn_spinner";
+import { LABEL_CLASS, SPINNER_CLASS } from "./constants";
 
 export function setButtonLoading(
   button: HTMLButtonElement,

@@ -18,7 +18,7 @@ export function showToast(
   message: string,
   kind: ToastKind = "default",
   duration = 3200,
-) {
+): void {
   const container = ensureStack();
   const el = document.createElement("div");
 
