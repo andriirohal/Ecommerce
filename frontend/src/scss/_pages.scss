@@ -904,6 +904,10 @@
     @media (max-width: 480px) {
       font-size: 10px;
     }
+
+    @media (max-width: 480px) {
+      font-size: 9.5px;
+    }
   }
 
   h2 {
@@ -1258,11 +1262,11 @@
 
 @media (max-width: 400px) {
   .checkout_item > strong {
-    font-size: 11px;
+    font-size: 11.5px;
   }
 
   .checkout_item_info h3 {
-    font-size: 14px;
+    font-size: 13.5px;
   }
 
   .summary_line {
@@ -1270,7 +1274,7 @@
   }
 
   .checkout_item_info span {
-    font-size: 11.5px;
+    font-size: 11px;
   }
 }
 
