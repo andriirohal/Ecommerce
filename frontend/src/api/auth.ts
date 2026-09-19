@@ -20,7 +20,7 @@ export interface UserSummary {
   totalOrders: number;
   totalPlants: number;
   lastOrderDate: string | null;
-}
+};
 
 function dispatchCartChange(count?: number): void {
   window.dispatchEvent(

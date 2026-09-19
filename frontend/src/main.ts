@@ -32,7 +32,7 @@ import { fetchCurrentUser } from "./api/auth";
 
 import { initLanguage } from "./i18n/i18n";
 
-import { router } from "./routes/router";
+import { router } from "./router";
 
 let appInitialized = false;
 

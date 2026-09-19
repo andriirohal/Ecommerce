@@ -1,7 +1,13 @@
-import { getCart, updateCart, removeFromCart } from "../api/cart";
 import { getAccessToken } from "../api/authState";
+
+import { 
+  getCart, 
+  updateCart, 
+  removeFromCart 
+} from "../api/cart";
+
 import { t } from "../i18n/i18n";
-import { router } from "../routes/router";
+import { router } from "../router";
 
 import {
   FREE_SHIPPING_THRESHOLD,

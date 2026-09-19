@@ -3,7 +3,7 @@ import {
   handleLogInSubmit,
   handleLogOut,
   handleSignUpSubmit,
-  UserSummary
+  type UserSummary
 } from "../api/auth";
 
 import { SUMMARY_CACHE_PREFIX } from "../utils/constants";
