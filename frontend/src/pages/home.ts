@@ -1,0 +1,214 @@
+import type { Plant } from "../api";
+
+import { renderPlants } from "./shop";
+import { t } from "../i18n";
+
+export function renderHome(plants: Plant[]): string {
+  const featuredPlant = plants.find(
+    (plant) => plant.name === "Monstera Deliciosa"
+  );
+
+  const arrivals = plants.slice(0, 3);
+
+  const heroImage = featuredPlant
+    ? `
+        <div class="hero-image">
+          <img
+            src="${featuredPlant.imageUrl}"
+            alt="${featuredPlant.name}"
+            fetchpriority="high"
+            decoding="async"
+            class="is-loaded"
+          >
+        </div>
+      `
+    : "";
+
+  return `
+    <div class="home">
+
+      <section class="hero container">
+
+        <div class="hero-content">
+
+          <div
+            class="eyebrow"
+            data-i18n="hero.eyebrow"
+          >
+            ${t("hero.eyebrow")}
+          </div>
+
+          <div class="hero-title">
+
+            <h1>
+
+              <span
+                data-i18n="hero.titleStart"
+              >
+                ${t("hero.titleStart")}
+              </span>
+
+              <em
+                data-i18n="hero.titleEmphasis"
+              >
+                ${t("hero.titleEmphasis")}
+              </em>
+
+              <span
+                data-i18n="hero.titleEnd"
+              >
+                ${t("hero.titleEnd")}
+              </span>
+
+            </h1>
+
+          </div>
+
+          <p
+            class="hero-description"
+            data-i18n="hero.description"
+          >
+            ${t("hero.description")}
+          </p>
+
+          <div class="hero-actions">
+
+            <a
+              class="btn"
+              href="/shop"
+              data-i18n="hero.actions.shop"
+            >
+              ${t("hero.actions.shop")}
+            </a>
+
+            <a
+              class="btn ghost"
+              href="/care"
+              data-i18n="hero.actions.ghost"
+            >
+              ${t("hero.actions.ghost")}
+            </a>
+
+          </div>
+
+        </div>
+
+        <div class="hero-art">
+          ${heroImage}
+        </div>
+
+      </section>
+
+      <section
+        class="section container${arrivals.length === 0 ? " empty" : ""}"
+      >
+
+        <div class="section-head">
+
+          <h2
+            data-i18n="head.arrival"
+          >
+            ${t("head.arrival")}
+          </h2>
+
+          <a
+            href="/shop"
+            data-i18n="head.view"
+          >
+            ${t("head.view")}
+          </a>
+
+        </div>
+
+        <div
+          class="grid"
+          id="arrivals-grid"
+        >
+          ${renderPlants(arrivals)}
+        </div>
+
+      </section>
+
+      <section class="philosophy">
+
+        <div class="philosophy-item">
+
+          <div class="num">
+            01
+          </div>
+
+          <h3
+            data-i18n="philosophy.titles.0"
+          >
+            ${t("philosophy.titles.0")}
+          </h3>
+
+          <p
+            data-i18n="philosophy.descriptions.0"
+          >
+            ${t("philosophy.descriptions.0")}
+          </p>
+
+        </div>
+
+        <div class="philosophy-item">
+
+          <div class="num">
+            02
+          </div>
+
+          <h3
+            data-i18n="philosophy.titles.1"
+          >
+            ${t("philosophy.titles.1")}
+          </h3>
+
+          <p
+            data-i18n="philosophy.descriptions.1"
+          >
+            ${t("philosophy.descriptions.1")}
+          </p>
+
+        </div>
+
+        <div class="philosophy-item">
+
+          <div class="num">
+            03
+          </div>
+
+          <h3
+            data-i18n="philosophy.titles.2"
+          >
+            ${t("philosophy.titles.2")}
+          </h3>
+
+          <p
+            data-i18n="philosophy.descriptions.2"
+          >
+            ${t("philosophy.descriptions.2")}
+          </p>
+
+        </div>
+
+      </section>
+
+      <section class="quote">
+
+        <blockquote
+          data-i18n="quote.title"
+        >
+          "${t("quote.title")}"
+        </blockquote>
+
+        <cite
+          data-i18n="quote.description"
+        >
+          ${t("quote.description")}
+        </cite>
+
+      </section>
+
+    </div>
+  `;
+};
