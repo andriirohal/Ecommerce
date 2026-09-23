@@ -500,7 +500,7 @@ export async function renderPlant(
                 </h2>
 
                 <a href="/shop">
-                  ${t("head.view")} →
+                  ${t("head.view")}
                 </a>
 
               </div>
