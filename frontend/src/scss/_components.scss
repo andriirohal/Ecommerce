@@ -342,9 +342,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   gap: 10px;
-
   min-height: 70vh;
 
   text-align: center;
@@ -358,12 +356,16 @@
   }
 
   h1 {
+    font-size: 26px;
+
     @media (max-width: 480px) {
       font-size: 23px;
     }
   }
 
   p {
+    font-size: 14px;
+
     @media (max-width: 480px) {
       font-size: 11.5px;
     }
@@ -371,7 +373,11 @@
 }
 
 .code {
-  font-size: 16px;
+  font-size: 18px;
+
+  @media (max-width: 480px) {
+    font-size: 16px;
+  }
 }
 
 .empty-state {
