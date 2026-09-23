@@ -1,4 +1,4 @@
-import type { Plant } from "../api";
+import type { Plant } from "../api/plant";
 
 import { renderPlants } from "./shop";
 import { t } from "../i18n";

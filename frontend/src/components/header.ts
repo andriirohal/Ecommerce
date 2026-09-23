@@ -1,5 +1,5 @@
 import { getLanguage, type Language, setLanguage, t } from "../i18n";
-import { getCart } from "../api";
+import { getCart } from "../api/cart";
 
 const LEAF_SVG = `
   <svg
@@ -385,7 +385,7 @@ function updateActiveNavigation(): void {
 
   const navLinks =
     document.querySelectorAll<HTMLAnchorElement>(
-      ".site-nav a[data-nav-path], .mobile-nav a[data-nav-path]"
+      ".site-nav a[data-nav-path]"
     );
 
   navLinks.forEach((link) => {

@@ -1,7 +1,6 @@
 {
   "common": {
-    "loading": "Loading…",
-    "loadingCollection": "Gathering the collection…"
+    "loading": "Loading…"
   },
 
   "meta": {
@@ -22,7 +21,6 @@
       "welcome": "Welcome",
       "orders": "Orders",
       "plants": "Your plants",
-      "wishlist": "Wishlist",
       "since": "Member since",
       "loyalty": "Loyalty level",
       "last": "Last order",
@@ -84,12 +82,7 @@
 
   "head": {
     "arrival": "New this week",
-    "view": "All",
-    "stock": {
-      "inStock": "In stock",
-      "low": "Only a few left",
-      "out": "Out of stock"
-    }
+    "view": "All"
   },
 
   "shop": {
@@ -144,23 +137,9 @@
   "checkout": {
     "title": "Checkout",
     "completeOrder": "Complete your order",
-    "shippingInformation": "Shipping information",
-    "firstName": "First name",
-    "lastName": "Last name",
-    "placingOrder": "Placing order...",
-    "email": "Email",
-    "address": "Address",
-    "city": "City",
-    "postalCode": "Postal code",
-    "country": "Country",
-    "selectCountry": "Select a country",
-    "payment": "Payment",
-    "cardPayment": "Card payment",
-    "cardDescription": "Pay securely with your credit or debit card.",
     "placeOrder": "Place order",
     "orderSummary": "Order summary",
     "quantity": "Quantity",
-    "fillRequiredFields": "Please fill in all required fields.",
     "orderSuccess": "Order placed successfully",
     "orderSuccessDescription": "Your order has been placed successfully. Thank you for choosing Understory.",
     "orderError": "We couldn't place your order. Please try again."
@@ -176,15 +155,12 @@
     "notFound": "Plant not found",
     "notFoundDescription": "The plant you're looking for doesn't exist.",
     "backToShop": "Back to shop",
-    "decreaseQuantity": "Decrease quantity",
     "addedToBagDescription": "The plant has been added to your bag",
     "addedMultipleToBagDescription": "{{quantity}} plants have been added to your bag.",
-    "increaseQuantity": "Increase quantity",
     "addToBag": "Add to bag",
     "addedToBag": "Added to bag",
     "family": "Family",
-    "stock": "Availability",
-    "pairsWellWith": "Pairs well with"
+    "stock": "Availability"
   },
 
   "plants": {

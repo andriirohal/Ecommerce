@@ -1,7 +1,10 @@
-import { getUserSummary, handleLogInSubmit, handleLogOut, handleSignUpSubmit, type UserSummary, getCurrentUser } from "../api";
+import { getUserSummary, handleLogInSubmit, handleLogOut, handleSignUpSubmit, type UserSummary } from "../api/auth";
+import { getCurrentUser } from "../api/state";
 
 import { getLanguage, t } from "../i18n";
-import { SUMMARY_CACHE_PREFIX, setButtonLoading } from "../utils";
+
+import { SUMMARY_CACHE_PREFIX } from "../utils/constants";
+import { setButtonLoading } from "../utils/loading";
 
 interface AuthField {
   id: "name" | "email" | "password";
@@ -876,7 +879,7 @@ function closeAccountPopover(): void {
   document.body.classList.remove("account-open");
 };
 
-export function initAccountPopover(root: HTMLElement): void {
+export function initAccountPopover(): void {
   const documentRoot = document.documentElement;
 
   if (documentRoot.dataset.accountPopoverInitialized === "true") {

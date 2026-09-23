@@ -48,21 +48,8 @@
     }
   }
 
-  &.danger {
-    background: $error;
-
-    &:hover {
-      background: color.adjust($error, $lightness: -8%);
-    }
-  }
-
   &.block {
     width: 100%;
-  }
-
-  &.sm {
-    padding: 9px 16px;
-    font-size: 12px;
   }
 }
 
@@ -168,28 +155,13 @@
     }
   }
 
-  .error-text,
   .hint {
     font-family: $font-mono;
     font-size: 11px;
   }
 
-  .error-text {
-    color: $error;
-  }
-
   .hint {
     color: $ink-soft;
-  }
-}
-
-.field-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-
-  @media (max-width: 640px) {
-    grid-template-columns: 1fr;
   }
 }
 
@@ -232,28 +204,6 @@
     }
   }
 
-  .quick-add {
-    position: absolute;
-
-    right: 10px;
-    bottom: 10px;
-
-    z-index: 3;
-
-    opacity: 0;
-
-    transform: translateY(6px);
-
-    transition:
-      opacity 0.15s $ease,
-      transform 0.15s $ease;
-  }
-
-  &:hover .quick-add {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
   h3 {
     margin: 0 0 5px;
 
@@ -293,30 +243,6 @@
       font-size: 9px;
     }
   }
-}
-
-.c1 {
-  background: linear-gradient(155deg, #dde1c7, #b9c79f);
-}
-
-.c2 {
-  background: linear-gradient(155deg, #e7dcc3, #cbaf7c);
-}
-
-.c3 {
-  background: linear-gradient(155deg, #d9ded0, #9fb98c);
-}
-
-.c4 {
-  background: linear-gradient(155deg, #e3d6c9, #c6a588);
-}
-
-.c5 {
-  background: linear-gradient(155deg, #d7e0dd, #9fb3ac);
-}
-
-.c6 {
-  background: linear-gradient(155deg, #ede0cf, #d1a978);
 }
 
 .grid {
@@ -431,54 +357,6 @@
   }
 }
 
-.error-banner {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-
-  margin-bottom: 24px;
-  padding: 16px 18px;
-
-  border: 1px solid rgba($error, 0.3);
-  border-radius: $radius-sm;
-
-  background: $error-bg;
-  color: $error;
-
-  font-size: 13.5px;
-
-  strong {
-    display: block;
-
-    margin-bottom: 4px;
-
-    font-family: $font-mono;
-    font-size: 11px;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
-}
-
-.toast-stack {
-  position: fixed;
-
-  right: 24px;
-  bottom: 24px;
-
-  z-index: 200;
-
-  display: flex;
-  flex-direction: column;
-
-  gap: 10px;
-
-  @media (max-width: 640px) {
-    right: 16px;
-    bottom: 16px;
-    left: 16px;
-  }
-}
-
 .toast {
   display: flex;
   align-items: center;
@@ -585,40 +463,6 @@
         margin-bottom: 0;
       }
     }
-  }
-}
-
-.stepper {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-
-  margin-bottom: 40px;
-
-  color: $ink-soft;
-
-  font-family: $font-mono;
-  font-size: 11px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-
-  .step {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
-    &.active {
-      color: $ink;
-    }
-
-    &.done {
-      color: $moss;
-    }
-  }
-
-  .sep {
-    opacity: 0.4;
   }
 }
 
@@ -935,84 +779,10 @@
   overflow-anchor: none;
 }
 
-.rare-page {
-  min-height: 100vh;
-
-  .page-hero {
-    padding-bottom: 4rem;
-
-    h1 {
-      max-width: 700px;
-    }
-
-    p {
-      max-width: 560px;
-    }
-  }
-
-  .shop-toolbar {
-    margin-bottom: 2rem;
-  }
-
-  .result-count {
-    color: $muted;
-
-    font-size: 0.85rem;
-  }
-
-  .grid {
-    display: grid;
-
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-
-    gap: 2rem 1.25rem;
-  }
-
-  .empty-state {
-    grid-column: 1 / -1;
-
-    padding: 5rem 1rem;
-
-    text-align: center;
-
-    h2 {
-      margin: 0 0 0.75rem;
-
-      color: $ink;
-
-      font-size: 1.5rem;
-      font-weight: 400;
-    }
-
-    p {
-      margin: 0;
-
-      color: $muted;
-
-      line-height: 1.6;
-    }
-  }
-}
-
 @media (max-width: 1000px) {
-  .rare-page .grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
 }
 
 @media (max-width: 700px) {
-  .rare-page {
-    .page-hero {
-      padding-bottom: 3rem;
-    }
-
-    .grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-
-      gap: 1.5rem 0.75rem;
-    }
-  }
-
   .checkout-summary-header h2 {
     font-size: 1.7rem;
   }
@@ -1029,9 +799,6 @@
 }
 
 @media (max-width: 480px) {
-  .rare-page .grid {
-    grid-template-columns: 1fr;
-  }
 }
 
 @media (max-width: 450px) {
@@ -1048,8 +815,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .toast,
-  .quick-add {
+  .toast {
     animation: none;
     transition: none;
   }

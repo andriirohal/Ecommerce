@@ -1,7 +1,6 @@
 {
   "common": {
-    "loading": "Ładowanie…",
-    "loadingCollection": "Zbieramy kolekcję…"
+    "loading": "Ładowanie…"
   },
 
   "meta": {
@@ -22,7 +21,6 @@
       "welcome": "Witaj",
       "orders": "Zamówienia",
       "plants": "Twoje rośliny",
-      "wishlist": "Lista życzeń",
       "since": "Członek od",
       "loyalty": "Poziom lojalności",
       "last": "Ostatnie zamówienie",
@@ -84,12 +82,7 @@
 
   "head": {
     "arrival": "Nowe w tygodniu",
-    "view": "Wszystkie",
-    "stock": {
-      "inStock": "Dostępna",
-      "low": "Mało sztuk",
-      "out": "Wyprzedana"
-    }
+    "view": "Wszystkie"
   },
 
   "shop": {
@@ -144,23 +137,9 @@
   "checkout": {
     "title": "Finalizacja zamówienia",
     "completeOrder": "Dokończ zamówienie",
-    "shippingInformation": "Dane dostawy",
-    "firstName": "Imię",
-    "lastName": "Nazwisko",
-    "placingOrder": "Składanie zamówienia...",
-    "email": "Adres e-mail",
-    "address": "Adres",
-    "city": "Miasto",
-    "postalCode": "Kod pocztowy",
-    "country": "Kraj",
-    "selectCountry": "Wybierz kraj",
-    "payment": "Płatność",
-    "cardPayment": "Płatność kartą",
-    "cardDescription": "Zapłać bezpiecznie kartą kredytową lub debetową.",
     "placeOrder": "Złóż zamówienie",
     "orderSummary": "Podsumowanie",
     "quantity": "Ilość",
-    "fillRequiredFields": "Uzupełnij wymagane pola.",
     "orderSuccess": "Zamówienie zostało złożone",
     "orderSuccessDescription": "Zamówienie zostało złożone. Dziękujemy za wybór Understory.",
     "orderError": "Nie udało się złożyć zamówienia. Spróbuj ponownie."
@@ -176,26 +155,21 @@
     "notFound": "Nie znaleziono rośliny",
     "notFoundDescription": "Szukana roślina nie istnieje.",
     "backToShop": "Wróć do sklepu",
-    "decreaseQuantity": "Zmniejsz ilość",
     "addedToBagDescription": "Roślina została dodana do koszyka",
     "addedMultipleToBagDescription": "Dodano {{quantity}} roślin do koszyka.",
-    "increaseQuantity": "Zwiększ ilość",
     "addToBag": "Do koszyka",
     "addedToBag": "Dodano do koszyka",
     "family": "Rodzina",
-    "stock": "Dostępność",
-    "pairsWellWith": "Pasuje do"
+    "stock": "Dostępność"
   },
 
   "plants": {
     "monstera": {
       "description": "Zdrowa monstera z bujnymi, naturalnie rozciętymi liśćmi."
     },
-
     "fiddle": {
       "description": "Tropikalna roślina z błyszczącymi, skrzypcowatymi liśćmi. Lubi jasne światło."
     },
-
     "alocasia": {
       "description": "Aksamitne liście z jasnymi żyłkami. Lubi jasne, rozproszone światło."
     }

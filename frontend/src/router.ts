@@ -4,14 +4,6 @@ type RouteParams =
 type RouteHandler = 
   (context: RouteContext) => Promise<void> | void;
 
-type RouteGuard = 
-  (context: RouteContext) => Promise<boolean> | boolean;
-
-type Middleware = (
-  context: RouteContext,
-  next: () => Promise<void>
-) => Promise<void>;
-
 interface RouteContext {
   params: RouteParams;
   query: URLSearchParams;
@@ -22,7 +14,6 @@ interface RouteContext {
 
 interface MatchedRoute {
   pattern: string;
-  name?: string;
   params: RouteParams;
 };
 
@@ -30,30 +21,17 @@ interface InternalRoute {
   pattern: string;
   regex: RegExp;
   keys: string[];
-  handler?: RouteHandler;
-  guards: RouteGuard[];
-  name?: string;
-  lazy?: () => Promise<{
-    default: RouteHandler;
-  }>;
+  handler: RouteHandler;
 };
 
 class Router {
   private routes: InternalRoute[] = [];
 
-  private middlewares: Middleware[] = [];
-
   private notFoundHandler: RouteHandler = () => {};
-
-  private errorHandler: (
-    error: Error
-  ) => void | Promise<void> = console.error;
 
   private navigationId = 0;
 
   private currentPath = "";
-
-  private currentContext: RouteContext | null = null;
 
   private scrollPositions = new Map<
     string,
@@ -71,54 +49,14 @@ class Router {
 
   add(
     pattern: string,
-    handler: RouteHandler,
-    options?: {
-      name?: string;
-      guards?: RouteGuard[];
-    }
+    handler: RouteHandler
   ): this {
-    this.addRoute(pattern, handler, options);
-
-    return this;
-  }
-
-  lazy(
-    pattern: string,
-    loader: () => Promise<{
-      default: RouteHandler;
-    }>,
-    options?: {
-      name?: string;
-      guards?: RouteGuard[];
-    }
-  ): this {
-    const route: InternalRoute = {
+    this.routes.push({
       pattern,
       regex: this.patternToRegex(pattern),
       keys: this.extractKeys(pattern),
-      lazy: loader,
-      guards: options?.guards ?? [],
-      name: options?.name
-    };
-
-    this.routes.push(route);
-
-    return this;
-  }
-
-  use(...middlewares: Middleware[]): this {
-    this.middlewares.push(...middlewares);
-
-    return this;
-  }
-
-  guard(guard: RouteGuard): this {
-    if (this.routes.length > 0) {
-      const lastRoute =
-        this.routes[this.routes.length - 1];
-
-      lastRoute.guards.push(guard);
-    };
+      handler
+    });
 
     return this;
   }
@@ -129,21 +67,7 @@ class Router {
     return this;
   }
 
-  onError(
-    handler: (error: Error) => void | Promise<void>
-  ): this {
-    this.errorHandler = handler;
-
-    return this;
-  }
-
-  async navigate(
-    path: string,
-    options?: {
-      replace?: boolean;
-      state?: unknown;
-    }
-  ): Promise<void> {
+  async navigate(path: string): Promise<void> {
     try {
       const url = new URL(
         path,
@@ -169,19 +93,7 @@ class Router {
 
       this.saveCurrentScroll();
 
-      if (options?.replace) {
-        history.replaceState(
-          options?.state ?? {},
-          "",
-          nextPath
-        );
-      } else {
-        history.pushState(
-          options?.state ?? {},
-          "",
-          nextPath
-        );
-      };
+      history.pushState({}, "", nextPath);
 
       await this.resolve(false);
     } catch (error) {
@@ -231,57 +143,10 @@ class Router {
 
         matchedRoute = {
           pattern: route.pattern,
-          name: route.name,
           params
         };
 
-        const context: RouteContext = {
-          params,
-          query,
-          path,
-          hash,
-          route: matchedRoute
-        };
-
-        let guardsPassed = true;
-
-        for (const guard of route.guards) {
-          const result = await guard(context);
-
-          if (
-            navigationId !==
-            this.navigationId
-          ) {
-            return;
-          };
-
-          if (!result) {
-            guardsPassed = false;
-            break;
-          };
-        };
-
-        if (!guardsPassed) {
-          handler = null;
-
-          continue;
-        };
-
-        if (route.lazy) {
-          const module =
-            await route.lazy();
-
-          if (
-            navigationId !==
-            this.navigationId
-          ) {
-            return;
-          };
-
-          handler = module.default;
-        } else if (route.handler) {
-          handler = route.handler;
-        };
+        handler = route.handler;
 
         break;
       };
@@ -302,42 +167,11 @@ class Router {
         route: matchedRoute
       };
 
-      this.currentContext = context;
-
-      const middlewareChain =
-        async (): Promise<void> => {
-          if (handler) {
-            await handler(context);
-          } else {
-            await this.notFoundHandler(
-              context
-            );
-          };
-        };
-
-      let index = 0;
-
-      const executeMiddleware =
-        async (): Promise<void> => {
-          if (
-            index <
-            this.middlewares.length
-          ) {
-            const middleware =
-              this.middlewares[index++];
-
-            await middleware(
-              context,
-              executeMiddleware
-            );
-
-            return;
-          };
-
-          await middlewareChain();
-        };
-
-      await executeMiddleware();
+      if (handler) {
+        await handler(context);
+      } else {
+        await this.notFoundHandler(context);
+      };
 
       if (
         navigationId !==
@@ -369,26 +203,6 @@ class Router {
       this.handleError(error as Error);
     };
   }
-
-  private addRoute(
-    pattern: string,
-    handler: RouteHandler,
-    options?: {
-      name?: string;
-      guards?: RouteGuard[];
-    }
-  ): void {
-    const route: InternalRoute = {
-      pattern,
-      regex: this.patternToRegex(pattern),
-      keys: this.extractKeys(pattern),
-      handler,
-      guards: options?.guards ?? [],
-      name: options?.name
-    };
-
-    this.routes.push(route);
-  };
 
   private patternToRegex(
     pattern: string
@@ -502,14 +316,7 @@ class Router {
   };
 
   private handleError(error: Error): void {
-    try {
-      this.errorHandler(error);
-    } catch (err) {
-      console.error(
-        "Error in error handler:",
-        err
-      );
-    };
+    console.error(error);
   };
 
   start(): void {
@@ -661,23 +468,6 @@ class Router {
         void this.navigate(nextPath);
       },
       true
-    );
-  };
-
-  getCurrentPath(): string {
-    return this.currentPath;
-  };
-
-  getCurrentContext():
-    RouteContext | null {
-    return this.currentContext;
-  };
-
-  isCurrentPath(
-    path: string
-  ): boolean {
-    return this.currentPath.startsWith(
-      path
     );
   };
 };

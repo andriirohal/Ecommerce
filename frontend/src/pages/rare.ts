@@ -1,6 +1,6 @@
-import type { Plant } from "../api";
+import type { Plant } from "../api/plant";
 
-import { renderCard } from "../components";
+import { renderCard } from "../components/card";
 import { t } from "../i18n";
 
 function renderPlants(plants: Plant[]): string {

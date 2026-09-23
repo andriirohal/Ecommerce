@@ -1,6 +1,6 @@
-import type { Plant } from "../api";
+import type { Plant } from "../api/plant";
 
-import { stockLabel } from "../utils";
+import { stockLabel } from "../utils/format";
 import { t } from "../i18n";
 
 export function renderCard(plant: Plant): string {

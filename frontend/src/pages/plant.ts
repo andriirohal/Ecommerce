@@ -1,7 +1,10 @@
-import { renderCard } from "../components";
-import { setButtonLoading, stockLabel } from "../utils";
+import type { Plant } from "../api/plant";
 
-import { getAccessToken, addToCart, getCart, type Plant } from "../api";
+import { setButtonLoading } from "../utils/loading";
+import { stockLabel } from "../utils/format";
+
+import { getAccessToken } from "../api/state";
+import { addToCart, getCart } from "../api/cart";
 import { t } from "../i18n";
 
 const SELECTORS = {
@@ -335,14 +338,6 @@ export async function renderPlant(
 
   const stockInfo = stockLabel(currentPlantStock);
 
-  const related = plants
-    .filter(
-      (item) =>
-        item.id !== plant.id &&
-        item.family === plant.family
-    )
-    .slice(0, 3);
-
   return `
     <div class="container">
 
@@ -487,34 +482,6 @@ export async function renderPlant(
         </div>
 
       </section>
-
-      ${
-        related.length
-          ? `
-            <section class="section">
-
-              <div class="section-head">
-
-                <h2>
-                  ${t("plant.pairsWellWith")}
-                </h2>
-
-                <a href="/shop">
-                  ${t("head.view")}
-                </a>
-
-              </div>
-
-              <div class="grid">
-
-                ${related.map(renderCard).join("")}
-
-              </div>
-
-            </section>
-          `
-          : ""
-      }
 
     </div>
   `;

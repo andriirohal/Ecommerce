@@ -1,7 +1,7 @@
-import type { Plant, PlantFamily, PlantSort } from "../api";
+import type { Plant, PlantFamily, PlantSort } from "../api/plant";
 
-import { onClickOutside } from "../utils";
-import { renderCard } from "../components";
+import { onClickOutside } from "../utils/clickOutside";
+import { renderCard } from "../components/card";
 
 import { t } from "../i18n";
 

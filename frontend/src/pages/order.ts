@@ -1,8 +1,10 @@
-import { FREE_SHIPPING_THRESHOLD, SHIPPING_COST, TAX_RATE } from "../utils";
-import { renderPageLoader } from "../components";
+import { FREE_SHIPPING_THRESHOLD, SHIPPING_COST, TAX_RATE } from "../utils/constants";
+import { renderPageLoader } from "../components/loader";
 
 import { clearPlantsCache } from "../main";
-import { createOrder, waitForAuth, getCart } from "../api";
+import { createOrder } from "../api/order";
+import { waitForAuth } from "../api/auth";
+import { getCart } from "../api/cart";
 
 import { t } from "../i18n";
 

@@ -1,5 +1,6 @@
-import { FREE_SHIPPING_THRESHOLD, SHIPPING_COST, TAX_RATE } from "../utils";
-import { getCart, updateCart, removeFromCart, getAccessToken } from "../api";
+import { FREE_SHIPPING_THRESHOLD, SHIPPING_COST, TAX_RATE } from "../utils/constants";
+import { getCart, updateCart, removeFromCart } from "../api/cart";
+import { getAccessToken } from "../api/state";
 
 import { t } from "../i18n";
 import { router } from "../router";

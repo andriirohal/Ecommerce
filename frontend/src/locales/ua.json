@@ -1,7 +1,6 @@
 {
   "common": {
-    "loading": "Завантаження…",
-    "loadingCollection": "Збираємо колекцію…"
+    "loading": "Завантаження…"
   },
 
   "meta": {
@@ -22,7 +21,6 @@
       "welcome": "Вітаємо",
       "orders": "Замовлення",
       "plants": "Твої рослини",
-      "wishlist": "Список бажань",
       "since": "Учасник з",
       "loyalty": "Рівень лояльності",
       "last": "Останнє замовлення",
@@ -84,12 +82,7 @@
 
   "head": {
     "arrival": "Нове цього тижня",
-    "view": "Усі",
-    "stock": {
-      "inStock": "В наявності",
-      "low": "Залишилося мало",
-      "out": "Немає в наявності"
-    }
+    "view": "Усі"
   },
 
   "shop": {
@@ -144,23 +137,9 @@
   "checkout": {
     "title": "Оформлення замовлення",
     "completeOrder": "Оформити замовлення",
-    "shippingInformation": "Інформація про доставку",
-    "firstName": "Ім’я",
-    "lastName": "Прізвище",
-    "email": "Електронна пошта",
-    "address": "Адреса",
-    "city": "Місто",
-    "postalCode": "Поштовий індекс",
-    "country": "Країна",
-    "selectCountry": "Обери країну",
-    "payment": "Оплата",
-    "cardPayment": "Оплата карткою",
-    "cardDescription": "Безпечно оплати замовлення кредитною або дебетовою карткою.",
     "placeOrder": "Оформити замовлення",
     "orderSummary": "Підсумок замовлення",
     "quantity": "Кількість",
-    "placingOrder": "Оформлення замовлення...",
-    "fillRequiredFields": "Заповни всі обов’язкові поля.",
     "orderSuccess": "Замовлення оформлено",
     "orderSuccessDescription": "Твоє замовлення успішно оформлено. Дякуємо, що обрав Understory.",
     "orderError": "Не вдалося оформити замовлення. Спробуй ще раз."
@@ -176,15 +155,12 @@
     "notFound": "Рослину не знайдено",
     "notFoundDescription": "Рослина, яку ти шукаєш, не існує.",
     "backToShop": "Повернутися до магазину",
-    "decreaseQuantity": "Зменшити кількість",
     "addedToBagDescription": "Рослину додано до кошика",
     "addedMultipleToBagDescription": "До кошика додано {{quantity}} рослин.",
-    "increaseQuantity": "Збільшити кількість",
     "addToBag": "У кошик",
     "addedToBag": "Додано до кошика",
     "family": "Родина",
-    "stock": "В наявності",
-    "pairsWellWith": "Поєднується з"
+    "stock": "В наявності"
   },
 
   "plants": {

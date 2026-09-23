@@ -1,7 +1,6 @@
 {
   "common": {
-    "loading": "Wird geladen…",
-    "loadingCollection": "Kollektion wird zusammengestellt…"
+    "loading": "Wird geladen…"
   },
 
   "meta": {
@@ -22,7 +21,6 @@
       "welcome": "Willkommen",
       "orders": "Bestellungen",
       "plants": "Deine Pflanzen",
-      "wishlist": "Wunschliste",
       "since": "Mitglied seit",
       "loyalty": "Treuestufe",
       "last": "Letzte Bestellung",
@@ -84,12 +82,7 @@
 
   "head": {
     "arrival": "Neu diese Woche",
-    "view": "Alle",
-    "stock": {
-      "inStock": "Auf Lager",
-      "low": "Nur noch wenige",
-      "out": "Ausverkauft"
-    }
+    "view": "Alle"
   },
 
   "shop": {
@@ -144,23 +137,9 @@
   "checkout": {
     "title": "Kasse",
     "completeOrder": "Bestellung abschließen",
-    "shippingInformation": "Versandinformationen",
-    "firstName": "Vorname",
-    "lastName": "Nachname",
-    "placingOrder": "Bestellung wird aufgegeben...",
-    "email": "E-Mail",
-    "address": "Adresse",
-    "city": "Stadt",
-    "postalCode": "Postleitzahl",
-    "country": "Land",
-    "selectCountry": "Land auswählen",
-    "payment": "Zahlung",
-    "cardPayment": "Kartenzahlung",
-    "cardDescription": "Bezahle sicher mit deiner Kredit- oder Debitkarte.",
     "placeOrder": "Bestellung aufgeben",
     "orderSummary": "Bestellübersicht",
     "quantity": "Menge",
-    "fillRequiredFields": "Bitte fülle alle Pflichtfelder aus.",
     "orderSuccess": "Bestellung erfolgreich",
     "orderSuccessDescription": "Bestellung aufgegeben. Danke, dass du Understory gewählt hast.",
     "orderError": "Deine Bestellung konnte nicht aufgegeben werden. Bitte versuche es erneut."
@@ -176,15 +155,12 @@
     "notFound": "Pflanze nicht gefunden",
     "notFoundDescription": "Die gesuchte Pflanze existiert nicht.",
     "backToShop": "Zurück zum Shop",
-    "decreaseQuantity": "Menge verringern",
     "addedToBagDescription": "Die Pflanze wurde in den Warenkorb gelegt",
     "addedMultipleToBagDescription": "{{quantity}} Pflanzen wurden hinzugefügt.",
-    "increaseQuantity": "Menge erhöhen",
     "addToBag": "In den Korb",
     "addedToBag": "Zum Warenkorb hinzugefügt",
     "family": "Familie",
-    "stock": "Verfügbarkeit",
-    "pairsWellWith": "Passt gut zu"
+    "stock": "Verfügbarkeit"
   },
 
   "plants": {

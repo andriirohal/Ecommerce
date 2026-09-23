@@ -1,12 +1,24 @@
 import "./scss/main.scss";
 
-import { initAccountUI, initAccountActions, initAccountPopover, initAuthForms, updateAccountUI, renderAccount, refreshAccountSummary, renderRare, renderHome, renderPlant, renderNotFound, mountCheckout, renderShop, mountShop, mountCart, loadCartPage, hasStaticContent, renderStatic } from "./pages";
-import { getAllPlants, type PlantSort, type PlantFamily, fetchCurrentUser } from "./api";
+import { getAllPlants, type PlantSort, type PlantFamily } from "./api/plant";
+import { fetchCurrentUser } from "./api/auth";
 
-import { renderHeader as renderHeaderComponent, initHeader, renderPageLoader, renderFooter, renderSplashLoader } from "./components";
+import { renderHeader as renderHeaderComponent, initHeader } from "./components/header";
+import { renderPageLoader, renderSplashLoader } from "./components/loader";
+import { renderFooter } from "./components/footer";
 
 import { initLanguage } from "./i18n";
 import { router } from "./router";
+
+import { initAccountActions, initAccountPopover, initAccountUI, initAuthForms, refreshAccountSummary, renderAccount, updateAccountUI } from "./pages/auth";
+import { loadCartPage, mountCart } from "./pages/cart";
+import { renderHome } from "./pages/home";
+import { renderNotFound } from "./pages/notFound";
+import { mountCheckout } from "./pages/order";
+import { renderPlant } from "./pages/plant";
+import { renderRare } from "./pages/rare";
+import { mountShop, renderShop } from "./pages/shop";
+import { hasStaticContent, renderStatic } from "./pages/static";
 
 let appInitialized = false;
 
@@ -101,7 +113,7 @@ function initializeShell(
   `;
 
   initHeader(app);
-  initAccountPopover(app);
+  initAccountPopover();
   initAccountActions();
   initAuthForms();
   initAccountUI();
@@ -198,7 +210,7 @@ function refreshAccount(): void {
 
   oldOverlay.replaceWith(newOverlay);
 
-  initAccountPopover(app);
+  initAccountPopover();
   updateAccountUI();
 };
 
