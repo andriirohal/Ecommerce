@@ -115,7 +115,7 @@
     "freeShipping": "Додай ще на €{amount}, щоб отримати безкоштовну доставку",
     "freeShippingUnlocked": "Безкоштовна доставка",
     "inStock": "В наявності",
-    "outOfStock": "Немає в наявності",
+    "outOfStock": "Розпродано",
     "lowStock": "Мало в наявності",
     "subtotal": "Проміжна сума",
     "shipping": "Доставка",
