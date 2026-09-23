@@ -115,7 +115,7 @@
     "freeShipping": "Dodaj €{amount}, aby otrzymać darmową dostawę",
     "freeShippingUnlocked": "Darmowa dostawa",
     "inStock": "Dostępny",
-    "outOfStock": "Brak w magazynie",
+    "outOfStock": "Wyprzedane",
     "lowStock": "Niski stan magazynowy",
     "subtotal": "Suma częściowa",
     "shipping": "Dostawa",

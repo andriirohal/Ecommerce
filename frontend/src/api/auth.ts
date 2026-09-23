@@ -1,6 +1,6 @@
 import { clearAccessToken, clearCurrentUser, getAccessToken, setAccessToken, setCurrentUser, type CurrentUser } from "./state";
 
-import { t } from "../i18n";
+import { t } from "../utils/i18n";
 import { AUTH_URL } from "./config";
 
 let isLoggingIn = false;

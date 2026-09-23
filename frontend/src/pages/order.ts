@@ -6,7 +6,7 @@ import { createOrder } from "../api/order";
 import { waitForAuth } from "../api/auth";
 import { getCart } from "../api/cart";
 
-import { t } from "../i18n";
+import { t } from "../utils/i18n";
 
 let orderRequestPending = false;
 

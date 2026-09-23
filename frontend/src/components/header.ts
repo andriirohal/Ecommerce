@@ -1,4 +1,4 @@
-import { getLanguage, type Language, setLanguage, t } from "../i18n";
+import { getLanguage, type Language, setLanguage, t } from "../utils/i18n";
 import { getCart } from "../api/cart";
 
 const LEAF_SVG = `

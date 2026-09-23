@@ -1,7 +1,7 @@
-import de from "./locales/de.json";
-import en from "./locales/en.json";
-import pl from "./locales/pl.json";
-import ua from "./locales/ua.json";
+import de from "../locales/de.json";
+import en from "../locales/en.json";
+import pl from "../locales/pl.json";
+import ua from "../locales/ua.json";
 
 const translations = {
   en,

@@ -1,7 +1,7 @@
 import { getUserSummary, handleLogInSubmit, handleLogOut, handleSignUpSubmit, type UserSummary } from "../api/auth";
 import { getCurrentUser } from "../api/state";
 
-import { getLanguage, t } from "../i18n";
+import { getLanguage, t } from "../utils/i18n";
 
 import { SUMMARY_CACHE_PREFIX } from "../utils/constants";
 import { setButtonLoading } from "../utils/loading";

@@ -1,7 +1,7 @@
 import type { Plant } from "../api/plant";
 
 import { stockLabel } from "../utils/format";
-import { t } from "../i18n";
+import { t } from "../utils/i18n";
 
 export function renderCard(plant: Plant): string {
   const stock = stockLabel(plant.stock);

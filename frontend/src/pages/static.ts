@@ -1,5 +1,5 @@
 import { renderLogin, renderSignup } from "./auth";
-import { getLanguage, getTranslationArray, t } from "../i18n";
+import { getLanguage, getTranslationArray, t } from "../utils/i18n";
 
 interface StaticContent {
   eyebrow: string;

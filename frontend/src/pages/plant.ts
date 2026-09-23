@@ -5,7 +5,7 @@ import { stockLabel } from "../utils/format";
 
 import { getAccessToken } from "../api/state";
 import { addToCart, getCart } from "../api/cart";
-import { t } from "../i18n";
+import { t } from "../utils/i18n";
 
 const SELECTORS = {
   quantity: ".qty-value",

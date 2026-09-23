@@ -7,7 +7,7 @@ import { renderHeader as renderHeaderComponent, initHeader } from "./components/
 import { renderPageLoader, renderSplashLoader } from "./components/loader";
 import { renderFooter } from "./components/footer";
 
-import { initLanguage } from "./i18n";
+import { initLanguage } from "./utils/i18n";
 import { router } from "./router";
 
 import { initAccountActions, initAccountPopover, initAccountUI, initAuthForms, refreshAccountSummary, renderAccount, updateAccountUI } from "./pages/auth";

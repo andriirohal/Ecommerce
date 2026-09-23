@@ -1,14 +1,14 @@
 import type { Plant } from "../api/plant";
 
 import { renderPlants } from "./shop";
-import { t } from "../i18n";
+import { t } from "../utils/i18n";
 
 export function renderHome(plants: Plant[]): string {
   const featuredPlant = plants.find(
     (plant) => plant.name === "Monstera Deliciosa"
   );
 
-  const arrivals = plants.slice(0, 3);
+  const arrivals = plants.slice(0, 4);
 
   const heroImage = featuredPlant
     ? `

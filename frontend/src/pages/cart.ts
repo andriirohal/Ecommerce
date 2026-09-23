@@ -2,7 +2,7 @@ import { FREE_SHIPPING_THRESHOLD, SHIPPING_COST, TAX_RATE } from "../utils/const
 import { getCart, updateCart, removeFromCart } from "../api/cart";
 import { getAccessToken } from "../api/state";
 
-import { t } from "../i18n";
+import { t } from "../utils/i18n";
 import { router } from "../router";
 
 type CartLine = {

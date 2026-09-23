@@ -3,7 +3,7 @@ import type { Plant, PlantFamily, PlantSort } from "../api/plant";
 import { onClickOutside } from "../utils/clickOutside";
 import { renderCard } from "../components/card";
 
-import { t } from "../i18n";
+import { t } from "../utils/i18n";
 
 type ShopState = {
   sort?: PlantSort;

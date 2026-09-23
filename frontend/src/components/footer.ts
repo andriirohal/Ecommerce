@@ -1,4 +1,4 @@
-import { t } from "../i18n";
+import { t } from "../utils/i18n";
 
 const LEAF_SVG = `
   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">

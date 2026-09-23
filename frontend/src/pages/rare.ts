@@ -1,7 +1,7 @@
 import type { Plant } from "../api/plant";
 
 import { renderCard } from "../components/card";
-import { t } from "../i18n";
+import { t } from "../utils/i18n";
 
 function renderPlants(plants: Plant[]): string {
   if (plants.length === 0) {
