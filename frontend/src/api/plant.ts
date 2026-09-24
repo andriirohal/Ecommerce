@@ -1,8 +1,5 @@
 import { SHOPPING_URL } from "./config";
 
-export type PlantSort = "alphabetical" | "cheapest" | "expensive";
-export type PlantFamily = "Araceae" | "Moraceae" | "all";
-
 export type Plant = {
   id: string;
   name: string;
@@ -17,22 +14,12 @@ export type Plant = {
 
 export async function getAllPlants(
   limit: number,
-  offset: number,
-  sort?: PlantSort,
-  family?: PlantFamily
-) {
+  offset: number
+): Promise<Plant[]> {
   const params = new URLSearchParams({
     limit: String(limit),
     offset: String(offset)
   });
-
-  if (sort) {
-    params.set("sort", sort);
-  };
-
-  if (family) {
-    params.set("family", family);
-  };
 
   const response = await fetch(`${SHOPPING_URL}/plants?${params}`);
 

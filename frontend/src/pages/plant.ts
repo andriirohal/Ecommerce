@@ -355,7 +355,7 @@ export async function renderPlant(
               loading="eager"
               fetchpriority="high"
               decoding="async"
-              class="plant-main-image${plant.name === "Alocasia Frydek" ? " plant-main-image--alocasia" : ""}"
+              class="plant-main-image${plant.name === "Alocasia F." ? " plant-main-image--alocasia" : ""}"
             />
 
           </div>

@@ -1,17 +1,17 @@
 import "./scss/main.scss";
 
-import { getAllPlants, type PlantSort, type PlantFamily } from "./api/plant";
+import { getAllPlants } from "./api/plant";
 import { fetchCurrentUser } from "./api/auth";
 
+import { initAccountActions, initAccountPopover, initAccountUI, initAuthForms, refreshAccountSummary, renderAccount, updateAccountUI } from "./pages/auth";
 import { renderHeader as renderHeaderComponent, initHeader } from "./components/header";
 import { renderPageLoader, renderSplashLoader } from "./components/loader";
 import { renderFooter } from "./components/footer";
 
-import { initLanguage } from "./utils/i18n";
-import { router } from "./router";
-
-import { initAccountActions, initAccountPopover, initAccountUI, initAuthForms, refreshAccountSummary, renderAccount, updateAccountUI } from "./pages/auth";
 import { loadCartPage, mountCart } from "./pages/cart";
+import { router } from "./router";
+import { initLanguage } from "./utils/i18n";
+
 import { renderHome } from "./pages/home";
 import { renderNotFound } from "./pages/notFound";
 import { mountCheckout } from "./pages/order";
@@ -24,55 +24,37 @@ let appInitialized = false;
 
 type Plants = Awaited<ReturnType<typeof getAllPlants>>;
 
-const plantsCache = new Map<string, Plants>();
-const plantsRequests = new Map<string, Promise<Plants>>();
+let plantsCache: Plants | null = null;
+let plantsRequest: Promise<Plants> | null = null;
 
-function getCacheKey(sort?: PlantSort, family?: PlantFamily): string {
-  return `${sort ?? "featured"}:${family ?? "all"}`;
-};
-
-async function getPlants(
-  sort?: PlantSort,
-  family?: PlantFamily
-): Promise<Plants> {
-  const key = getCacheKey(sort, family);
-
-  const cached = plantsCache.get(key);
-
-  if (cached) {
-    return cached;
+async function getPlants(): Promise<Plants> {
+  if (plantsCache) {
+    return plantsCache;
   };
 
-  const inFlight = plantsRequests.get(key);
-
-  if (inFlight) {
-    return inFlight;
+  if (plantsRequest) {
+    return plantsRequest;
   };
 
-  const request = getAllPlants(100, 0, sort, family)
+  plantsRequest = getAllPlants(100, 0)
     .then((plants) => {
-      plantsCache.set(key, plants);
+      plantsCache = plants;
 
       return plants;
     })
     .finally(() => {
-      plantsRequests.delete(key);
+      plantsRequest = null;
     });
 
-  plantsRequests.set(key, request);
-
-  return request;
+  return plantsRequest;
 };
 
-function getCachedPlants(
-  sort?: PlantSort,
-  family?: PlantFamily
-): Plants | null {
-  return plantsCache.get(getCacheKey(sort, family)) ?? null;
+function getCachedPlants(): Plants | null {
+  return plantsCache;
 };
 
 export function clearPlantsCache(): void {
-  plantsCache.clear();
+  plantsCache = null;
 };
 
 function getApp(): HTMLElement {
@@ -169,7 +151,6 @@ function refreshHeader(): void {
 
     if (newCartCount) {
       newCartCount.classList.remove("is-loading");
-
       newCartCount.textContent = resolvedCartCount;
     };
   };
@@ -202,9 +183,7 @@ function refreshAccount(): void {
 
   if (wasOpen) {
     newOverlay.classList.add("active");
-
     newOverlay.setAttribute("aria-hidden", "false");
-
     document.body.classList.add("account-open");
   };
 
@@ -240,7 +219,6 @@ async function repaintAfterLanguageChange(): Promise<void> {
 
       if (!plants) {
         pageRoot.innerHTML = renderPageLoader();
-
         plants = await getPlants();
       };
 
@@ -256,7 +234,6 @@ async function repaintAfterLanguageChange(): Promise<void> {
 
       if (!plants) {
         pageRoot.innerHTML = renderPageLoader();
-
         plants = await getPlants();
       };
 
@@ -274,7 +251,6 @@ async function repaintAfterLanguageChange(): Promise<void> {
 
       if (!plants) {
         pageRoot.innerHTML = renderPageLoader();
-
         plants = await getPlants();
       };
 
@@ -300,7 +276,6 @@ async function repaintAfterLanguageChange(): Promise<void> {
 
       if (!plants) {
         pageRoot.innerHTML = renderPageLoader();
-
         plants = await getPlants();
       };
 
@@ -313,7 +288,6 @@ async function repaintAfterLanguageChange(): Promise<void> {
 
     if (path === "/cart") {
       pageRoot.innerHTML = renderPageLoader();
-
       pageRoot.innerHTML = await loadCartPage();
 
       mountCart(pageRoot);
@@ -378,7 +352,6 @@ router
 
       if (cached) {
         paint("/shop", renderShop(cached));
-
         mountShop(getPageRoot(), cached);
 
         return;
@@ -389,7 +362,6 @@ router
       const plants = await getPlants();
 
       paint("/shop", renderShop(plants));
-
       mountShop(getPageRoot(), plants);
     } catch (error) {
       console.error(error);
