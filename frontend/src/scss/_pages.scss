@@ -753,25 +753,43 @@
   overflow-anchor: none;
 }
 
-@media (max-width: 1000px) {
-}
-
 @media (max-width: 900px) {
   .shop-toolbar {
     gap: 10px;
+    align-items: center;
   }
 
   .filter-chips {
+    flex: 1 1 auto;
+    min-width: 0;
     gap: 6px;
+
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 32px), transparent);
+    mask-image: linear-gradient(to right, #000 calc(100% - 32px), transparent);
+  }
+
+  .filter-chips::-webkit-scrollbar {
+    display: none;
   }
 
   .filter-chips button {
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    white-space: nowrap;
+
     min-height: 34px;
     padding: 0 13px;
     font-size: 0.78rem;
   }
 
   .shop-controls {
+    flex-shrink: 0; 
     gap: 8px;
   }
 
@@ -918,12 +936,6 @@
     position: static;
     min-height: 0;
   }
-}
-
-@media (max-width: 700px) {
-}
-
-@media (max-width: 550px) {
 }
 
 @media (max-width: 500px) {

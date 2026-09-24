@@ -1,2 +1,2 @@
 export { removeFromCartController, addToCartController, updateCartController, createOrderController, getOrderController, getAllOrdersController, getCartController } from "./checkout.controller";
-export { getAllPlantsController, getPlantController, createPlantController, deletePlantController, updatePlantController } from "./commerce.controller";
+export { getAllPlantsController, getRarePlantsController, getPlantController, createPlantController, deletePlantController, updatePlantController } from "./commerce.controller";

@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
 
-import { createPlant, deletePlant, getAllPlants, getPlant, updatePlant, type CreatePlantInput, type UpdatePlantInput } from "../index";
+import { createPlant, deletePlant, getAllPlants, getPlant, getRarePlants, updatePlant, type CreatePlantInput, type UpdatePlantInput } from "../index";
 import { pool } from "../db";
 
 export async function getAllPlantsController(req: Request, res: Response, next: NextFunction) {
@@ -15,6 +15,19 @@ export async function getAllPlantsController(req: Request, res: Response, next: 
       req.query.family === "Araceae" || req.query.family === "Moraceae" ? req.query.family : "all"; 
 
     const result = await getAllPlants(pool, limit, offset, sort, family);
+    return res.status(result.status).json(result);
+
+  } catch(error) {
+    next(error);
+  };
+};
+
+export async function getRarePlantsController(req: Request, res: Response, next: NextFunction) {
+  try {
+    const limit = Number(req.query.limit);
+    const offset = Number(req.query.offset);
+
+    const result = await getRarePlants(pool, limit, offset);
     return res.status(result.status).json(result);
 
   } catch(error) {

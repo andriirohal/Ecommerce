@@ -277,7 +277,7 @@ export async function createOrder(pool: Pool, userId: string): Promise<Result<Or
         [price, quantity, orderRow.id, id]
       );
 
-      await client.query(`UPDATE plants SET stock = stock - $2 WHERE id = $1 RETURNING id, name, description, family, price, stock, "imageUrl", "createdAt", "updatedAt"`,
+      await client.query(`UPDATE plants SET stock = stock - $2 WHERE id = $1 RETURNING id, name, description, family, price, stock, "imageUrl", rare, "createdAt", "updatedAt"`,
         [id, quantity]
       );
     };

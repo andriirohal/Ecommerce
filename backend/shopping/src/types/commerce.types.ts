@@ -6,6 +6,7 @@ export type Plant = {
   price: number;
   stock: number;
   imageUrl: string;
+  rare: boolean;
   createdAt: Date;
   updatedAt: Date;
 };
@@ -26,4 +27,5 @@ export type UpdatePlantInput = {
   description: string | null;
   family: string | null;
   imageUrl: string | null;
+  rare: boolean;
 };

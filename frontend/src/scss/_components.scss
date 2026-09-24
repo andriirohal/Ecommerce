@@ -214,6 +214,7 @@
     }
 
     @media (max-width: 480px) {
+      margin: 0 0 5px;
       font-size: 15px;
     }
   }
@@ -272,7 +273,7 @@
 
 @media (max-width: 550px) {
   .grid { 
-    gap: 28px 16px; 
+    gap: 28px 16px;
   }
 }
 
@@ -330,7 +331,7 @@
   align-items: center;
   justify-content: center;
 
-  min-height: 400px;
+  min-height: 350px;
 
   padding: 24px;
 
@@ -792,9 +793,6 @@
   overflow-anchor: none;
 }
 
-@media (max-width: 1000px) {
-}
-
 @media (max-width: 700px) {
   .checkout-summary-header h2 {
     font-size: 1.7rem;
@@ -809,9 +807,6 @@
   #add-to-cart-btn {
     min-height: $qty-height;
   }
-}
-
-@media (max-width: 480px) {
 }
 
 @media (max-width: 450px) {

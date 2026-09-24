@@ -42,7 +42,7 @@ export async function createPlant(pool: Pool, input: CreatePlantInput): Promise<
     return fail("URL is required", 400);
   };
 
-  const result = await pool.query(`INSERT INTO plants (name, description, family, price, stock, "imageUrl") VALUES ($1, $2, $3, $4, $5, $6) RETURNING id, name, description, family, price, stock, "imageUrl", "createdAt", "updatedAt"`,
+  const result = await pool.query(`INSERT INTO plants (name, description, family, price, stock, "imageUrl") VALUES ($1, $2, $3, $4, $5, $6) RETURNING id, name, description, family, price, stock, "imageUrl", rare, "createdAt", "updatedAt"`,
     [name, description, family, price, stock, imageUrl]
   );
 
@@ -52,7 +52,7 @@ export async function createPlant(pool: Pool, input: CreatePlantInput): Promise<
 };
 
 export async function deletePlant(pool: Pool, id: string): Promise<Result<Plant>> {
-  const result = await pool.query(`DELETE FROM plants WHERE id = $1 RETURNING id, name, description, family, price, stock, "imageUrl", "createdAt", "updatedAt"`,
+  const result = await pool.query(`DELETE FROM plants WHERE id = $1 RETURNING id, name, description, family, price, stock, "imageUrl", rare, "createdAt", "updatedAt"`,
     [id]
   );
 
@@ -102,8 +102,14 @@ export async function updatePlant(pool: Pool, input: UpdatePlantInput, id: strin
     return fail("URL is required", 400);
   };
 
-  const result = await pool.query(`UPDATE plants SET name = COALESCE($2, name), description = COALESCE($3, description), family = COALESCE($4, family), price = COALESCE($5, price), stock = COALESCE($6, stock), "imageUrl" = COALESCE($7, "imageUrl") WHERE id = $1 RETURNING id, name, description, family, price, stock, "imageUrl", "createdAt", "updatedAt"`,
-    [id, name, description, family, price, stock, imageUrl]
+  const rare = input.rare;
+
+  if (rare != null && typeof rare !== "boolean") {
+    return fail("Rare must be boolean", 400);
+  };
+
+  const result = await pool.query(`UPDATE plants SET name = COALESCE($2, name), description = COALESCE($3, description), family = COALESCE($4, family), price = COALESCE($5, price), stock = COALESCE($6, stock), "imageUrl" = COALESCE($7, "imageUrl"), rare = COALESCE($8, rare) WHERE id = $1 RETURNING id, name, description, family, price, stock, "imageUrl", rare, "createdAt", "updatedAt"`,
+    [id, name, description, family, price, stock, imageUrl, rare]
   );
 
   const plant = result.rows[0];
@@ -116,7 +122,7 @@ export async function updatePlant(pool: Pool, input: UpdatePlantInput, id: strin
 };
 
 export async function getPlant(pool: Pool, id: string): Promise<Result<Plant>> {
-  const result = await pool.query(`SELECT id, name, description, family, price, stock, "imageUrl", "createdAt", "updatedAt" FROM plants WHERE id = $1`,
+  const result = await pool.query(`SELECT id, name, description, family, price, stock, "imageUrl", rare, "createdAt", "updatedAt" FROM plants WHERE id = $1`,
     [id]
   );
 
@@ -143,8 +149,21 @@ export async function getAllPlants(pool: Pool, limit: number, offset: number, so
   const orderBy = sortOptions[sort] ?? sortOptions.featured;
   const normalizedFamily = family === "all" ? null : family;
 
-  const result = await pool.query(`SELECT id, name, description, family, price, stock, "imageUrl", "createdAt", "updatedAt" FROM plants WHERE ($3::text IS NULL OR family = $3) ORDER BY ${orderBy} LIMIT $1 OFFSET $2`,
+  const result = await pool.query(`SELECT id, name, description, family, price, stock, "imageUrl", rare, "createdAt", "updatedAt" FROM plants WHERE ($3::text IS NULL OR family = $3) ORDER BY ${orderBy} LIMIT $1 OFFSET $2`,
     [normalizedLimit, normalizedOffset, normalizedFamily]
+  );
+
+  const plants = result.rows;
+
+  return ok(plants, 200);
+};
+
+export async function getRarePlants(pool: Pool, limit: number, offset: number): Promise<Result<Plant[]>> {
+  const normalizedLimit = !Number.isInteger(limit) || limit <= 0 ? 10 : Math.min(limit, 100);
+  const normalizedOffset = !Number.isInteger(offset) || offset < 0 ? 0 : offset; 
+  
+  const result = await pool.query(`SELECT id, name, description, family, price, stock, "imageUrl", rare, "createdAt", "updatedAt" FROM plants WHERE rare = true ORDER BY "createdAt" DESC LIMIT $1 OFFSET $2`,
+    [normalizedLimit, normalizedOffset]
   );
 
   const plants = result.rows;

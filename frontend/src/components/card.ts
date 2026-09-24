@@ -38,7 +38,7 @@ export function renderCard(plant: Plant): string {
 
       <div class="meta">
         <span class="price">
-          €${plant.price.toFixed(2)}
+          €${Number(plant.price).toFixed(2)}
         </span>
 
         <span class="stock ${stock.className}">

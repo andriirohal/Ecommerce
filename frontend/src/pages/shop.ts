@@ -420,12 +420,9 @@ export function renderShop(
                 }"
               >
                 ${
-                  family.key ===
-                    "Araceae" ||
-                  family.key ===
-                    "Moraceae"
-                    ? family.label
-                    : t(family.label)
+                  family.key === "all"
+                    ? t(family.label)
+                    : family.label
                 }
               </button>
             `

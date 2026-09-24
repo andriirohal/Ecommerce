@@ -1,6 +1,6 @@
 import "./scss/main.scss";
 
-import { getAllPlants } from "./api/plant";
+import { getAllPlants, getRarePlants } from "./api/plant";
 import { fetchCurrentUser } from "./api/auth";
 
 import { initAccountActions, initAccountPopover, initAccountUI, initAuthForms, refreshAccountSummary, renderAccount, updateAccountUI } from "./pages/auth";
@@ -23,9 +23,13 @@ import { hasStaticContent, renderStatic } from "./pages/static";
 let appInitialized = false;
 
 type Plants = Awaited<ReturnType<typeof getAllPlants>>;
+type RarePlants = Awaited<ReturnType<typeof getRarePlants>>;
 
 let plantsCache: Plants | null = null;
 let plantsRequest: Promise<Plants> | null = null;
+
+let rarePlantsCache: RarePlants | null = null;
+let rarePlantsRequest: Promise<RarePlants> | null = null;
 
 async function getPlants(): Promise<Plants> {
   if (plantsCache) {
@@ -49,8 +53,34 @@ async function getPlants(): Promise<Plants> {
   return plantsRequest;
 };
 
+async function getRare(): Promise<RarePlants> {
+  if (rarePlantsCache) {
+    return rarePlantsCache;
+  };
+
+  if (rarePlantsRequest) {
+    return rarePlantsRequest;
+  };
+
+  rarePlantsRequest = getRarePlants(100, 0)
+    .then((plants) => {
+      rarePlantsCache = plants;
+
+      return plants;
+    })
+    .finally(() => {
+      rarePlantsRequest = null;
+    });
+
+  return rarePlantsRequest;
+};
+
 function getCachedPlants(): Plants | null {
   return plantsCache;
+};
+
+function getCachedRarePlants(): RarePlants | null {
+  return rarePlantsCache;
 };
 
 export function clearPlantsCache(): void {
@@ -247,11 +277,11 @@ async function repaintAfterLanguageChange(): Promise<void> {
     };
 
     if (path === "/rare") {
-      let plants = getCachedPlants();
+      let plants = getCachedRarePlants();
 
       if (!plants) {
         pageRoot.innerHTML = renderPageLoader();
-        plants = await getPlants();
+        plants = await getRare();
       };
 
       pageRoot.innerHTML = renderRare(plants);
@@ -372,7 +402,7 @@ router
 
   .add("/rare", async () => {
     try {
-      const cached = getCachedPlants();
+      const cached = getCachedRarePlants();
 
       if (cached) {
         paint("/rare", renderRare(cached));
@@ -382,7 +412,7 @@ router
 
       paint("/rare", renderPageLoader());
 
-      const plants = await getPlants();
+      const plants = await getRare();
 
       paint("/rare", renderRare(plants));
     } catch (error) {

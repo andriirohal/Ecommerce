@@ -8,11 +8,11 @@ export { fail, ok } from "./result";
 
 // Controllers
 
-export { removeFromCartController, addToCartController, updateCartController, createOrderController, getOrderController, getAllOrdersController, getCartController, getAllPlantsController, getPlantController, createPlantController, deletePlantController, updatePlantController } from "./controllers"; 
+export { removeFromCartController, addToCartController, updateCartController, createOrderController, getOrderController, getAllOrdersController, getCartController, getAllPlantsController, getPlantController, createPlantController, deletePlantController, updatePlantController, getRarePlantsController } from "./controllers"; 
 
 // Services 
 
-export { getCart, addToCart, removeFromCart, updateCart, createOrder, getOrder, getAllOrders, createPlant, updatePlant, deletePlant, getAllPlants, getPlant } from "./services";
+export { getCart, addToCart, removeFromCart, updateCart, createOrder, getOrder, getAllOrders, createPlant, updatePlant, deletePlant, getAllPlants, getPlant, getRarePlants } from "./services";
 
 // Helpers
 
