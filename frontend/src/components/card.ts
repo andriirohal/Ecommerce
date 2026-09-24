@@ -18,7 +18,7 @@ export function renderCard(plant: Plant): string {
       >
         <div class="card-art">
           <img
-            class="card-art-image${plant.name === "Alocasia F." ? " card-art-image--alocasia" : ""}"
+            class="card-art-image${plant.name === "Alocasia Frydek" ? " card-art-image--alocasia" : ""}"
             src="${plant.imageUrl}"
             alt="${plant.name}"
             width="300"

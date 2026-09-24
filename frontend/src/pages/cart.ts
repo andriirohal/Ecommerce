@@ -154,7 +154,7 @@ function renderCartContent(lines: CartLine[]): string {
                     line.imageUrl
                       ? `
                         <img
-                          class="row-art-image${line.name === "Alocasia F." ? " row-art-image--alocasia" : ""}"
+                          class="row-art-image${line.name === "Alocasia Frydek" ? " row-art-image--alocasia" : ""}"
                           src="${line.imageUrl}"
                           alt="${line.name}"
                           loading="lazy"

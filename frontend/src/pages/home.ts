@@ -5,7 +5,7 @@ import { t } from "../utils/i18n";
 
 export function renderHome(plants: Plant[]): string {
   const featuredPlant = plants.find(
-    (plant) => plant.name === "Monstera D."
+    (plant) => plant.name === "Monstera Deliciosa"
   );
 
   const arrivals = plants.slice(0, 4);

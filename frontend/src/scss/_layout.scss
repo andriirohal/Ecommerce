@@ -129,8 +129,8 @@ header.site-header {
   .eyebrow {
     margin-bottom: 18px;
 
-    @media (max-width: 900px) {
-      font-size: 10px;
+    @media (max-width: 1050px) {
+      font-size: 10.5px;
     }
 
     @media (max-width: 480px) {
@@ -146,6 +146,10 @@ header.site-header {
 
     font-size: 15px;
     line-height: 1.5;
+
+    @media (max-width: 1050px) {
+      font-size: 14px;
+    }
   }
 
   .hero-actions {
@@ -172,17 +176,6 @@ header.site-header {
       font-size: 14px;
     }
   }
-
-  @media (max-width: 480px) {
-    p {
-      font-size: 11px;
-    }
-
-    .hero-actions {
-      flex-direction: column;
-      gap: 10px;
-    }
-  }
 }
 
 .hero-content {
@@ -199,7 +192,7 @@ header.site-header {
   min-height: 195px;
   margin: 0 0 20px;
 
-  @media (max-width: 900px) {
+  @media (max-width: 1050px) {
     min-height: 162px;
   }
 
@@ -223,7 +216,7 @@ header.site-header {
     font-style: italic;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 1050px) {
     font-size: 50px;
   }
 
