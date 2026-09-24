@@ -114,7 +114,7 @@
     "orderSummary": "Bestellübersicht",
     "freeShipping": "Nur noch €{amount} für kostenlosen Versand",
     "freeShippingUnlocked": "Kostenloser Versand freigeschaltet",
-    "inStock": "Auf Lager",
+    "inStock": "Verfügbar",
     "outOfStock": "Ausverkauft",
     "lowStock": "Wenig",
     "subtotal": "Zwischensumme",

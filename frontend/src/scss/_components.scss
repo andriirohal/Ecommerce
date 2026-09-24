@@ -187,7 +187,9 @@
 
     border-radius: 4px;
 
-    background: $bg-panel;
+    @media (max-width: 550px) {
+      aspect-ratio: 0.88 / 1;
+    }
 
     &-image {
       display: block;
@@ -199,7 +201,7 @@
       object-position: center 10%;
 
       &--alocasia {
-        object-position: center 60%;
+        object-position: center 70%;
       }
     }
   }
@@ -214,7 +216,6 @@
     }
 
     @media (max-width: 480px) {
-      margin: 0 0 5px;
       font-size: 15px;
     }
   }
@@ -273,7 +274,7 @@
 
 @media (max-width: 550px) {
   .grid { 
-    gap: 28px 16px;
+    gap: 28px 24px;
   }
 }
 

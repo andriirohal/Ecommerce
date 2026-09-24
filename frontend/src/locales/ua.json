@@ -114,8 +114,8 @@
     "orderSummary": "Підсумок замовлення",
     "freeShipping": "Додай ще на €{amount}, щоб отримати безкоштовну доставку",
     "freeShippingUnlocked": "Безкоштовна доставка",
-    "inStock": "В наявності",
-    "outOfStock": "Розпродано",
+    "inStock": "Наявно",
+    "outOfStock": "Немає",
     "lowStock": "Мало",
     "subtotal": "Проміжна сума",
     "shipping": "Доставка",
@@ -159,8 +159,7 @@
     "addedMultipleToBagDescription": "До кошика додано {{quantity}} рослин.",
     "addToBag": "У кошик",
     "addedToBag": "Додано до кошика",
-    "family": "Родина",
-    "stock": "В наявності"
+    "family": "Родина"
   },
 
   "plants": {
