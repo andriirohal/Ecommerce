@@ -155,6 +155,11 @@ header.site-header {
   .hero-actions {
     display: flex;
     gap: 14px;
+
+    @media (max-width: 480px) {
+      flex-direction: column;
+      gap: 10px;
+    }
   }
 
   @media (max-width: 950px) {
@@ -173,7 +178,7 @@ header.site-header {
     }
 
     p {
-      font-size: 14px;
+      font-size: 12px;
     }
   }
 }
