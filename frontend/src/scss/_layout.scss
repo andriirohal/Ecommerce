@@ -156,11 +156,11 @@ header.site-header {
   @media (max-width: 950px) {
     grid-template-columns: 1fr;
 
-    padding: 55px 40px 65px;
+    padding: 55px 30px 65px;
   }
 
-  @media (max-width: 640px) {
-    padding: 40px $gutter-mobile 60px;
+  @media (max-width: 480px) {
+    padding: 40px 20px 60px;
 
     border-bottom: 0;
 
