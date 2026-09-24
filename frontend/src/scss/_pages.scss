@@ -127,7 +127,7 @@
 
   white-space: nowrap;
 
-  @media (max-width: 480px) {
+  @media (max-width: 500px) {
     font-size: 0.7rem;
   }
 }
@@ -469,7 +469,7 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
 
-  @media (max-width: 480px) {
+  @media (max-width: 500px) {
     margin-bottom: 10px;
     font-size: 8.5px;
   }
@@ -532,7 +532,7 @@
   color: $chip-accent;
   height: calc(var(--size) * var(--line));
 
-  @media (max-width: 480px) {
+  @media (max-width: 500px) {
     font-size: 8.5px;
   }
 }
@@ -556,7 +556,7 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 500px) {
   .static-paragraph {
     --size: 11px;
 
@@ -964,7 +964,7 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 500px) {
   .account-popover-overlay {
     padding: 0;
   }

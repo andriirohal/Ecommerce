@@ -24,7 +24,7 @@
     background 0.15s $ease,
     opacity 0.15s $ease;
 
-  @media (max-width: 480px) {
+  @media (max-width: 500px) {
     font-size: 11.5px;
   }
 
@@ -68,10 +68,6 @@
   transition: color 0.15s $ease;
 
   @media (max-width: 500px) {
-    font-size: 10px;
-  }
-
-  @media (max-width: 400px) {
     font-size: 9.5px;
   }
 
@@ -211,7 +207,7 @@
       font-size: 17.5px;
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 500px) {
       font-size: 17px;
     }
   }
@@ -232,7 +228,7 @@
       font-size: 12.5px;
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 500px) {
       font-size: 12px;
     }
   }
@@ -287,7 +283,7 @@
 
   text-align: center;
 
-  @media (max-width: 480px) {
+  @media (max-width: 500px) {
     gap: 8px;
   }
 
@@ -298,7 +294,7 @@
   h1 {
     font-size: 26px;
 
-    @media (max-width: 480px) {
+    @media (max-width: 500px) {
       font-size: 23px;
     }
   }
@@ -306,7 +302,7 @@
   p {
     font-size: 14px;
 
-    @media (max-width: 480px) {
+    @media (max-width: 500px) {
       font-size: 11.5px;
     }
   }
@@ -315,7 +311,7 @@
 .code {
   font-size: 18px;
 
-  @media (max-width: 480px) {
+  @media (max-width: 500px) {
     font-size: 16px;
   }
 }
@@ -342,7 +338,7 @@
     height: 56px;
     opacity: 0.6;
 
-    @media (max-width: 480px) {
+    @media (max-width: 500px) {
       width: 53px;
       height: 53px;
     }
@@ -466,7 +462,7 @@
     }
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: 500px) {
     padding: 30px 25px 70px;
 
     &.empty {
@@ -746,7 +742,7 @@
 
   margin-bottom: 20px;
 
-  @media (max-width: 480px) {
+  @media (max-width: 500px) {
     gap: 8px;
   }
 }
@@ -882,7 +878,7 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 500px) {
   .plant-image {
     border-radius: 12px;
   }
