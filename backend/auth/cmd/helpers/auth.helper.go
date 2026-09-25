@@ -68,17 +68,6 @@ func IssueAuthentication(payload models.UserPayload) (models.Authentication, err
   return authentication, nil;
 };
 
-func ScanUserRecord(row pgx.Row) (models.UserRecord, error) {
-  var user models.UserRecord;
-
-  err := row.Scan(
-    &user.UserId,
-    &user.CreatedAt,
-  );
-
-  return user, err;
-};
-
 func ScanUserId(row pgx.Row) (string, error) {
   var userId string;
 
@@ -87,20 +76,6 @@ func ScanUserId(row pgx.Row) (string, error) {
   );
 
   return userId, err;
-};
-
-func ScanUserBase(row pgx.Row) (models.UserBase, error) {
-  var user models.UserBase;
-
-  err := row.Scan(
-    &user.UserId,
-    &user.Name,
-    &user.Email,
-    &user.RefreshToken,
-    &user.CreatedAt,
-  );
-
-  return user, err;
 };
 
 func ScanUserCreated(row pgx.Row) (models.UserCreated, error) {

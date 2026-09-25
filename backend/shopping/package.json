@@ -13,7 +13,6 @@
   "type": "commonjs",
   "dependencies": {
     "@neon/config": "^1.3.1",
-    "@neon/env": "^1.2.2",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",

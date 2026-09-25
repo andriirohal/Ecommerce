@@ -156,6 +156,13 @@ header.site-header {
     display: flex;
     gap: 14px;
 
+    @media (max-width: 1050px) {
+      a {
+        font-size: 12px;
+        padding: 14px 18px;
+      }
+    }
+
     @media (max-width: 500px) {
       flex-direction: column;
       gap: 10px;

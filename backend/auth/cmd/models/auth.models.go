@@ -20,19 +20,6 @@ type UserResponse struct {
   CreatedAt time.Time `json:"createdAt"`;
 };
 
-type UserRecord struct {
-  UserId string `json:"userId"`;
-  CreatedAt time.Time `json:"createdAt"`;
-};
-
-type UserBase struct {
-  UserId string `json:"userId"`;
-  Name string `json:"name"`;
-  Email string `json:"email"`;
-  RefreshToken string `json:"refreshToken"`;
-  CreatedAt time.Time `json:"createdAt"`;
-};
-
 type UserRow struct {
   UserId string `json:"userId"`;
   Name string `json:"name"`;
