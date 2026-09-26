@@ -438,7 +438,7 @@
 }
 
 .section {
-  padding: 40px 30px 80px;
+  padding: 40px 35px 80px;
 
   &.empty {
     padding-bottom: 0;
@@ -463,7 +463,7 @@
   }
 
   @media (max-width: 500px) {
-    padding: 30px 25px 70px;
+    padding: 30px 35px 70px;
 
     &.empty {
       padding-bottom: 0;
