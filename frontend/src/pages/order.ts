@@ -378,7 +378,6 @@ async function handlePlaceOrder(
     };
   } catch (requestError) {
     console.error(
-      "Failed to create order:",
       requestError
     );
 
@@ -450,7 +449,6 @@ export async function mountCheckout(
     });
   } catch (error) {
     console.error(
-      "Failed to load checkout:",
       error
     );
 

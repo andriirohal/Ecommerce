@@ -349,7 +349,7 @@ async function repaintAfterLanguageChange(): Promise<void> {
 
     updateAccountUI();
   } catch (error) {
-    console.error("Language change failed:", error);
+    console.error(error);
   };
 };
 

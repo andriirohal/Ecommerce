@@ -158,7 +158,7 @@ export async function handleLogOut(): Promise<void> {
   try {
     await logOut();
   } catch (error) {
-    console.error("Logout request failed:", error);
+    console.error(error);
   } finally {
     clearSession();
   };
@@ -385,7 +385,6 @@ export function refreshUserTokens(): Promise<string | null> {
       return result.accessToken;
     } catch (error) {
       console.error(
-        "Refresh request failed:",
         error
       );
 

@@ -36,7 +36,7 @@ async function getCartQuantity(plantId: string): Promise<number> {
 
     return Number(item?.quantity ?? 0);
   } catch (error) {
-    console.error("Failed to get cart quantity:", error);
+    console.error(error);
 
     return 0;
   };

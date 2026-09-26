@@ -751,7 +751,7 @@ function handleAuthSubmit(event: SubmitEvent): void {
       updateAccountUI();
     })
     .catch((error) => {
-      console.error("AUTH SUBMIT ERROR:", error);
+      console.error(error);
     })
     .finally(() => {
       if (!document.body.contains(form)) {
@@ -1120,7 +1120,7 @@ async function loadAccountSummary(
         return;
       };
 
-      console.error("ACCOUNT SUMMARY ERROR:", error);
+      console.error(error);
     })
     .finally(() => {
       if (requestId === summaryRequestId) {

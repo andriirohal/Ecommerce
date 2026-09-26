@@ -146,7 +146,6 @@ async function refreshCartCount(): Promise<void> {
     dispatchCartChange(count);
   } catch (error) {
     console.error(
-      "Failed to refresh cart count:",
       error
     );
   };
