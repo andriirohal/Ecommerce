@@ -3,7 +3,7 @@ import { getCart, updateCart, removeFromCart } from "../api/cart";
 import { getAccessToken } from "../api/state";
 
 import { t } from "../utils/i18n";
-import { router } from "../router";
+import { router } from "../router/router";
 
 type CartLine = {
   id: string;

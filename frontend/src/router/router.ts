@@ -1,7 +1,7 @@
-type RouteParams = 
+type RouteParams =
   Record<string, string>;
 
-type RouteHandler = 
+type RouteHandler =
   (context: RouteContext) => Promise<void> | void;
 
 interface RouteContext {

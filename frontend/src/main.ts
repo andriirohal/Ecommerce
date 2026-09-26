@@ -9,7 +9,7 @@ import { renderPageLoader, renderSplashLoader } from "./components/loader";
 import { renderFooter } from "./components/footer";
 
 import { loadCartPage, mountCart } from "./pages/cart";
-import { router } from "./router";
+import { router } from "./router/router";
 import { initLanguage } from "./utils/i18n";
 
 import { renderHome } from "./pages/home";
