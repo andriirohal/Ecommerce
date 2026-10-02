@@ -3,35 +3,35 @@ package controllers
 import (
   "Auth/cmd/models"
   "Auth/cmd/services"
-  
+
   "net/http"
   "github.com/gin-gonic/gin"
 );
 
-func SetRefreshCookie(ctx *gin.Context, refreshToken string) { 
-  http.SetCookie(ctx.Writer, &http.Cookie{ 
-    Name: "refreshToken", 
-    Value: refreshToken, 
-    Path: "/", 
-    MaxAge: 14 * 24 * 60 * 60, 
-    HttpOnly: true, 
-    Secure: true, 
+func SetRefreshCookie(ctx *gin.Context, refreshToken string) {
+  http.SetCookie(ctx.Writer, &http.Cookie{
+    Name: "refreshToken",
+    Value: refreshToken,
+    Path: "/",
+    MaxAge: 14 * 24 * 60 * 60,
+    HttpOnly: true,
+    Secure: true,
     SameSite: http.SameSiteNoneMode,
     Partitioned: true,
-  }); 
+  });
 };
 
-func ClearRefreshCookie(ctx *gin.Context) { 
-  http.SetCookie(ctx.Writer, &http.Cookie { 
-    Name: "refreshToken", 
-    Value: "", 
-    Path: "/", 
-    MaxAge: -1, 
-    HttpOnly: true, 
-    Secure: true, 
+func ClearRefreshCookie(ctx *gin.Context) {
+  http.SetCookie(ctx.Writer, &http.Cookie{
+    Name: "refreshToken",
+    Value: "",
+    Path: "/",
+    MaxAge: -1,
+    HttpOnly: true,
+    Secure: true,
     SameSite: http.SameSiteNoneMode,
     Partitioned: true,
-  }); 
+  });
 };
 
 func GetLoggedInUser(ctx *gin.Context) {
@@ -78,7 +78,7 @@ func LogOutUser(ctx *gin.Context) {
   user, err := services.LogOutUser(ctx.Request.Context(), refreshToken);
 
   if err != nil {
-    ctx.JSON(404, gin.H{ 		
+    ctx.JSON(404, gin.H{
       "error": err.Error(),
     });
     return;
@@ -108,10 +108,11 @@ func SignUpUser(ctx *gin.Context) {
 
   SetRefreshCookie(ctx, *user.RefreshToken);
 
-  ctx.JSON(200, gin.H {
+  ctx.JSON(201, gin.H{
     "userId": user.UserId,
     "name": user.Name,
     "email": user.Email,
+    "role": user.Role,
     "accessToken": user.AccessToken,
     "createdAt": user.CreatedAt,
   });
@@ -138,10 +139,11 @@ func LogInUser(ctx *gin.Context) {
 
   SetRefreshCookie(ctx, *user.RefreshToken);
 
-  ctx.JSON(200, gin.H {
+  ctx.JSON(200, gin.H{
     "userId": user.UserId,
     "name": user.Name,
     "email": user.Email,
+    "role": user.Role,
     "accessToken": user.AccessToken,
     "createdAt": user.CreatedAt,
   });

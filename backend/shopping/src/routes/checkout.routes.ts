@@ -16,4 +16,3 @@ router.get("/orders", authenticate, getAllOrdersController);
 router.post("/orders", authenticate, createOrderController);
 
 router.get("/orders/:orderId", authenticate, validateId("orderId", "order"), getOrderController);
-router.patch("/orders/:orderId", authenticate, validateId("orderId", "order"));

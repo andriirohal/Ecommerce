@@ -42,7 +42,7 @@ func SignUpUser(ctx context.Context, input models.UserInput) (models.UserRespons
 
   defer tx.Rollback(ctx);
 
-  row := tx.QueryRow(ctx, `INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING id, "createdAt"`,
+  row := tx.QueryRow(ctx, `INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING id, role, "createdAt"`,
     input.Name, email, hashedPassword,
   );
 
@@ -55,6 +55,7 @@ func SignUpUser(ctx context.Context, input models.UserInput) (models.UserRespons
   payload := models.UserPayload{
     UserId: user.UserId,
     Email: email,
+    Role: user.Role,
   };
 
   authentication, err := helpers.IssueAuthentication(payload);
@@ -85,6 +86,7 @@ func SignUpUser(ctx context.Context, input models.UserInput) (models.UserRespons
     UserId: user.UserId,
     Name: input.Name,
     Email: email,
+    Role: user.Role,
     AccessToken: authentication.AccessToken,
     RefreshToken: &authentication.RefreshToken,
     CreatedAt: user.CreatedAt,
@@ -114,9 +116,10 @@ func LogInUser(ctx context.Context, input models.AuthInput) (models.UserResponse
 
   defer tx.Rollback(ctx);
 
-  user, err := helpers.ScanUserModel(tx.QueryRow(ctx, `SELECT id, name, email, password, "createdAt" FROM users WHERE email = $1`,
+  user, err := helpers.ScanUserModel(tx.QueryRow(ctx, `SELECT id, name, email, password, role, "createdAt" FROM users WHERE email = $1`,
     email,
-  ));
+    ),
+  );
 
   if err != nil {
     if errors.Is(err, pgx.ErrNoRows) {
@@ -135,6 +138,7 @@ func LogInUser(ctx context.Context, input models.AuthInput) (models.UserResponse
   payload := models.UserPayload{
     UserId: user.UserId,
     Email: user.Email,
+    Role: user.Role,
   };
 
   authentication, err := helpers.IssueAuthentication(payload);
@@ -165,6 +169,7 @@ func LogInUser(ctx context.Context, input models.AuthInput) (models.UserResponse
     UserId: user.UserId,
     Name: user.Name,
     Email: user.Email,
+    Role: user.Role,
     AccessToken: authentication.AccessToken,
     RefreshToken: &authentication.RefreshToken,
     CreatedAt: user.CreatedAt,
@@ -192,9 +197,10 @@ func RotateUserTokens(ctx context.Context, refreshToken string) (models.Authenti
 
   defer tx.Rollback(ctx);
 
-  user, err := helpers.ScanUserRow(tx.QueryRow(ctx, `SELECT id, name, email, "refreshToken", "createdAt" FROM users WHERE id = $1 FOR UPDATE`,
+  user, err := helpers.ScanUserRow(tx.QueryRow(ctx, `SELECT id, name, email, role, "refreshToken", "createdAt" FROM users WHERE id = $1 FOR UPDATE`,
     decoded.UserId,
-  ));
+    ),
+  );
 
   if err != nil {
     if errors.Is(err, pgx.ErrNoRows) {
@@ -215,6 +221,7 @@ func RotateUserTokens(ctx context.Context, refreshToken string) (models.Authenti
   payload := models.UserPayload{
     UserId: user.UserId,
     Email: user.Email,
+    Role: user.Role,
   };
 
   authentication, err := helpers.IssueAuthentication(payload);
@@ -253,7 +260,8 @@ func LogOutUser(ctx context.Context, refreshToken string) (string, error) {
 
   _, err = helpers.ScanUserId(db.DB.QueryRow(ctx, `UPDATE users SET "refreshToken" = NULL WHERE id = $1 RETURNING id`,
     decoded.UserId,
-  ));
+    ),
+  );
 
   if err != nil {
     if errors.Is(err, pgx.ErrNoRows) {
@@ -266,17 +274,18 @@ func LogOutUser(ctx context.Context, refreshToken string) (string, error) {
   return "Logged out successfully", nil;
 };
 
-func GetLoggedInUser(ctx context.Context, userId string) (models.UserResponse, error) {
-  response, err := helpers.ScanUserResponse(db.DB.QueryRow(ctx, `SELECT id, name, email, "createdAt" FROM users WHERE id = $1`,
+func GetLoggedInUser(ctx context.Context, userId string) (models.UserRecord, error) {
+  response, err := helpers.ScanUserRecord(db.DB.QueryRow(ctx, `SELECT id, name, email, role, "createdAt" FROM users WHERE id = $1`,
     userId,
-  ));
+    ),
+  );
 
   if err != nil {
     if errors.Is(err, pgx.ErrNoRows) {
-      return models.UserResponse{}, errors.New("User not found");
+      return models.UserRecord{}, errors.New("User not found");
     };
 
-    return models.UserResponse{}, err;
+    return models.UserRecord{}, err;
   };
 
   return response, nil;
@@ -285,7 +294,8 @@ func GetLoggedInUser(ctx context.Context, userId string) (models.UserResponse, e
 func GetUserSummary(ctx context.Context, userId string) (models.UserSummary, error) {
   user, err := helpers.ScanUserSummary(db.DB.QueryRow(ctx, `SELECT COUNT(DISTINCT orders.id) AS "totalOrders", COALESCE(SUM("orderItems".quantity), 0) AS "totalPlants", MAX(orders."createdAt") AS "lastOrderDate" FROM orders LEFT JOIN "orderItems" ON orders.id = "orderItems"."orderId" WHERE orders."userId" = $1 AND orders.status = 'completed'`,
     userId,
-  ));
+    ),
+  );
 
   if err != nil {
     return models.UserSummary{}, err;

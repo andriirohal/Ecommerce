@@ -9,10 +9,11 @@ import (
   "github.com/golang-jwt/jwt/v5"
 );
 
-func SignAccessToken(userId, email, accessSecret string) (string, error) {
+func SignAccessToken(payload models.UserPayload, accessSecret string) (string, error) {
   claims := jwt.MapClaims{
-    "userId": userId,
-    "email": email,
+    "userId": payload.UserId,
+    "email": payload.Email,
+    "role": payload.Role,
     "exp": time.Now().Add(10 * time.Minute).Unix(),
   };
 
@@ -21,10 +22,11 @@ func SignAccessToken(userId, email, accessSecret string) (string, error) {
   return accessToken.SignedString([]byte(accessSecret));
 };
 
-func SignRefreshToken(userId, email, refreshSecret string) (string, error) {
+func SignRefreshToken(payload models.UserPayload, refreshSecret string) (string, error) {
   claims := jwt.MapClaims{
-    "userId": userId,
-    "email": email,
+    "userId": payload.UserId,
+    "email": payload.Email,
+    "role": payload.Role,
     "exp": time.Now().Add(14 * 24 * time.Hour).Unix(),
   };
 

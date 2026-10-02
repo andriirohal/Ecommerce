@@ -1,13 +1,13 @@
 package middlewares
 
 import (
-  "Auth/cmd/config"
-  "Auth/cmd/jwt"
+	"Auth/cmd/config"
+	"Auth/cmd/jwt"
 
-  "errors"
-  "strings"
-  "github.com/gin-gonic/gin"
-  "github.com/jackc/pgx/v5/pgconn"
+	"errors"
+	"strings"
+	"github.com/gin-gonic/gin"
+	"github.com/jackc/pgx/v5/pgconn"
 );
 
 func Authenticate(ctx *gin.Context) {

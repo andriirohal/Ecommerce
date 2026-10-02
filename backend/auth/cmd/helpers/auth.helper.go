@@ -48,13 +48,13 @@ func IsValidEmail(email string) string {
 };
 
 func IssueAuthentication(payload models.UserPayload) (models.Authentication, error) {
-  AccessToken, err := jwt.SignAccessToken(payload.UserId, payload.Email, config.AccessSecret);
+  AccessToken, err := jwt.SignAccessToken(payload, config.AccessSecret);
 
   if err != nil {
     return models.Authentication{}, errors.New("Invalid access token");
   };
 
-  RefreshToken, err := jwt.SignRefreshToken(payload.UserId, payload.Email, config.RefreshSecret);
+  RefreshToken, err := jwt.SignRefreshToken(payload, config.RefreshSecret);
 
   if err != nil {
     return models.Authentication{}, errors.New("Invalid refresh token");
@@ -83,6 +83,7 @@ func ScanUserCreated(row pgx.Row) (models.UserCreated, error) {
 
   err := row.Scan(
     &user.UserId,
+    &user.Role,
     &user.CreatedAt,
   );
 
@@ -96,6 +97,7 @@ func ScanUserRow(row pgx.Row) (models.UserRow, error) {
     &user.UserId,
     &user.Name,
     &user.Email,
+    &user.Role,
     &user.RefreshToken,
     &user.CreatedAt,
   );
@@ -111,6 +113,7 @@ func ScanUserModel(row pgx.Row) (models.UserModel, error) {
     &user.Name,
     &user.Email,
     &user.Password,
+    &user.Role,
     &user.CreatedAt,
   );
 
@@ -124,6 +127,9 @@ func ScanUserResponse(row pgx.Row) (models.UserResponse, error) {
     &response.UserId,
     &response.Name,
     &response.Email,
+    &response.Role,
+    &response.AccessToken,
+    &response.RefreshToken,
     &response.CreatedAt,
   );
 
@@ -168,4 +174,18 @@ func ParseRefreshToken(refreshToken string) (models.UserPayload, error) {
   };
 
   return decoded, nil;
+};
+
+func ScanUserRecord(row pgx.Row) (models.UserRecord, error) {
+  var user models.UserRecord;
+
+  err := row.Scan(
+    &user.UserId,
+    &user.Name,
+    &user.Email,
+    &user.Role,
+    &user.CreatedAt,
+  );
+
+  return user, err;
 };
