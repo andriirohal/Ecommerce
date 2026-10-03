@@ -170,7 +170,9 @@ func RotateUserTokens(ctx *gin.Context) {
 
   SetRefreshCookie(ctx, authentication.RefreshToken);
 
-  ctx.JSON(200, authentication);
+  ctx.JSON(200, gin.H {
+    "accessToken": authentication.AccessToken,
+  });
 };
 
 func GetUserSummary(ctx *gin.Context) {
