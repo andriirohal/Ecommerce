@@ -9,6 +9,7 @@ export function isUserPayload(payload: unknown): payload is UserPayload {
 
   return (
     typeof candidate.userId === "string" &&
-    typeof candidate.email === "string" 
+    typeof candidate.email === "string" &&
+    typeof candidate.role === "string"
   );
 };

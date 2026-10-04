@@ -1,12 +1,13 @@
 import jwt from "jsonwebtoken";
 
 import { isUserPayload, type UserPayload } from "../index";
+import { getSecret } from "../config";
 
-const { ACCESS_SECRET } = process.env;
+const ACCESS_SECRET = getSecret("ACCESS_SECRET");
 
 export function verifyAccessToken(accessToken: string): UserPayload | null {  
   try {
-    const payload = jwt.verify(accessToken, ACCESS_SECRET!, { 
+    const payload = jwt.verify(accessToken, ACCESS_SECRET, { 
       algorithms: ["HS256"]
     });
     
