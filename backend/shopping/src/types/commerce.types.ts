@@ -13,19 +13,19 @@ export type Plant = {
 
 export type CreatePlantInput = {
   name: string;
-  price: number;
-  stock: number;
   description: string;
   family: string;
+  price: number;
+  stock: number;
   imageUrl: string;
 };
 
 export type UpdatePlantInput = {
   name: string | null;
-  price: number | null;
-  stock: number | null;
   description: string | null;
   family: string | null;
+  price: number | null;
+  stock: number | null;
   imageUrl: string | null;
   rare: boolean;
 };
